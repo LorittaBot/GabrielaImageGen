@@ -1,5 +1,5 @@
 
-<h1 align="center">🎨 Gabriela Image Generator 🎨</h1>
+<h1 align="center">🎨 Gabriela's Image Generator 🎨</h1>
 <img height="250" src="https://cdn.discordapp.com/attachments/696865625259114626/771103144553087006/1603915637147.png" align="right">
 
 **🚧 Experiemental Project 🚧**
@@ -26,7 +26,7 @@ Originally the service was created to generate "video" memes for Loritta's `+car
 
 There are also other reasons, like:
 
-1. To allow the creation of https://memes.lori.fun/, a website to generate Loritta's image memes directly on your browser!
+1. Making the Image API multiplatform, allowing the memes to be created on the browser via JavaScript: https://memes.lori.fun/
 2. Image generation is stateless, so we are able to create multiple instances of the generator and scale out in multiple machines.
 3. Allows other services to implement and communicate with the image generation server.
 4. By splitting up the image generation from Loritta to a separate project, we can improve the service without depending on Loritta updates. Also means that a bad image won't crash Loritta, just the image generation server.
@@ -58,6 +58,7 @@ File("result.png").writeBytes(finalImage.toByteArray(Image.FormatType.PNG))
 ```
 
 ![https://cdn.discordapp.com/attachments/513405772911345664/771819056150872124/canella_dvd.png](https://cdn.discordapp.com/attachments/513405772911345664/771819056150872124/canella_dvd.png)
+
 So cool!
 
 ### Using the `image-generator-server` REST API
