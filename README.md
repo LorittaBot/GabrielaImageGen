@@ -14,7 +14,7 @@ A image and video generation microservice + multiplatform (JVM/JS) image generat
 *  🎨 **Image Generators** [`image-generators`]
 > Module with a bunch of multiplatform image generators + assets.
 
-*  🔗 **Image Generator (Microservice(** [`image-generator-server`]
+*  🔗 **Image Generator (Microservice)** [`image-generator-server`]
 > A microservice (web) that has REST endpoints, allowing other services to generate nice and funny images or videos.
 
 *  🐱‍💻 **Image Generator (Browser)** [`image-generator-browser`]:
