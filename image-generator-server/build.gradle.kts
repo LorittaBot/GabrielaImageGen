@@ -40,7 +40,7 @@ tasks {
         archiveBaseName.set("${project.name}-fat")
 
         manifest {
-            attributes["Main-Class"] = "net.perfectdreams.imageserver.TestKt"
+            attributes["Main-Class"] = "net.perfectdreams.imageserver.GabrielaImageGenLauncher"
             attributes["Class-Path"] =
                 configurations.runtimeClasspath.get().joinToString(" ", transform = { "libs/" + it.name })
         }

@@ -16,7 +16,7 @@ fun main() {
     val http = HttpClient {}
 
     runBlocking {
-        val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/lori-drake") {
+        val r = http.post<HttpResponse>("https://gabriela-canary.loritta.website/api/v1/videos/carly-aaah") {
             body = buildJsonObject {
                 putJsonArray("images") {
                     addJsonObject {
@@ -33,7 +33,7 @@ fun main() {
 
         println(r)
 
-        File("C:\\Users\\Leonardo\\Documents\\LorittaAssets\\GabrielaImageGen\\temp\\drake_stuff.png")
+        File("C:\\Users\\Leonardo\\Documents\\LorittaAssets\\GabrielaImageGen\\temp\\carly-aaah.mp4")
             .writeBytes(r.readBytes())
     }
 }

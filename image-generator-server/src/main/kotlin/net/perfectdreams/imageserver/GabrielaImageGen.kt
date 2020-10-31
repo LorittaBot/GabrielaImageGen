@@ -50,7 +50,7 @@ class GabrielaImageGen(val config: AppConfig) {
                     call.respondText("Hello World!", ContentType.Text.Plain)
                 }
 
-                post("/api/videos/carly-aaah") {
+                post("/api/v1/videos/carly-aaah") {
                     val uniqueId = UUID.randomUUID()
 
                     logger.info { "Received request with UUID: $uniqueId" }
@@ -70,7 +70,7 @@ class GabrielaImageGen(val config: AppConfig) {
                     logger.info { "Sent request with UUID: $uniqueId (yay!)" }
                 }
 
-                post("/api/images/pet-pet") {
+                post("/api/v1/images/pet-pet") {
                     val uniqueId = UUID.randomUUID()
 
                     logger.info { "Received request with UUID: $uniqueId" }
