@@ -13,19 +13,17 @@ import java.net.URL
 import java.util.*
 
 fun main() {
-    val http = HttpClient {}
+    val http = HttpClient {
+
+    }
 
     runBlocking {
-        val r = http.post<HttpResponse>("https://gabriela-canary.loritta.website/api/v1/videos/carly-aaah") {
+        val r = http.post<HttpResponse>("https://gabriela-canary.loritta.website/api/v1/images/pet-pet") {
             body = buildJsonObject {
                 putJsonArray("images") {
                     addJsonObject {
                         put("type", "url")
                         put("content", "https://cdn.discordapp.com/emojis/395010059157110785.png?v=1")
-                    }
-                    addJsonObject {
-                        put("type", "url")
-                        put("content", "https://cdn.discordapp.com/emojis/741055999430885437.png?v=1")
                     }
                 }
             }.toString()
@@ -33,7 +31,7 @@ fun main() {
 
         println(r)
 
-        File("C:\\Users\\Leonardo\\Documents\\LorittaAssets\\GabrielaImageGen\\temp\\carly-aaah.mp4")
+        File("C:\\Users\\Leonardo\\Documents\\LorittaAssets\\GabrielaImageGen\\temp\\pet-pet.gif")
             .writeBytes(r.readBytes())
     }
 }

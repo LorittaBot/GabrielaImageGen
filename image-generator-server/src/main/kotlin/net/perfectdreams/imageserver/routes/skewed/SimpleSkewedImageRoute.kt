@@ -10,12 +10,13 @@ import net.perfectdreams.imagegen.graphics.Image
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.routes.BaseRoute
+import net.perfectdreams.imageserver.routes.VersionedAPIRoute
 import net.perfectdreams.imageserver.routes.getImageDataContext
 import net.perfectdreams.imageserver.utils.Constants
 import java.util.*
 
-abstract class SimpleSkewedImageRoute(val m: GabrielaImageGen, val generator: BasicSkewedImageGenerator, path: String) : BaseRoute(
-    "/api/${Constants.API_VERSION}/images/$path"
+abstract class SimpleSkewedImageRoute(val m: GabrielaImageGen, val generator: BasicSkewedImageGenerator, path: String) : VersionedAPIRoute(
+    "/images/$path"
 ) {
     companion object {
         private val logger = KotlinLogging.logger {}

@@ -15,6 +15,8 @@ import kotlinx.serialization.json.jsonPrimitive
 import mu.KotlinLogging
 import net.perfectdreams.imageserver.config.AppConfig
 import net.perfectdreams.imageserver.generators.Generators
+import net.perfectdreams.imageserver.routes.PostCarlyAaahRoute
+import net.perfectdreams.imageserver.routes.PostPetPetRoute
 import net.perfectdreams.imageserver.routes.drake.DrakeRoutes
 import net.perfectdreams.imageserver.routes.scaled.ScaledRoutes
 import net.perfectdreams.imageserver.routes.skewed.SkewedRoutes
@@ -38,56 +40,18 @@ class GabrielaImageGen(val config: AppConfig) {
     val gifsicle = Gifsicle(File(config.gifsiclePath))
 
     val routes = listOf(
-        SkewedRoutes(this).all(),
-        ScaledRoutes(this).all(),
-        DrakeRoutes(this).all()
-    ).flatten()
+        PostCarlyAaahRoute(this),
+        PostPetPetRoute(this),
+        *SkewedRoutes(this).all().toTypedArray(),
+        *ScaledRoutes(this).all().toTypedArray(),
+        *DrakeRoutes(this).all().toTypedArray()
+    )
 
     fun start() {
         val server = embeddedServer(Netty, port = 8001) {
             routing {
                 get("/") {
                     call.respondText("Hello World!", ContentType.Text.Plain)
-                }
-
-                post("/api/v1/videos/carly-aaah") {
-                    val uniqueId = UUID.randomUUID()
-
-                    logger.info { "Received request with UUID: $uniqueId" }
-                    val payload = call.receiveText()
-
-                    val json = Json.parseToJsonElement(payload)
-                        .jsonObject
-
-                    val image = json["image"]!!.jsonPrimitive.content
-                    val theRealImageOwO = ImageIO.read(Base64.getDecoder().decode(image).inputStream())
-
-                    val result = withContext(coroutineDispatcher) {
-                        generators.CARLY_AAAH_GENERATOR.generate(theRealImageOwO)
-                    }
-
-                    call.respondBytes(result, ContentType.Video.MP4)
-                    logger.info { "Sent request with UUID: $uniqueId (yay!)" }
-                }
-
-                post("/api/v1/images/pet-pet") {
-                    val uniqueId = UUID.randomUUID()
-
-                    logger.info { "Received request with UUID: $uniqueId" }
-                    val payload = call.receiveText()
-
-                    val json = Json.parseToJsonElement(payload)
-                        .jsonObject
-
-                    val image = json["image"]!!.jsonPrimitive.content
-                    val theRealImageOwO = ImageIO.read(Base64.getDecoder().decode(image).inputStream())
-
-                    val result = withContext(coroutineDispatcher) {
-                        generators.HAND_PAT_GENERATOR.generate(theRealImageOwO)
-                    }
-
-                    call.respondBytes(result, ContentType.Video.MP4)
-                    logger.info { "Sent request with UUID: $uniqueId (yay!)" }
                 }
 
                 for (route in routes)
