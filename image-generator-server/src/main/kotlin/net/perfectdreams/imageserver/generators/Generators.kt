@@ -1,17 +1,33 @@
 package net.perfectdreams.imageserver.generators
 
-import net.perfectdreams.imagegen.cortesflow.*
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.DrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.LoriDrakeGenerator
 import net.perfectdreams.imagegen.generators.scaled.LoriScaredGenerator
 import net.perfectdreams.imagegen.generators.scaled.PepeDreamGenerator
 import net.perfectdreams.imagegen.generators.scaled.StudiopolisTVGenerator
-import net.perfectdreams.imagegen.generators.skewed.*
+import net.perfectdreams.imagegen.generators.skewed.ArtGenerator
+import net.perfectdreams.imagegen.generators.skewed.BobBurningPaperGenerator
+import net.perfectdreams.imagegen.generators.skewed.BolsoFrameGenerator
+import net.perfectdreams.imagegen.generators.skewed.Bolsonaro2Generator
+import net.perfectdreams.imagegen.generators.skewed.BolsonaroGenerator
+import net.perfectdreams.imagegen.generators.skewed.BriggsCoverGenerator
+import net.perfectdreams.imagegen.generators.skewed.BuckShirtGenerator
+import net.perfectdreams.imagegen.generators.skewed.CanellaDVDGenerator
+import net.perfectdreams.imagegen.generators.skewed.ChicoAtaGenerator
+import net.perfectdreams.imagegen.generators.skewed.EdnaldoBandeiraGenerator
+import net.perfectdreams.imagegen.generators.skewed.EdnaldoTVGenerator
+import net.perfectdreams.imagegen.generators.skewed.GessyAtaGenerator
+import net.perfectdreams.imagegen.generators.skewed.LoriAtaGenerator
+import net.perfectdreams.imagegen.generators.skewed.LoriSignGenerator
+import net.perfectdreams.imagegen.generators.skewed.MonicaAtaGenerator
+import net.perfectdreams.imagegen.generators.skewed.PassingPaperGenerator
+import net.perfectdreams.imagegen.generators.skewed.RipTvGenerator
+import net.perfectdreams.imagegen.generators.skewed.RomeroBrittoGenerator
+import net.perfectdreams.imagegen.generators.skewed.WolverineFrameGenerator
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.convertToSnakeCase
-import java.awt.Font
 import java.io.File
 import javax.imageio.ImageIO
 
@@ -47,6 +63,7 @@ class Generators(val m: GabrielaImageGen) {
     val passingPaperGenerator = createSimpleSkewedGenerator<PassingPaperGenerator>()
     val romeroBrittoGenerator = createSimpleSkewedGenerator<RomeroBrittoGenerator>()
     val wolverineFrameGenerator = createSimpleSkewedGenerator<WolverineFrameGenerator>()
+    val ripTvGenerator = createSimpleSkewedGenerator<RipTvGenerator>()
 
     // ===[ SCALED IMAGE GENERATORS ]===
     val loriScaredGenerator = createSimpleScaledGenerator<LoriScaredGenerator>()

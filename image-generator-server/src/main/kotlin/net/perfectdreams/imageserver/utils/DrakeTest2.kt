@@ -2,37 +2,32 @@ package net.perfectdreams.imageserver.utils
 
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.LoriDrakeGenerator
+import net.perfectdreams.imagegen.generators.skewed.RipTvGenerator
 import net.perfectdreams.imagegen.graphics.Image
 import net.perfectdreams.imagegen.graphics.JVMImage
 import java.io.File
 import javax.imageio.ImageIO
 
 fun main() {
-    val samBadge =
+    val ripTvTemplate =
         JVMImage(
             ImageIO.read(
-                BolsoDrakeGenerator::class.java.getResourceAsStream("/image_templates/lori_drake/template.png")
+                RipTvGenerator::class.java.getResourceAsStream("/image_templates/rip_tv/template.png")
             )
         )
 
     val catPassion =
         JVMImage(
             ImageIO.read(
-                File("C:\\Users\\Leonardo\\Documents\\LorittaAssets\\GabrielaImageGen\\cat_passion.jpg")
+                File("L:\\LorittaAssets\\GabrielaImageGen\\cat_passion.jpg")
             )
         )
 
-    val samGenerator = LoriDrakeGenerator(samBadge)
+    val samGenerator = RipTvGenerator(ripTvTemplate)
 
-    File("generated_sam.png")
+    File("C:\\Users\\Leonardo\\Documents\\IdeaProjects\\GabrielaImageGen\\image-generators\\src\\jvmTest\\resources\\templates_check\\rip_tv.png")
         .writeBytes(
-            samGenerator.generate(catPassion, catPassion)
-                .toByteArray(Image.FormatType.PNG)
-        )
-
-    File("generated_sam2.png")
-        .writeBytes(
-            samGenerator.generate(catPassion, catPassion)
+            samGenerator.generate(catPassion)
                 .toByteArray(Image.FormatType.PNG)
         )
 }

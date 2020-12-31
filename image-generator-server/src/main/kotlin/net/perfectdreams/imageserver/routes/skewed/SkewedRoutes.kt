@@ -27,7 +27,8 @@ class SkewedRoutes(val m: GabrielaImageGen) {
         create(Generators::monicaAtaGenerator),
         create(Generators::passingPaperGenerator),
         create(Generators::romeroBrittoGenerator),
-        create(Generators::wolverineFrameGenerator)
+        create(Generators::wolverineFrameGenerator),
+        create(Generators::ripTvGenerator)
     )
 
     fun create(property: KProperty1<Generators, BasicSkewedImageGenerator>): SimpleSkewedImageRoute {

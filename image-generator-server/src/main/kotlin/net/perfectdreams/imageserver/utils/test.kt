@@ -18,17 +18,18 @@ fun main() {
     }
 
     runBlocking {
-        val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/monica-ata") {
+        val r = http.post<HttpResponse>("https://gabriela-canary.loritta.website/api/v1/images/rip-tv") {
             body = buildJsonObject {
                 putJsonArray("images") {
                     addJsonObject {
                         put("type", "url")
-                        put("content", "https://upload.wikimedia.org/wikipedia/commons/6/6f/CMB_Timeline300_no_WMAP.jpg")
+                        put("content", "https://cdn.discordapp.com/emojis/788935162817675284.png?v=1")
                     }
                 }
             }.toString()
         }
 
+        println(r.status)
         println(r)
 
         File("C:\\Users\\Leonardo\\Documents\\LorittaAssets\\GabrielaImageGen\\temp\\douglas_pointing.jpg")
