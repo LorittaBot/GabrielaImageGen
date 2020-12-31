@@ -2,6 +2,7 @@ package net.perfectdreams.imageserver.data
 
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.*
+import net.perfectdreams.imageserver.utils.ImageUtils
 import java.awt.image.BufferedImage
 import java.lang.RuntimeException
 import java.net.URL
@@ -30,7 +31,7 @@ class SourceImagesContext(val images: List<SourceImageData>) {
 
         return when (imageData.type) {
             SourceImageDataType.URL -> {
-                ImageIO.read(URL(imageData.content).openConnection().getInputStream())
+                ImageUtils.downloadImage(imageData.content) ?: throw IllegalArgumentException("Invalid image provided")
             }
 
             SourceImageDataType.BASE64 -> {

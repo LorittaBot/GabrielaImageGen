@@ -15,7 +15,7 @@ abstract class SimpleScaledImageGeneratorTestBase(
 ) {
     constructor(clazz: Class<*>, callback: ((Image) -> BasicScaledImageGenerator)) : this(
         "/sources/cat_passion.jpg",
-        loadFromJar(clazz, "/${convertToSnakeCase(clazz.simpleName)}/template.png"),
+        loadFromJar(clazz, "/image_templates/${convertToSnakeCase(clazz.simpleName)}/template.png"),
         "/templates_check/${convertToSnakeCase(clazz.simpleName)}.png",
         callback
     )

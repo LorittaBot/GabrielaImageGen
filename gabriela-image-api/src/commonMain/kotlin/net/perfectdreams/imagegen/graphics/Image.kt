@@ -10,7 +10,8 @@ interface Image {
     }
 
     enum class FormatType {
-        PNG
+        PNG,
+        JPEG
     }
 
     val width: Int

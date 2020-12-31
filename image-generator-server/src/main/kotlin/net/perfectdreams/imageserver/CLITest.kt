@@ -10,7 +10,9 @@ import java.lang.IllegalArgumentException
 import javax.imageio.ImageIO
 
 fun convertToSnakeCase(input: String): String {
-    val x = input.removeSuffix("Test").removeSuffix("Generator")
+    val x = input.removeSuffix("Test")
+        .removeSuffix("Generator")
+        .removeSuffix("CortesFlow")
 
     val newString = StringBuilder()
 

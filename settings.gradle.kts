@@ -16,5 +16,13 @@ include(":gabriela-image-api")
 // Generators
 include(":image-generators")
 
+// Generator Microservice
+include(":image-generator-microservice")
+
+// Browser Version
+include(":image-generator-browser:generators-info")
+include(":image-generator-browser:backend")
+include(":image-generator-browser:frontend")
+
+// Backend
 include(":image-generator-server")
-include(":image-generator-browser")

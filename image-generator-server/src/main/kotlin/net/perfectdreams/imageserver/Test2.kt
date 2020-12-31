@@ -10,7 +10,7 @@ fun main() {
     val x = measureTimeMillis {
         repeat(1_000) {
             val image = ImageIO.read(
-                loadFromJar(EdnaldoTVGenerator::class.java, "/ednaldo_tv/template.png")
+                loadFromJar(EdnaldoTVGenerator::class.java, "/image_templates/ednaldo_tv/template.png")
             )
         }
     }

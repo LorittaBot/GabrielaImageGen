@@ -1,30 +1,34 @@
 package net.perfectdreams.imageserver
 
 import io.ktor.application.*
+import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.request.*
+import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
 import mu.KotlinLogging
+import net.perfectdreams.imagegen.cortesflow.CortesFlowGenerator
 import net.perfectdreams.imageserver.config.AppConfig
 import net.perfectdreams.imageserver.generators.Generators
 import net.perfectdreams.imageserver.routes.PostCarlyAaahRoute
 import net.perfectdreams.imageserver.routes.PostPetPetRoute
+import net.perfectdreams.imageserver.routes.cortesflow.CortesFlowRoutes
+import net.perfectdreams.imageserver.routes.cortesflow.GetCortesFlowRoute
 import net.perfectdreams.imageserver.routes.drake.DrakeRoutes
 import net.perfectdreams.imageserver.routes.scaled.ScaledRoutes
 import net.perfectdreams.imageserver.routes.skewed.SkewedRoutes
 import net.perfectdreams.imageserver.utils.Gifsicle
+import net.perfectdreams.imageserver.utils.WebsiteAPIException
+import net.perfectdreams.imageserver.utils.extensions.alreadyHandledStatus
+import net.perfectdreams.imageserver.utils.extensions.respondJson
 import java.io.File
-import java.util.*
 import java.util.concurrent.Executors
-import javax.imageio.ImageIO
+import kotlin.reflect.full.createType
+import kotlin.reflect.full.isSubtypeOf
+import kotlin.reflect.full.isSupertypeOf
 
 class GabrielaImageGen(val config: AppConfig) {
     companion object {
@@ -42,16 +46,29 @@ class GabrielaImageGen(val config: AppConfig) {
     val routes = listOf(
         PostCarlyAaahRoute(this),
         PostPetPetRoute(this),
+        GetCortesFlowRoute(this),
         *SkewedRoutes(this).all().toTypedArray(),
         *ScaledRoutes(this).all().toTypedArray(),
-        *DrakeRoutes(this).all().toTypedArray()
+        *DrakeRoutes(this).all().toTypedArray(),
+        *CortesFlowRoutes(this).all().toTypedArray()
     )
 
     fun start() {
         val server = embeddedServer(Netty, port = 8001) {
+            install(StatusPages) {
+                exception<WebsiteAPIException> { cause ->
+                    call.alreadyHandledStatus = true
+                    call.respondJson(cause.payload, cause.status)
+                }
+            }
+
             routing {
                 get("/") {
                     call.respondText("Hello World!", ContentType.Text.Plain)
+                }
+
+                static("/assets/img/templates/") {
+                    resources("/image_templates")
                 }
 
                 for (route in routes)

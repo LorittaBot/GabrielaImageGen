@@ -1,9 +1,11 @@
-plugins {
-    kotlin("multiplatform") version "1.4.20-M2"
+/* plugins {
+    kotlin("multiplatform") version "1.4.10"
 }
 
+group = "net.perfectdreams.imageserver"
+version = "1.0-SNAPSHOT"
+
 repositories {
-    maven ("https://dl.bintray.com/kotlin/kotlin-eap")
     maven("https://dl.bintray.com/kotlin/kotlinx/")
     mavenCentral()
     jcenter()
@@ -11,33 +13,19 @@ repositories {
     maven("https://dl.bintray.com/kotlin/exposed/")
 }
 
-group = "net.perfectdreams.imagegeneratorbrowser"
-version = "1.0-SNAPSHOT"
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+    implementation(project(":image-generators"))
 
-kotlin {
-    js {
-        browser {
-            binaries.executable()
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                }
-            }
-        }
-    }
+    // Logging Stuff
+    implementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
+    implementation("io.github.microutils:kotlin-logging:1.8.3")
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(project(":image-generators"))
-            }
-        }
+    api("io.ktor:ktor-server-core:1.4.1")
+    api("io.ktor:ktor-server-netty:1.4.1")
+    api("io.ktor:ktor-client-core:1.4.1")
+    api("io.ktor:ktor-client-apache:1.4.1")
 
-        val jsMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.2")
-                implementation("io.ktor:ktor-client-js:1.4.1")
-            }
-        }
-    }
-}
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.0.0")
+} */

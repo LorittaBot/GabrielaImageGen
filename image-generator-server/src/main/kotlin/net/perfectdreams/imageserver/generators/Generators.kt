@@ -1,5 +1,6 @@
 package net.perfectdreams.imageserver.generators
 
+import net.perfectdreams.imagegen.cortesflow.*
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.DrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.LoriDrakeGenerator
@@ -10,10 +11,9 @@ import net.perfectdreams.imagegen.generators.skewed.*
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.convertToSnakeCase
+import java.awt.Font
 import java.io.File
 import javax.imageio.ImageIO
-import kotlin.reflect.KClass
-import kotlin.reflect.full.primaryConstructor
 
 class Generators(val m: GabrielaImageGen) {
     private val tempFolder = File(m.config.tempFolder)
@@ -58,6 +58,9 @@ class Generators(val m: GabrielaImageGen) {
     val loriDrakeGenerator = createSimpleDrakeGenerator<LoriDrakeGenerator>()
     val bolsoDrakeGenerator = createSimpleDrakeGenerator<BolsoDrakeGenerator>()
 
+    // ===[ CORTES FLOW GENERATORS ]===
+    val cortesFlowGenerators = CortesFlowGenerators()
+
     /**
      * Loads a image from the [clazz] in the [path] as a [JVMImage]
      *
@@ -69,21 +72,21 @@ class Generators(val m: GabrielaImageGen) {
     inline fun <reified T> createSimpleSkewedGenerator() = T::class.constructors.first().call(
         loadImage(
             T::class.java,
-            "/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
+            "/image_templates/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
         )
     ) as T
 
     inline fun <reified T> createSimpleScaledGenerator() = T::class.constructors.first().call(
         loadImage(
             T::class.java,
-            "/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
+            "/image_templates/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
         )
     ) as T
 
     inline fun <reified T> createSimpleDrakeGenerator() = T::class.constructors.first().call(
         loadImage(
             T::class.java,
-            "/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
+            "/image_templates/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
         )
     )
 }

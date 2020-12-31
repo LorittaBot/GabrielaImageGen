@@ -13,6 +13,7 @@ import net.perfectdreams.imageserver.routes.BaseRoute
 import net.perfectdreams.imageserver.routes.VersionedAPIRoute
 import net.perfectdreams.imageserver.routes.getImageDataContext
 import net.perfectdreams.imageserver.utils.Constants
+import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
 import java.util.*
 
 abstract class SimpleSkewedImageRoute(val m: GabrielaImageGen, val generator: BasicSkewedImageGenerator, path: String) : VersionedAPIRoute(
@@ -23,18 +24,22 @@ abstract class SimpleSkewedImageRoute(val m: GabrielaImageGen, val generator: Ba
     }
 
     override suspend fun onRequest(call: ApplicationCall) {
-        val uniqueId = UUID.randomUUID()
+        try {
+            val uniqueId = UUID.randomUUID()
 
-        logger.info { "Received request with UUID: $uniqueId" }
-        val imagesContext = call.getImageDataContext()
+            logger.info { "Received request with UUID: $uniqueId" }
+            val imagesContext = call.getImageDataContext()
 
-        val theRealImageOwO = imagesContext.retrieveImage(0)
+            val theRealImageOwO = imagesContext.retrieveImage(0)
 
-        val result = withContext(m.coroutineDispatcher) {
-            generator.generate(JVMImage(theRealImageOwO))
+            val result = withContext(m.coroutineDispatcher) {
+                generator.generate(JVMImage(theRealImageOwO))
+            }
+
+            call.respondBytes(result.toByteArray(Image.FormatType.PNG), ContentType.Image.PNG)
+            logger.info { "Sent request with UUID: $uniqueId (yay!)" }
+        } catch (e: Throwable) {
+            WebsiteExceptionProcessor.handle(e)
         }
-
-        call.respondBytes(result.toByteArray(Image.FormatType.PNG), ContentType.Image.PNG)
-        logger.info { "Sent request with UUID: $uniqueId (yay!)" }
     }
 }

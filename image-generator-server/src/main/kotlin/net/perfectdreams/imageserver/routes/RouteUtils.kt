@@ -8,6 +8,7 @@ object RouteUtils {
      */
     fun convertToKebabCase(input: String): String {
         val x = input.removeSuffix("Generator")
+            .removeSuffix("CortesFlow")
 
         val newString = StringBuilder()
 

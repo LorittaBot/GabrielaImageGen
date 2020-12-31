@@ -22,10 +22,10 @@ class JVMImage(val handle: java.awt.Image) : Image {
 		val image = LorittaImage(toBufferedImage(handle))
 
 		image.setCorners(
-				x0, y0,
-				x1, y1,
-				x2, y2,
-				x3, y3
+			x0, y0,
+			x1, y1,
+			x2, y2,
+			x3, y3
 		)
 
 		return JVMImage(image.bufferedImage)
@@ -52,6 +52,7 @@ class JVMImage(val handle: java.awt.Image) : Image {
 			bufferedImage,
 			when (type) {
 				Image.FormatType.PNG -> "png"
+				Image.FormatType.JPEG -> "jpg"
 				else -> throw IllegalArgumentException("Unsupported format $type")
 			},
 			output
