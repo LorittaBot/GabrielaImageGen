@@ -18,12 +18,12 @@ fun main() {
     }
 
     runBlocking {
-        val r = http.post<HttpResponse>("https://gabriela-canary.loritta.website/api/v1/images/rip-tv") {
+        val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/videos/attack-on-heart") {
             body = buildJsonObject {
                 putJsonArray("images") {
                     addJsonObject {
                         put("type", "url")
-                        put("content", "https://cdn.discordapp.com/emojis/788935162817675284.png?v=1")
+                        put("content", "https://cdn.discordapp.com/emojis/793233708085805066.png?v=1")
                     }
                 }
             }.toString()
@@ -32,7 +32,7 @@ fun main() {
         println(r.status)
         println(r)
 
-        File("C:\\Users\\Leonardo\\Documents\\LorittaAssets\\GabrielaImageGen\\temp\\douglas_pointing.jpg")
+        File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\attack_on_heart.mp4")
             .writeBytes(r.readBytes())
     }
 }

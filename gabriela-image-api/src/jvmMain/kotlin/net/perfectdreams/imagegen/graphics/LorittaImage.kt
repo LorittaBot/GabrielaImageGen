@@ -15,6 +15,7 @@ import javax.imageio.ImageWriteParam
 import javax.imageio.metadata.IIOMetadata
 import javax.imageio.metadata.IIOMetadataNode
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam
+import kotlin.math.abs
 
 /*
  * Isto é a mesma classe do javaxt "Image", mas com uma correção no setCorners para não mover a imagem para o canto da tela caso seja transparente
@@ -139,7 +140,7 @@ class LorittaImage {
             if (g2d == null) {
                 g2d = this.bufferedImage.createGraphics()
                 g2d!!.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON)
+                        RenderingHints.VALUE_ANTIALIAS_ON)
             }
             return g2d!!
         }
@@ -459,7 +460,7 @@ class LorittaImage {
         //Get Font Metrics
         val t = BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).createGraphics()
         t.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON)
+                RenderingHints.VALUE_ANTIALIAS_ON)
 
         val fm = t.getFontMetrics(font)
         val width = fm.stringWidth(text)
@@ -473,7 +474,7 @@ class LorittaImage {
         bufferedImage = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
         g2d = bufferedImage.createGraphics()
         g2d!!.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON)
+                RenderingHints.VALUE_ANTIALIAS_ON)
 
         //Add Text
         val alpha = 1.0f //Set alpha.  0.0f is 100% transparent and 1.0f is 100% opaque.
@@ -553,7 +554,7 @@ class LorittaImage {
     fun addText(text: String, x: Int, y: Int, font: Font = Font("SansSerif", Font.TRUETYPE_FONT, 12), r: Int = 0, g: Int = 0, b: Int = 0) {
         g2d = graphics
         g2d!!.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON)
+                RenderingHints.VALUE_ANTIALIAS_ON)
 
 
         g2d!!.color = Color(r, g, b)
@@ -763,12 +764,12 @@ class LorittaImage {
 
             //Rotates the given point theta radians around (cx,cy)
             val x = Math.round(
-                Math.cos(theta) * (corners[i] - cx) - Math.sin(theta) * (corners[i + 1] - cy) + cx
+                    Math.cos(theta) * (corners[i] - cx) - Math.sin(theta) * (corners[i + 1] - cy) + cx
             ).toInt()
 
             val y = Math.round(
-                Math.sin(theta) * (corners[i] - cx) +
-                        Math.cos(theta) * (corners[i + 1] - cy) + cy.toDouble()
+                    Math.sin(theta) * (corners[i] - cx) +
+                            Math.cos(theta) * (corners[i + 1] - cy) + cy.toDouble()
             ).toInt()
 
             //Update our bounds
@@ -786,17 +787,17 @@ class LorittaImage {
 
         //Create Buffered Image
         var result: BufferedImage? = BufferedImage(maxX - minX, maxY - minY,
-            BufferedImage.TYPE_INT_ARGB)
+                BufferedImage.TYPE_INT_ARGB)
 
         //Create Graphics
         val g2d = result!!.createGraphics()
 
         //Enable anti-alias and Cubic Resampling
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON)
+                RenderingHints.VALUE_ANTIALIAS_ON)
 
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-            RenderingHints.VALUE_INTERPOLATION_BICUBIC)
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC)
 
         //Rotate the image
         var xform: AffineTransform? = AffineTransform()
@@ -1006,7 +1007,7 @@ class LorittaImage {
 
         //define kernal
         val kernel = Kernel(3, 3,
-            floatArrayOf(0.0f, -0.2f, 0.0f, -0.2f, 1.8f, -0.2f, 0.0f, -0.2f, 0.0f))
+                floatArrayOf(0.0f, -0.2f, 0.0f, -0.2f, 1.8f, -0.2f, 0.0f, -0.2f, 0.0f))
 
         //apply convolution
         var out = BufferedImage(width, height, imageType)
@@ -1058,7 +1059,7 @@ class LorittaImage {
     private fun desaturate(`in`: BufferedImage): BufferedImage {
         val out = BufferedImage(`in`.width, `in`.height, getImageType(`in`))
         val op = ColorConvertOp(
-            ColorSpace.getInstance(ColorSpace.CS_GRAY), null)
+                ColorSpace.getInstance(ColorSpace.CS_GRAY), null)
         return op.filter(`in`, out)
     }
 
@@ -1479,9 +1480,9 @@ class LorittaImage {
 
                     //For Java 1.7 users, we will try to invoke the Sun JPEG Codec using reflection
                     val encoder = JPEGCodec!!.getMethod("createJPEGEncoder", java.io.OutputStream::class.java).invoke(
-                        JPEGCodec, bas)
+                            JPEGCodec, bas)
                     val params = JPEGCodec!!.getMethod("getDefaultJPEGEncodeParam", BufferedImage::class.java).invoke(
-                        JPEGCodec, bi)
+                            JPEGCodec, bi)
                     params.javaClass.getMethod("setQuality", Float::class.javaPrimitiveType, Boolean::class.javaPrimitiveType).invoke(params, outputQuality, true)
                     params.javaClass.getMethod("setHorizontalSubsampling", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType).invoke(params, 0, 2)
                     params.javaClass.getMethod("setVerticalSubsampling", Int::class.javaPrimitiveType, Int::class.javaPrimitiveType).invoke(params, 0, 2)
@@ -2258,9 +2259,9 @@ class LorittaImage {
             if (dst == null) {
                 val dstCM = src.colorModel
                 dst = BufferedImage(
-                    dstCM,
-                    dstCM.createCompatibleWritableRaster(transformedSpace.width, transformedSpace.height),
-                    dstCM.isAlphaPremultiplied, null
+                        dstCM,
+                        dstCM.createCompatibleWritableRaster(transformedSpace.width, transformedSpace.height),
+                        dstCM.isAlphaPremultiplied, null
                 )
             }
             //WritableRaster dstRaster = dst.getRaster();
@@ -2311,6 +2312,41 @@ class LorittaImage {
                     }
                     outPixels[x] = bilinearInterpolate(xWeight, yWeight, nw, ne, sw, se)
                 }
+
+                if (0 > outY + y) {
+                    // Outside in the Y axis, just ignore it since we always write only 1 pixel height
+                    continue
+                }
+
+                if (0 > outX) {
+                    // Outside in the X axis, try to manipulate stuff a bit!
+                    val absoluteOutX = Math.abs(outX)
+
+                    val outPixelsDropped = outPixels.drop(absoluteOutX)
+                            .toIntArray()
+
+                    // println("Trying to draw at ${outY + y} with a ${outPixelsDropped.size} size")
+                    // println("BufferedImage Width: " + dst.width)
+                    // println("BufferedImage Height: " + dst.height)
+                    setRGB(dst, 0, outY + y, outPixelsDropped.size, 1, outPixelsDropped)
+                    continue
+                }
+
+                if (outX + transformedSpace.width > src.width) {
+                    val diff = src.width - outX
+                    // println("Taking ${src.width - outX} pixels")
+
+                    if (0 >= diff)
+                        continue
+
+                    // Outside in the X axis in the right direction
+                    val outPixelsDropped = outPixels.take(diff)
+                            .toIntArray()
+
+                    setRGB(dst, outX, outY + y, outPixelsDropped.size, 1, outPixelsDropped)
+                    continue
+                }
+
                 setRGB(dst, outX, outY + y, transformedSpace.width, 1, outPixels)
             }
             return dst

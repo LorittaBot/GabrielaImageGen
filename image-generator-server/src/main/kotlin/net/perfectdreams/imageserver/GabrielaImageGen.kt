@@ -12,8 +12,11 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import mu.KotlinLogging
 import net.perfectdreams.imagegen.cortesflow.CortesFlowGenerator
 import net.perfectdreams.imageserver.config.AppConfig
+import net.perfectdreams.imageserver.generators.AttackOnHeartGenerator
 import net.perfectdreams.imageserver.generators.Generators
+import net.perfectdreams.imageserver.routes.PostAttackOnHeartRoute
 import net.perfectdreams.imageserver.routes.PostCarlyAaahRoute
+import net.perfectdreams.imageserver.routes.PostCocieloChavesRoute
 import net.perfectdreams.imageserver.routes.PostPetPetRoute
 import net.perfectdreams.imageserver.routes.cortesflow.CortesFlowRoutes
 import net.perfectdreams.imageserver.routes.cortesflow.GetCortesFlowRoute
@@ -46,6 +49,8 @@ class GabrielaImageGen(val config: AppConfig) {
     val routes = listOf(
         PostCarlyAaahRoute(this),
         PostPetPetRoute(this),
+        PostAttackOnHeartRoute(this),
+        PostCocieloChavesRoute(this),
         GetCortesFlowRoute(this),
         *SkewedRoutes(this).all().toTypedArray(),
         *ScaledRoutes(this).all().toTypedArray(),

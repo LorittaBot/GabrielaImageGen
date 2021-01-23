@@ -29,9 +29,21 @@ import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.convertToSnakeCase
 import java.io.File
+import java.util.*
 import javax.imageio.ImageIO
 
 class Generators(val m: GabrielaImageGen) {
+    companion object {
+        fun generateFileName(name: String, extension: String) =
+                "$name-${System.currentTimeMillis()}-${UUID.randomUUID()}.$extension"
+
+        fun readBytesAndDelete(file: File): ByteArray {
+            val bytes = file.readBytes()
+            file.delete()
+            return bytes
+        }
+    }
+
     private val tempFolder = File(m.config.tempFolder)
     private val assetsFolder = File(m.config.assetsFolder)
     private val ffmpegPath = File(m.config.ffmpegPath)
@@ -42,6 +54,8 @@ class Generators(val m: GabrielaImageGen) {
     }
 
     val CARLY_AAAH_GENERATOR = CarlyAaahGenerator(tempFolder, File(assetsFolder, "carly_aaah"), ffmpegPath)
+    val ATTACK_ON_HEART_GENERATOR = AttackOnHeartGenerator(tempFolder, File(assetsFolder, "attack_on_heart"), ffmpegPath)
+    val COCIELO_CHAVES_GENERATOR = CocieloChavesGenerator(tempFolder, File(assetsFolder, "cocielo_chaves"), ffmpegPath)
     val HAND_PAT_GENERATOR = PetPetGenerator(m, File(assetsFolder, "hand_pat"))
 
     // ===[ SKEWED IMAGE GENERATORS ]===
