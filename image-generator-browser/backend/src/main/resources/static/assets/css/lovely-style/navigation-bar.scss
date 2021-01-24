@@ -1,0 +1,226 @@
+@mixin navigation-bar($navbar-color: $primary-color, $navbar-font-family: "Oswald, Impact, Arial, sans-serif", $navbar-height: 46px) {
+  .dummy-navigation-bar {
+    height: $navbar-height;
+  }
+  
+  nav.navigation-bar {
+      top: 0px; // Deixa a navbar no topo da página (se não ela sempre fica um pouco abaixo)
+      width: 100%; // Necessário se não fica feio
+      height: $navbar-height;
+      // overflow: hidden;
+      background-color: $primary-color;
+      box-shadow: 0 0 15px rgba(0,0,0,.3);
+      text-transform: uppercase;
+      text-shadow: 0 1px rgba(0,0,0,.2);
+      font-family: unquote($navbar-font-family);
+      line-height: 1;
+      z-index: 999;
+      display: flex;
+      flex-direction: row;
+      position: relative; // avoids items behind the navbar overflowing
+
+      // @media screen and (max-width: 1200px) {
+      //   letter-spacing: -1px;
+      // }
+      
+      &.fixed {
+        position: fixed;
+      }
+
+      .entry {
+          float: left;
+          display: block;
+          color: #f2f2f2 !important;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+          transition: 500ms;
+          // height: 46px;
+          cursor: pointer;
+          white-space: nowrap;
+          position: relative;
+
+          a {
+            color: #f2f2f2 !important;
+            text-decoration: none;
+          }
+
+          &:hover {
+              background-color: darken($primary-color, 3%);
+          }
+      }
+
+      .icon {
+          display: none;
+      }
+
+      .left-side-entries {
+          display: flex;
+          flex-grow: 1;
+          flex-flow: wrap;
+          overflow: hidden; // Can't place in the navbar because that would break the lang selection
+      }
+      
+      .right-side-entries {
+          display: flex;
+          margin-left: auto;
+          justify-content: flex-end;
+      }
+
+      #hamburger-menu-button {
+        display: none;
+      }
+
+      &.expanded {
+        height: 100vh;
+        overflow: auto;
+        
+        .entry {
+          display: block !important;
+          float: none;
+          text-align: left;
+          height: auto;
+        }
+
+        .left-side-entries {
+          float: none;
+        }
+
+        .right-side-entries {
+          float: none;
+        }
+
+        #hamburger-menu-button {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+  }
+
+  @media screen and (max-width: 1366px) {
+    .navigation-bar a.icon {
+      float: right;
+      display: block;
+      padding: 14px 16px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .navigation-bar .entry:not(.loritta-navbar-logo) {display: none;}
+    #hamburger-menu-button { display: block !important; } // Important to override the inline style set
+  }
+
+  @media screen and (max-width: 1366px) {
+    .navigation-bar.responsive {position: relative;}
+    .navigation-bar.responsive .icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .navigation-bar.responsive .entry {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
+
+  .navigation-bar.responsive {
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      height: 100vh;
+      overflow: auto;
+      position: fixed;
+      flex-direction: column;
+
+      .left-side-entries {
+        flex-direction: column;
+        flex-grow: 0;
+
+        .entry {
+          display: block;
+        }
+      }
+
+      .right-side-entries {
+        flex-direction: column;
+        margin-left: unset;
+      }
+  }
+
+  @media screen and (max-width: 1366px) {
+    .navigation-bar.expanded {position: relative;}
+    .navigation-bar.expanded .icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .navigation-bar.expanded .entry {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
+
+  .navigation-bar.expanded {
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      height: 100vh;
+      overflow: auto;
+      position: fixed;
+      flex-direction: column;
+
+      .left-side-entries {
+        flex-direction: column;
+        flex-grow: 0;
+
+        .entry {
+          display: block;
+        }
+      }
+
+      .right-side-entries {
+        flex-direction: column;
+        margin-left: unset;
+      }
+  }
+
+  #languages {
+    position: absolute;
+    background-color: white;
+    left: 0;
+    top: 100%;
+    display: none;
+    text-align: left;
+    box-shadow: 0 0 15px rgba(0,0,0,.3);
+    padding: 4px;
+    min-width: 100%;
+    border-radius: 0px 0px 7px 7px;
+    box-sizing: border-box;
+    z-index: 100;
+  }
+
+  #languages a {
+    width: 100%;
+    font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: #4f545c !important;
+    font-weight: 500;
+    text-transform: none;
+    padding: 0px;
+
+    &:hover {
+      color: #00b0f4 !important;
+    }
+  }
+
+  #locale-changer-button:hover #languages {
+    display: block;
+  }
+}

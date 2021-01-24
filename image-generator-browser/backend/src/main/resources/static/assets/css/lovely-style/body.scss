@@ -1,0 +1,9 @@
+@mixin lovely-body($background-color: #f3f3f3, $text-color: #333333, $hide-overflow-x: false) {
+    font-family: "Lato", Arial, Helvetica, sans-serif;
+    background-color: $background-color;
+    color: $text-color;
+
+    @if $hide-overflow-x {
+        overflow-x: $hide-overflow-x;
+    }
+}

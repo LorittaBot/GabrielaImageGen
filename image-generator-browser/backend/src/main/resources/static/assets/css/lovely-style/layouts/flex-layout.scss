@@ -1,0 +1,68 @@
+.lovely-flex {
+    display: flex;
+       
+    @for $i from 1 through 100 {
+        &.flex-#{$i}p-width {
+            flex-basis: #{$i}#{'%'};
+            min-width: #{$i}#{'%'};
+        }
+    }
+
+    &.as-rows {
+        flex-direction: row;
+    }
+
+    &.as-columns {
+        flex-direction: column;
+    }
+
+    &.as-reverse-rows {
+        flex-direction: row-reverse;
+    }
+
+    &.as-reverse-columns {
+        flex-direction: column-reverse;
+    }
+
+    &.space-evenly {
+        justify-content: space-evenly;
+    }
+
+    &.space-between {
+        justify-content: space-between;
+    }
+
+    &.space-around {
+        justify-content: space-around;
+    }
+
+    &.at-start {
+        justify-content: flex-start;
+    }
+
+    &.at-end {
+        justify-content: flex-end;
+    }
+
+    &.horizontally-centered {
+        justify-content: center;
+    }
+
+    &.vertically-centered {
+        align-items: center;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+
+@mixin lovely-flex-media-query-transform-to-column-if-screen-is-smaller-than($max-width, $element-name: '.transform-to-column-if-max-width-is-less-than-#{$max-width}') {
+    @media only screen and (max-width: $max-width) {
+        .lovely-flex {
+            &#{unquote($element-name)} {
+                flex-direction: column;
+            }
+        }
+    }
+}
