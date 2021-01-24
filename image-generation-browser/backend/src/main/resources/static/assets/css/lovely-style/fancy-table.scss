@@ -1,0 +1,13 @@
+table.fancy-table {
+    border-spacing: 0;
+    
+    th {
+        font-weight: 600;
+        color: $primary-color;
+    }
+
+    th, td {
+        border-bottom: 1px solid #0000001a;
+        padding: 10px;
+    }
+}

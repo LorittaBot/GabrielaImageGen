@@ -1,0 +1,5 @@
+@for $i from 1 through 15 {
+    .has-shadow-#{$i}x {
+        box-shadow: 0 0 #{$i}em rgba(0, 0, 0, 0.3);
+    }
+}

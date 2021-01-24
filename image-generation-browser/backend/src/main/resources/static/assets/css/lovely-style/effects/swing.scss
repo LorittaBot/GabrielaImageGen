@@ -1,0 +1,9 @@
+@keyframes swing-animation {
+    0%, 50%, 100% { transform: rotate(0deg); animation-timing-function: ease-out; }
+    25% { transform: rotate(2deg); animation-timing-function: ease-in; }
+    75% { transform: rotate(-2deg); animation-timing-function: ease-in; }
+}
+
+.is-swinging {
+    animation: 7s linear infinite forwards swing-animation;
+}

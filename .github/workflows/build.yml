@@ -35,7 +35,7 @@ jobs:
 
     # Upload Artifacts to GitHub
     - uses: actions/upload-artifact@v2
-      name: "Upload Loritta (Discord)"
+      name: "Upload Image Generation Server"
       with:
-        name: Image Generator Server
-        path: image-generator-server/build/libs/image-generator-server-*.jar
+        name: Image Generation Server
+        path: image-generation-server/build/libs/image-generation-server-*.jar

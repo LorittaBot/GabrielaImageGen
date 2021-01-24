@@ -17,9 +17,9 @@ include(":gabriela-image-api")
 include(":image-generators")
 
 // Browser Version
-include(":image-generator-browser:generators-info")
-include(":image-generator-browser:backend")
-include(":image-generator-browser:frontend")
+include(":image-generation-browser:generators-info")
+include(":image-generation-browser:backend")
+include(":image-generation-browser:frontend")
 
-// Backend
-include(":image-generator-server")
+// Backend (Micro Service)
+include(":image-generation-server")
