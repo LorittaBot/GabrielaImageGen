@@ -17,7 +17,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     api(project(":image-generators"))
-    api(project(":image-generator-browser:generators-info"))
+    api(project(":image-generation-browser:generators-info"))
 
     // Logging Stuff
     implementation("ch.qos.logback:logback-classic:1.3.0-alpha5")

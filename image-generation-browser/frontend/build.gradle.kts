@@ -30,7 +30,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":image-generators"))
-                implementation(project(":image-generator-browser:generators-info"))
+                implementation(project(":image-generation-browser:generators-info"))
             }
         }
 
