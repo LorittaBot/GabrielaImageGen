@@ -53,10 +53,10 @@ class Generators(val m: GabrielaImageGen) {
         assetsFolder.mkdirs()
     }
 
-    val CARLY_AAAH_GENERATOR = CarlyAaahGenerator(tempFolder, File(assetsFolder, "carly_aaah"), ffmpegPath)
-    val ATTACK_ON_HEART_GENERATOR = AttackOnHeartGenerator(tempFolder, File(assetsFolder, "attack_on_heart"), ffmpegPath)
-    val COCIELO_CHAVES_GENERATOR = CocieloChavesGenerator(tempFolder, File(assetsFolder, "cocielo_chaves"), ffmpegPath)
-    val HAND_PAT_GENERATOR = PetPetGenerator(m, File(assetsFolder, "hand_pat"))
+    val CARLY_AAAH_GENERATOR = CarlyAaahGenerator(tempFolder, File(assetsFolder, "video_templates/carly_aaah"), ffmpegPath)
+    val ATTACK_ON_HEART_GENERATOR = AttackOnHeartGenerator(tempFolder, File(assetsFolder, "video_templates/attack_on_heart"), ffmpegPath)
+    val COCIELO_CHAVES_GENERATOR = CocieloChavesGenerator(tempFolder, File(assetsFolder, "video_templates/cocielo_chaves"), ffmpegPath)
+    val HAND_PAT_GENERATOR = PetPetGenerator(m, File(assetsFolder, "image_templates/hand_pat"))
 
     // ===[ SKEWED IMAGE GENERATORS ]===
     val artGenerator = createSimpleSkewedGenerator<ArtGenerator>()
@@ -98,25 +98,22 @@ class Generators(val m: GabrielaImageGen) {
      * @param  path the path inside of the [assetsFolder] where the file is
      * @result      the image
      */
-    fun loadImage(clazz: Class<*>, path: String) = JVMImage(ImageIO.read(clazz.getResourceAsStream(path)))
+    fun loadImage(path: String) = JVMImage(ImageIO.read(File(m.config.assetsFolder + path)))
 
     inline fun <reified T> createSimpleSkewedGenerator() = T::class.constructors.first().call(
         loadImage(
-            T::class.java,
             "/image_templates/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
         )
-    ) as T
+    )
 
     inline fun <reified T> createSimpleScaledGenerator() = T::class.constructors.first().call(
         loadImage(
-            T::class.java,
             "/image_templates/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
         )
-    ) as T
+    )
 
     inline fun <reified T> createSimpleDrakeGenerator() = T::class.constructors.first().call(
         loadImage(
-            T::class.java,
             "/image_templates/${convertToSnakeCase(T::class.simpleName!!)}/template.png"
         )
     )
