@@ -29,6 +29,13 @@ dependencies {
 
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
     api("org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.0.0")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.0-M1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.0-M1")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 tasks {

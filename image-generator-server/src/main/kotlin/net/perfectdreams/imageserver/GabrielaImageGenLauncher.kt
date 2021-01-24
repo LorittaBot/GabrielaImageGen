@@ -18,10 +18,31 @@ object GabrielaImageGenLauncher {
         // https://stackoverflow.com/a/44170254/7271796
         ImageIO.setUseCache(false)
 
+        val configurationFile = File(System.getProperty("conf") ?: "./app.conf")
+
+        if (!configurationFile.exists()) {
+            println("Welcome to Gabriela's Image Generation Server! :3")
+            println("")
+            println("Before we start, you will need to configure me.")
+            println("I will create a file named \"app.conf\", open it on your favorite text editor and change it!")
+            println("")
+            println("After configuring the file, run me again!")
+
+            copyFromJar("/app.conf", "./app.conf")
+
+            System.exit(1)
+            return
+        }
+
         val config = loadConfig<AppConfig>("./app.conf")
 
         val m = GabrielaImageGen(config)
         m.start()
+    }
+
+    private fun copyFromJar(inputPath: String, outputPath: String) {
+        val inputStream = GabrielaImageGenLauncher::class.java.getResourceAsStream(inputPath)
+        File(outputPath).writeBytes(inputStream.readAllBytes())
     }
 
     inline fun <reified T> loadConfig(path: String): T {
