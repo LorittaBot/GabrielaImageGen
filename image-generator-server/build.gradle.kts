@@ -34,7 +34,6 @@ dependencies {
 tasks {
     val fatJar = task("fatJar", type = Jar::class) {
         // We only want to execute this AFTER everything was built, not during the configuration phase
-        // doLast {
         println("Building fat jar for ${project.name}...")
 
         archiveBaseName.set("${project.name}-fat")
@@ -45,21 +44,23 @@ tasks {
                 configurations.runtimeClasspath.get().joinToString(" ", transform = { "libs/" + it.name })
         }
 
-        val libs = File(rootProject.projectDir, "libs")
-        // libs.deleteRecursively()
+        val libs = File(project.projectDir, "build/libs/libs")
+        println("Libs: $libs")
+        // We could delete the "libs" folder now, but this would take longer to copy the libs, so we won't do that
         libs.mkdirs()
 
-        from(configurations.runtimeClasspath.get().mapNotNull {
-            val output = File(libs, it.name)
+        doLast {
+            from(configurations.runtimeClasspath.get().mapNotNull {
+                val output = File(libs, it.name)
 
-            if (!output.exists())
-                it.copyTo(output, true)
+                if (!output.exists())
+                    it.copyTo(output, true)
 
-            null
-        })
+                null
+            })
+        }
 
         with(jar.get() as CopySpec)
-        // }
     }
 
     "build" {
