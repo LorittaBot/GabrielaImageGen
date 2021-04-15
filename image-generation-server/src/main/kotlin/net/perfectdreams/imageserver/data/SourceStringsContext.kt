@@ -24,9 +24,9 @@ class SourceStringsContext(val strings: List<SourceStringData>) {
         }
     }
 
-    suspend fun retrieveString(index: Int): String {
-        val stringData = strings.getOrNull(index) ?: throw IllegalArgumentException("Missing image!")
+    fun retrieveStringOrNull(index: Int) = strings.getOrNull(index)?.string
 
-        return stringData.string
+    fun retrieveString(index: Int): String {
+        return retrieveStringOrNull(index) ?: throw IllegalArgumentException("Missing string!")
     }
 }

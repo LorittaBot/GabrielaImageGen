@@ -4,12 +4,13 @@ import net.perfectdreams.imagegen.cortesflow.*
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.convertToSnakeCase
 import java.awt.Font
+import java.io.File
 import javax.imageio.ImageIO
 
-class CortesFlowGenerators {
+class CortesFlowGenerators(val m: GabrielaImageGen) {
     val montserratExtraBold = Font.createFont(
-            Font.TRUETYPE_FONT,
-            GabrielaImageGen::class.java.getResourceAsStream("/image_templates/cortes_flow/montserrat-extrabold.otf")
+        Font.TRUETYPE_FONT,
+        File(m.config.assetsFolder + "/image_templates/cortes_flow/montserrat-extrabold.otf")
     )
 
     // ===[ CORTES FLOW ]===
@@ -58,9 +59,9 @@ class CortesFlowGenerators {
     val julioCocieloEyesCortesFlowGenerator = createCortesFlowGenerator<JulioCocieloEyesCortesFlowGenerator>()
 
     inline fun <reified T> createCortesFlowGenerator() = T::class.constructors.first().call(
-            ImageIO.read(
-                    T::class.java.getResourceAsStream("/image_templates/cortes_flow/${convertToSnakeCase(T::class.simpleName!!)}.jpg"),
-            ),
-            montserratExtraBold
+        ImageIO.read(
+            File("${m.config.assetsFolder}/image_templates/cortes_flow/${convertToSnakeCase(T::class.simpleName!!)}.jpg"),
+        ),
+        montserratExtraBold
     )
 }

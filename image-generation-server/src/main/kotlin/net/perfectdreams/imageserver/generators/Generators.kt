@@ -1,5 +1,6 @@
 package net.perfectdreams.imageserver.generators
 
+import net.perfectdreams.imagegen.generators.ManiaTitleCardGenerator
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.DrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.LoriDrakeGenerator
@@ -35,7 +36,7 @@ import javax.imageio.ImageIO
 class Generators(val m: GabrielaImageGen) {
     companion object {
         fun generateFileName(name: String, extension: String) =
-                "$name-${System.currentTimeMillis()}-${UUID.randomUUID()}.$extension"
+            "$name-${System.currentTimeMillis()}-${UUID.randomUUID()}.$extension"
 
         fun readBytesAndDelete(file: File): ByteArray {
             val bytes = file.readBytes()
@@ -57,6 +58,18 @@ class Generators(val m: GabrielaImageGen) {
     val ATTACK_ON_HEART_GENERATOR = AttackOnHeartGenerator(tempFolder, File(assetsFolder, "video_templates/attack_on_heart"), ffmpegPath)
     val COCIELO_CHAVES_GENERATOR = CocieloChavesGenerator(tempFolder, File(assetsFolder, "video_templates/cocielo_chaves"), ffmpegPath)
     val HAND_PAT_GENERATOR = PetPetGenerator(m, File(assetsFolder, "image_templates/hand_pat"))
+    val maniaTitleCardGenerator = ManiaTitleCardGenerator(
+        ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
+        ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/cut_left.png")),
+        ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/cut_right.png")),
+        File(assetsFolder, "image_templates/mania_title_card/mania_font/")
+            .listFiles()
+            .filter { it.extension == "png" }
+            .map {
+                val character = it.nameWithoutExtension.toCharArray().first()
+                character to ImageIO.read(it)
+            }.toMap()
+    )
 
     // ===[ SKEWED IMAGE GENERATORS ]===
     val artGenerator = createSimpleSkewedGenerator<ArtGenerator>()
@@ -90,7 +103,7 @@ class Generators(val m: GabrielaImageGen) {
     val bolsoDrakeGenerator = createSimpleDrakeGenerator<BolsoDrakeGenerator>()
 
     // ===[ CORTES FLOW GENERATORS ]===
-    val cortesFlowGenerators = CortesFlowGenerators()
+    val cortesFlowGenerators = CortesFlowGenerators(m)
 
     /**
      * Loads a image from the [clazz] in the [path] as a [JVMImage]
