@@ -1,8 +1,7 @@
 package net.perfectdreams.imageserver.generators
 
-import net.perfectdreams.imagegen.cortesflow.*
+import net.perfectdreams.imagegen.generators.cortesflow.*
 import net.perfectdreams.imageserver.GabrielaImageGen
-import net.perfectdreams.imageserver.convertToSnakeCase
 import java.awt.Font
 import java.io.File
 import javax.imageio.ImageIO
@@ -60,7 +59,7 @@ class CortesFlowGenerators(val m: GabrielaImageGen) {
 
     inline fun <reified T> createCortesFlowGenerator() = T::class.constructors.first().call(
         ImageIO.read(
-            File("${m.config.assetsFolder}/image_templates/cortes_flow/${convertToSnakeCase(T::class.simpleName!!)}.jpg"),
+            File("${m.config.assetsFolder}/image_templates/cortes_flow/${Generators.convertToSnakeCase(T::class.simpleName!!)}.jpg"),
         ),
         montserratExtraBold
     )

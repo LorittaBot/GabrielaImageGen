@@ -9,11 +9,10 @@ import net.perfectdreams.imagegen.generators.BasicSkewedImageGenerator
 import net.perfectdreams.imagegen.graphics.Image
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
-import net.perfectdreams.imageserver.routes.BaseRoute
 import net.perfectdreams.imageserver.routes.VersionedAPIRoute
-import net.perfectdreams.imageserver.routes.getImageDataContext
-import net.perfectdreams.imageserver.utils.Constants
+import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
+import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
 import java.util.*
 
 abstract class SimpleSkewedImageRoute(val m: GabrielaImageGen, val generator: BasicSkewedImageGenerator, path: String) : VersionedAPIRoute(
@@ -25,19 +24,15 @@ abstract class SimpleSkewedImageRoute(val m: GabrielaImageGen, val generator: Ba
 
     override suspend fun onRequest(call: ApplicationCall) {
         try {
-            val uniqueId = UUID.randomUUID()
+            withRequest(logger) {
+                val sourceImage = call.retrieveImageFromImageData(0)
 
-            logger.info { "Received request with UUID: $uniqueId" }
-            val imagesContext = call.getImageDataContext()
+                val result = withContext(m.coroutineDispatcher) {
+                    generator.generate(JVMImage(sourceImage))
+                }
 
-            val theRealImageOwO = imagesContext.retrieveImage(0)
-
-            val result = withContext(m.coroutineDispatcher) {
-                generator.generate(JVMImage(theRealImageOwO))
+                call.respondBytes(result.toByteArray(Image.FormatType.PNG), ContentType.Image.PNG)
             }
-
-            call.respondBytes(result.toByteArray(Image.FormatType.PNG), ContentType.Image.PNG)
-            logger.info { "Sent request with UUID: $uniqueId (yay!)" }
         } catch (e: Throwable) {
             WebsiteExceptionProcessor.handle(e)
         }

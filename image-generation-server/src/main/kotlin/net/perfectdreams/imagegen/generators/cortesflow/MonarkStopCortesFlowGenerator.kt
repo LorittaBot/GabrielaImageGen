@@ -1,9 +1,9 @@
-package net.perfectdreams.imagegen.cortesflow
+package net.perfectdreams.imagegen.generators.cortesflow
 
 import java.awt.Font
 import java.awt.image.BufferedImage
 
-class MonarkDiscussionCortesFlowGenerator(
+class MonarkStopCortesFlowGenerator(
     template: BufferedImage,
     font: Font
 ) : CortesFlowGenerator(
@@ -11,5 +11,5 @@ class MonarkDiscussionCortesFlowGenerator(
     font,
     LEFT_SIDE_TEXT,
     FlowParticipant.MONARK,
-    "https://youtu.be/vVrdmg1-C3U"
+    "https://youtu.be/HHcVQYRUqjU"
 )

@@ -1,15 +1,15 @@
-package net.perfectdreams.imagegen.cortesflow
+package net.perfectdreams.imagegen.generators.cortesflow
 
 import java.awt.Font
 import java.awt.image.BufferedImage
 
-class MetaforandoBadgeCortesFlowGenerator(
+class DouglasPointingCortesFlowGenerator(
     template: BufferedImage,
     font: Font
 ) : CortesFlowGenerator(
     template,
     font,
     RIGHT_SIDE_TEXT,
-    FlowParticipant.METAFORANDO,
-    "https://youtu.be/lGartyYTp64"
+    FlowParticipant.DOUGLAS,
+    "https://youtu.be/Nz-BY4o_mLk"
 )

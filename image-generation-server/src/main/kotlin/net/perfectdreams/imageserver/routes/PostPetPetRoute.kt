@@ -7,6 +7,8 @@ import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
+import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
+import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
 import java.util.*
 
 class PostPetPetRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
@@ -18,19 +20,15 @@ class PostPetPetRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
 
     override suspend fun onRequest(call: ApplicationCall) {
         try {
-            val uniqueId = UUID.randomUUID()
+            withRequest(logger) {
+                val sourceImage = call.retrieveImageFromImageData(0)
 
-            logger.info { "Received request with UUID: $uniqueId" }
-            val imagesContext = call.getImageDataContext()
+                val result = withContext(m.coroutineDispatcher) {
+                    m.generators.HAND_PAT_GENERATOR.generate(sourceImage)
+                }
 
-            val sourceImage = imagesContext.retrieveImage(0)
-
-            val result = withContext(m.coroutineDispatcher) {
-                m.generators.HAND_PAT_GENERATOR.generate(sourceImage)
+                call.respondBytes(result, ContentType.Image.GIF)
             }
-
-            call.respondBytes(result, ContentType.Image.GIF)
-            logger.info { "Sent request with UUID: $uniqueId (yay!)" }
         } catch (e: Throwable) {
             WebsiteExceptionProcessor.handle(e)
         }

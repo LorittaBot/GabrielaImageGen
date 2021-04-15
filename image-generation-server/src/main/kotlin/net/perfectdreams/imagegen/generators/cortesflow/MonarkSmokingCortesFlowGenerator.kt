@@ -1,15 +1,15 @@
-package net.perfectdreams.imagegen.cortesflow
+package net.perfectdreams.imagegen.generators.cortesflow
 
 import java.awt.Font
 import java.awt.image.BufferedImage
 
-class ArthurBenozzatiSmileCortesFlowGenerator(
+class MonarkSmokingCortesFlowGenerator(
     template: BufferedImage,
     font: Font
 ) : CortesFlowGenerator(
     template,
     font,
     RIGHT_SIDE_TEXT,
-    FlowParticipant.ARTHUR_BENOZZATI,
-    "https://youtu.be/n5FwDNTvNd0"
+    FlowParticipant.MONARK,
+    "https://youtu.be/08aJ1BnjQKY"
 )

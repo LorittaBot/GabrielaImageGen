@@ -1,4 +1,4 @@
-package net.perfectdreams.imagegen.cortesflow
+package net.perfectdreams.imagegen.generators.cortesflow
 
 import java.awt.Font
 import java.awt.image.BufferedImage

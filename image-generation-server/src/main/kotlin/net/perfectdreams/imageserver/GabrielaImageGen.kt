@@ -10,9 +10,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import kotlinx.coroutines.asCoroutineDispatcher
 import mu.KotlinLogging
-import net.perfectdreams.imagegen.cortesflow.CortesFlowGenerator
 import net.perfectdreams.imageserver.config.AppConfig
-import net.perfectdreams.imageserver.generators.AttackOnHeartGenerator
 import net.perfectdreams.imageserver.generators.Generators
 import net.perfectdreams.imageserver.routes.PostAttackOnHeartRoute
 import net.perfectdreams.imageserver.routes.PostCarlyAaahRoute
@@ -30,9 +28,6 @@ import net.perfectdreams.imageserver.utils.extensions.alreadyHandledStatus
 import net.perfectdreams.imageserver.utils.extensions.respondJson
 import java.io.File
 import java.util.concurrent.Executors
-import kotlin.reflect.full.createType
-import kotlin.reflect.full.isSubtypeOf
-import kotlin.reflect.full.isSupertypeOf
 
 class GabrielaImageGen(val config: AppConfig) {
     companion object {

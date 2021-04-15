@@ -5,13 +5,15 @@ import io.ktor.http.*
 import io.ktor.response.*
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
-import net.perfectdreams.imagegen.cortesflow.CortesFlowGenerator
+import net.perfectdreams.imagegen.generators.cortesflow.CortesFlowGenerator
 import net.perfectdreams.imagegen.graphics.Image
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.routes.VersionedAPIRoute
-import net.perfectdreams.imageserver.routes.getStringDataContext
+import net.perfectdreams.imageserver.routes.drake.SimpleDrakeImageRoute
+import net.perfectdreams.imageserver.utils.extensions.getStringDataContext
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
+import net.perfectdreams.imageserver.utils.extensions.retrieveStringFromStringData
 import java.util.*
 
 open class PostCortesFlowRoute(val m: GabrielaImageGen, val generator: CortesFlowGenerator, path: String) : VersionedAPIRoute(
@@ -23,19 +25,15 @@ open class PostCortesFlowRoute(val m: GabrielaImageGen, val generator: CortesFlo
 
     override suspend fun onRequest(call: ApplicationCall) {
         try {
-            val uniqueId = UUID.randomUUID()
+            withRequest(logger) {
+                val sourceString = call.retrieveStringFromStringData(0)
 
-            logger.info { "Received request with UUID: $uniqueId" }
-            val imagesContext = call.getStringDataContext()
+                val result = withContext(m.coroutineDispatcher) {
+                    generator.generate(sourceString)
+                }
 
-            val sourceString = imagesContext.retrieveString(0)
-
-            val result = withContext(m.coroutineDispatcher) {
-                generator.generate(sourceString)
+                call.respondBytes(JVMImage(result).toByteArray(Image.FormatType.JPEG), ContentType.Image.JPEG)
             }
-
-            call.respondBytes(JVMImage(result).toByteArray(Image.FormatType.JPEG), ContentType.Image.JPEG)
-            logger.info { "Sent request with UUID: $uniqueId (yay!)" }
         } catch (e: Throwable) {
             WebsiteExceptionProcessor.handle(e)
         }

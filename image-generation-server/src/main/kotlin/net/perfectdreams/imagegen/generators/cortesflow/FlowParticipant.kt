@@ -1,4 +1,4 @@
-package net.perfectdreams.imagegen.cortesflow
+package net.perfectdreams.imagegen.generators.cortesflow
 
 enum class FlowParticipant(val displayName: String) {
     MONARK("Monark"),
