@@ -102,6 +102,13 @@ object ImageUtils {
         return ImageIO.read(imageBytes.inputStream())
     }
 
+    fun deepCopy(bi: BufferedImage): BufferedImage {
+        val cm = bi.colorModel
+        val isAlphaPremultiplied = cm.isAlphaPremultiplied
+        val raster = bi.copyData(bi.raster.createCompatibleWritableRaster())
+        return BufferedImage(cm, raster, isAlphaPremultiplied, null)
+    }
+
     class ContentLengthTooLargeException : IllegalArgumentException()
     class ImageTooLargeException : IllegalArgumentException()
 }

@@ -19,7 +19,7 @@ fun main() {
     }
 
     runBlocking {
-        val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/mania-title-card") {
+        val r = http.post<HttpResponse>("https://gabriela-canary.loritta.website/api/v1/images/mania-title-card") {
             body = buildJsonObject {
                 putJsonArray("strings") {
                     addJsonObject {

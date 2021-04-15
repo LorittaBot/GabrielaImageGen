@@ -1,5 +1,6 @@
 package net.perfectdreams.imagegen.generators.cortesflow
 
+import net.perfectdreams.imageserver.utils.ImageUtils
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -36,7 +37,7 @@ open class CortesFlowGenerator(
     }
 
     fun generate(text: String): BufferedImage {
-        val backgroundTemplate = deepCopy(template)
+        val backgroundTemplate = ImageUtils.deepCopy(template)
         val graphics = backgroundTemplate.createGraphics()
 
         graphics.setRenderingHint(
@@ -108,13 +109,6 @@ open class CortesFlowGenerator(
         }
 
         return backgroundTemplate
-    }
-
-    private fun deepCopy(bi: BufferedImage): BufferedImage {
-        val cm = bi.colorModel
-        val isAlphaPremultiplied = cm.isAlphaPremultiplied
-        val raster = bi.copyData(bi.raster.createCompatibleWritableRaster())
-        return BufferedImage(cm, raster, isAlphaPremultiplied, null)
     }
 
     fun drawTextCentralizedNewLines(graphics: Graphics, maxWidth: Int, font: Font, text: String, startAtX: Int, startAtY: Int, throwOnOverflow: Boolean) {

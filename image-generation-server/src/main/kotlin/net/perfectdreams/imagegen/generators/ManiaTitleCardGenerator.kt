@@ -2,6 +2,7 @@ package net.perfectdreams.imagegen.generators
 
 import net.perfectdreams.imagegen.graphics.Image
 import net.perfectdreams.imagegen.graphics.JVMImage
+import net.perfectdreams.imageserver.utils.ImageUtils
 import net.perfectdreams.imageserver.utils.extensions.toBufferedImage
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -13,6 +14,7 @@ class ManiaTitleCardGenerator(
     val characters: Map<Char, BufferedImage>
 ) {
     fun generate(text1: String, text2: String?): Image {
+        val image = ImageUtils.deepCopy(image)
         val graphics = image.graphics
         graphics.color = Color.BLACK
 
