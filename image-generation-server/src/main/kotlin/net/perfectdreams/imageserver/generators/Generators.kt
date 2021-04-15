@@ -79,10 +79,10 @@ class Generators(val m: GabrielaImageGen) {
         assetsFolder.mkdirs()
     }
 
-    val CARLY_AAAH_GENERATOR = CarlyAaahGenerator(tempFolder, File(assetsFolder, "video_templates/carly_aaah"), ffmpegPath)
-    val ATTACK_ON_HEART_GENERATOR = AttackOnHeartGenerator(tempFolder, File(assetsFolder, "video_templates/attack_on_heart"), ffmpegPath)
-    val COCIELO_CHAVES_GENERATOR = CocieloChavesGenerator(tempFolder, File(assetsFolder, "video_templates/cocielo_chaves"), ffmpegPath)
-    val HAND_PAT_GENERATOR = PetPetGenerator(m, File(assetsFolder, "image_templates/hand_pat"))
+    val carlyAaahGenerator = CarlyAaahGenerator(tempFolder, File(assetsFolder, "video_templates/carly_aaah"), ffmpegPath)
+    val attackOnHeartGenerator = AttackOnHeartGenerator(tempFolder, File(assetsFolder, "video_templates/attack_on_heart"), ffmpegPath)
+    val cocieloChavesGenerator = CocieloChavesGenerator(tempFolder, File(assetsFolder, "video_templates/cocielo_chaves"), ffmpegPath)
+    val petPetGenerator = PetPetGenerator(m, File(assetsFolder, "image_templates/hand_pat"))
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/cut_left.png")),

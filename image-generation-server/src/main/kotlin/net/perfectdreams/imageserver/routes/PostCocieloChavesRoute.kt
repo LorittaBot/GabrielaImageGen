@@ -10,7 +10,6 @@ import mu.KotlinLogging
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
 import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
-import java.util.*
 
 class PostCocieloChavesRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
         "/videos/cocielo-chaves"
@@ -47,7 +46,7 @@ class PostCocieloChavesRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
                         highQualitySemaphore
 
                     semaphoreToBeUsed.withPermit {
-                        m.generators.COCIELO_CHAVES_GENERATOR.generate(
+                        m.generators.cocieloChavesGenerator.generate(
                             sourceImage1,
                             sourceImage2,
                             sourceImage3,

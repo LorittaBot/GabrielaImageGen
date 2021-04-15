@@ -7,9 +7,7 @@ import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
-import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
 import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
-import java.util.*
 
 class PostPetPetRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
     "/images/pet-pet"
@@ -24,7 +22,7 @@ class PostPetPetRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
                 val sourceImage = call.retrieveImageFromImageData(0)
 
                 val result = withContext(m.coroutineDispatcher) {
-                    m.generators.HAND_PAT_GENERATOR.generate(sourceImage)
+                    m.generators.petPetGenerator.generate(sourceImage)
                 }
 
                 call.respondBytes(result, ContentType.Image.GIF)

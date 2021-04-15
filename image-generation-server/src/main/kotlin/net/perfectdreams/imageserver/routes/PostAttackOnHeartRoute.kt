@@ -6,10 +6,8 @@ import io.ktor.response.*
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import net.perfectdreams.imageserver.GabrielaImageGen
-import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
 import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
-import java.util.*
 
 class PostAttackOnHeartRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
     "/videos/attack-on-heart"
@@ -24,7 +22,7 @@ class PostAttackOnHeartRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
                 val sourceImage = call.retrieveImageFromImageData(0)
 
                 val result = withContext(m.coroutineDispatcher) {
-                    m.generators.ATTACK_ON_HEART_GENERATOR.generate(sourceImage)
+                    m.generators.attackOnHeartGenerator.generate(sourceImage)
                 }
 
                 call.respondBytes(result, ContentType.Video.MP4)
