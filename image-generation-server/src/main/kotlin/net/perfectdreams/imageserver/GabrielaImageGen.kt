@@ -16,6 +16,7 @@ import net.perfectdreams.imageserver.routes.PostAttackOnHeartRoute
 import net.perfectdreams.imageserver.routes.PostCarlyAaahRoute
 import net.perfectdreams.imageserver.routes.PostCepoDeMadeiraRoute
 import net.perfectdreams.imageserver.routes.PostCocieloChavesRoute
+import net.perfectdreams.imageserver.routes.PostGetOverHereRoute
 import net.perfectdreams.imageserver.routes.PostManiaTitleCardRoute
 import net.perfectdreams.imageserver.routes.PostPetPetRoute
 import net.perfectdreams.imageserver.routes.cortesflow.CortesFlowRoutes
@@ -51,6 +52,7 @@ class GabrielaImageGen(val config: AppConfig) {
         GetCortesFlowRoute(this),
         PostManiaTitleCardRoute(this),
         PostCepoDeMadeiraRoute(this),
+        PostGetOverHereRoute(this),
         *SkewedRoutes(this).all().toTypedArray(),
         *ScaledRoutes(this).all().toTypedArray(),
         *DrakeRoutes(this).all().toTypedArray(),

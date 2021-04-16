@@ -90,6 +90,7 @@ class Generators(val m: GabrielaImageGen) {
     val cocieloChavesGenerator = CocieloChavesGenerator(tempFolder, File(assetsFolder, "video_templates/cocielo_chaves"), ffmpegPath)
     val petPetGenerator = PetPetGenerator(m, File(assetsFolder, "image_templates/hand_pat"))
     val cepoDeMadeiraGenerator = CepoDeMadeiraGenerator(m, File(assetsFolder, "image_templates/cepo"))
+    val getOverHereGenerator = CepoDeMadeiraGenerator(m, File(assetsFolder, "image_templates/get_over_here"))
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
