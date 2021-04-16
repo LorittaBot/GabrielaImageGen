@@ -19,7 +19,7 @@ class Gifsicle(val binaryPath: File) {
             // "--lossy=$lossy",
             // "--colors",
             // "256"
-        ).redirectErrorStream(true)
+        ).inheritIO().redirectErrorStream(true)
 
         val process = processBuilder.start()
 

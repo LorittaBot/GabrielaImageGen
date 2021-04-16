@@ -1,7 +1,8 @@
-package net.perfectdreams.imageserver.generators
+package net.perfectdreams.imagegen.generators
 
 import net.perfectdreams.imagegen.generators.cortesflow.*
 import net.perfectdreams.imageserver.GabrielaImageGen
+import net.perfectdreams.imageserver.generators.Generators
 import java.awt.Font
 import java.io.File
 import javax.imageio.ImageIO

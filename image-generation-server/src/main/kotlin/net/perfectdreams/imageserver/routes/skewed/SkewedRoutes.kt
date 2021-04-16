@@ -44,24 +44,4 @@ class SkewedRoutes(val m: GabrielaImageGen) {
             override fun getMethod() = HttpMethod.Post
         }
     }
-
-    fun convertToSnakeCase(input: String): String {
-        val x = input.removeSuffix("Generator")
-
-        val newString = StringBuilder()
-
-        for (index in x.indices) {
-            val charAt = x[index]
-            val nextChar = x.getOrNull(index + 1)
-
-            if (charAt.isLowerCase() && nextChar?.isUpperCase() == true) {
-                newString.append(charAt.toLowerCase())
-                newString.append("_")
-            } else {
-                newString.append(charAt.toLowerCase())
-            }
-        }
-
-        return newString.toString()
-    }
 }

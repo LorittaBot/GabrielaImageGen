@@ -1,6 +1,7 @@
 package net.perfectdreams.imageserver.utils
 
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.apache.*
 import io.ktor.client.request.post
 import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
@@ -14,19 +15,21 @@ import java.net.URL
 import java.util.*
 
 fun main() {
-    val http = HttpClient {
-
+    val http = HttpClient(Apache) {
+        this.engine {
+            this.connectTimeout = 60_000
+            this.connectionRequestTimeout = 60_000
+            this.socketTimeout = 60_000
+        }
     }
 
     runBlocking {
-        val r = http.post<HttpResponse>("https://gabriela-canary.loritta.website/api/v1/images/mania-title-card") {
+        val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/cepo-de-madeira") {
             body = buildJsonObject {
-                putJsonArray("strings") {
+                putJsonArray("images") {
                     addJsonObject {
-                        put("string", "South America")
-                    }
-                    addJsonObject {
-                        put("string", "Memes")
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
                     }
                 }
             }.toString()

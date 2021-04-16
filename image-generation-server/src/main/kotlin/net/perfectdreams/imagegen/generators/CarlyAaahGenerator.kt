@@ -1,6 +1,7 @@
-package net.perfectdreams.imageserver.generators
+package net.perfectdreams.imagegen.generators
 
 import net.perfectdreams.imagegen.graphics.LorittaImage
+import net.perfectdreams.imageserver.generators.Generators
 import net.perfectdreams.imageserver.utils.extensions.toBufferedImage
 import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream

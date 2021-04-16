@@ -1,4 +1,4 @@
-package net.perfectdreams.imageserver.generators
+package net.perfectdreams.imagegen.generators
 
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.GifSequenceWriter

@@ -1,4 +1,4 @@
-package net.perfectdreams.imageserver.generators
+package net.perfectdreams.imagegen.generators
 
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Deferred
@@ -8,6 +8,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.perfectdreams.imagegen.graphics.LorittaImage
+import net.perfectdreams.imageserver.generators.Generators
 import net.perfectdreams.imageserver.utils.NoCopyByteArrayOutputStream
 import java.awt.AlphaComposite
 import java.awt.Graphics2D

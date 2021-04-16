@@ -3,7 +3,7 @@ package net.perfectdreams.imageserver.routes.cortesflow
 import io.ktor.http.*
 import net.perfectdreams.imagegen.generators.cortesflow.CortesFlowGenerator
 import net.perfectdreams.imageserver.GabrielaImageGen
-import net.perfectdreams.imageserver.generators.CortesFlowGenerators
+import net.perfectdreams.imagegen.generators.CortesFlowGenerators
 import net.perfectdreams.imageserver.routes.RouteUtils
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.createType
