@@ -5,6 +5,8 @@ import net.perfectdreams.imagegen.generators.CarlyAaahGenerator
 import net.perfectdreams.imagegen.generators.CepoDeMadeiraGenerator
 import net.perfectdreams.imagegen.generators.CocieloChavesGenerator
 import net.perfectdreams.imagegen.generators.CortesFlowGenerators
+import net.perfectdreams.imagegen.generators.GetOverHereGenerator
+import net.perfectdreams.imagegen.generators.KnucklesThrowGenerator
 import net.perfectdreams.imagegen.generators.ManiaTitleCardGenerator
 import net.perfectdreams.imagegen.generators.PetPetGenerator
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
@@ -90,7 +92,8 @@ class Generators(val m: GabrielaImageGen) {
     val cocieloChavesGenerator = CocieloChavesGenerator(tempFolder, File(assetsFolder, "video_templates/cocielo_chaves"), ffmpegPath)
     val petPetGenerator = PetPetGenerator(m, File(assetsFolder, "image_templates/hand_pat"))
     val cepoDeMadeiraGenerator = CepoDeMadeiraGenerator(m, File(assetsFolder, "image_templates/cepo"))
-    val getOverHereGenerator = CepoDeMadeiraGenerator(m, File(assetsFolder, "image_templates/get_over_here"))
+    val getOverHereGenerator = GetOverHereGenerator(m, File(assetsFolder, "image_templates/get_over_here"))
+    val knucklesThrowGenerator = KnucklesThrowGenerator(m, File(assetsFolder, "image_templates/knux_throw"))
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
