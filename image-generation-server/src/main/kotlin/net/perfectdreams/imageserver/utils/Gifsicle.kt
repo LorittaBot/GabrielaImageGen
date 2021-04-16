@@ -14,12 +14,12 @@ class Gifsicle(val binaryPath: File) {
         val processBuilder = ProcessBuilder(
             binaryPath.toString(),
             "-w", // ignore warnings
-            "--careful" // avoids discord bugs
-            // "-O3",
+            // "--careful", // avoids discord bugs
+            "-O3",
             // "--lossy=$lossy",
             // "--colors",
             // "256"
-        ).inheritIO().redirectErrorStream(true)
+        ).redirectErrorStream(true)
 
         val process = processBuilder.start()
 
@@ -32,8 +32,13 @@ class Gifsicle(val binaryPath: File) {
         logger.info { "Closing output stream..." }
         outputStream.close()
 
+        // If we don't read it here, Gifsicle gets stuck for some reason
+        val bytes = process.inputStream.readAllBytes()
+
+        logger.info { "Waiting for Gifsicle..." }
         process.waitFor()
 
-        return process.inputStream.readAllBytes()
+        logger.info { "Gifsicle finished!" }
+        return bytes
     }
 }
