@@ -10,6 +10,7 @@ import net.perfectdreams.imagegen.generators.KnucklesThrowGenerator
 import net.perfectdreams.imagegen.generators.ManiaTitleCardGenerator
 import net.perfectdreams.imagegen.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.imagegen.generators.PetPetGenerator
+import net.perfectdreams.imagegen.generators.TrumpGenerator
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.DrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.LoriDrakeGenerator
@@ -96,6 +97,7 @@ class Generators(val m: GabrielaImageGen) {
     val getOverHereGenerator = GetOverHereGenerator(m, File(assetsFolder, "image_templates/get_over_here"))
     val knucklesThrowGenerator = KnucklesThrowGenerator(m, File(assetsFolder, "image_templates/knux_throw"))
     val nichijouYuukoPaperGenerator = NichijouYuukoPaperGenerator(m, File(assetsFolder, "image_templates/nichijou_yuuko_paper"))
+    val trumpGenerator = TrumpGenerator(m, File(assetsFolder, "image_templates/trump"))
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
