@@ -103,7 +103,7 @@ class Generators(val m: GabrielaImageGen) {
     val terminatorAnimeGenerator = TerminatorAnimeGenerator(
         m,
         ImageIO.read(File(assetsFolder, "image_templates/terminator_anime/template.png")),
-        Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/lato-bold.ttf"))
+        Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/lato-bold.ttf")).deriveFont(24f)
     )
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
