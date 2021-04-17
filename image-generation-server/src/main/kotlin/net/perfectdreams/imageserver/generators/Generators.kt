@@ -10,6 +10,7 @@ import net.perfectdreams.imagegen.generators.KnucklesThrowGenerator
 import net.perfectdreams.imagegen.generators.ManiaTitleCardGenerator
 import net.perfectdreams.imagegen.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.imagegen.generators.PetPetGenerator
+import net.perfectdreams.imagegen.generators.SAMGenerator
 import net.perfectdreams.imagegen.generators.TerminatorAnimeGenerator
 import net.perfectdreams.imagegen.generators.TrumpGenerator
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
@@ -105,6 +106,9 @@ class Generators(val m: GabrielaImageGen) {
         ImageIO.read(File(assetsFolder, "image_templates/terminator_anime/template.png")),
         Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/lato-bold.ttf")).deriveFont(24f)
     )
+    val samLogo1Generator = SAMGenerator(loadImage("image_templates/sam/sam_1.png"))
+    val samLogo2Generator = SAMGenerator(loadImage("image_templates/sam/sam_2.png"))
+    val samLogo3Generator = SAMGenerator(loadImage("image_templates/sam/sam_3.png"))
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),

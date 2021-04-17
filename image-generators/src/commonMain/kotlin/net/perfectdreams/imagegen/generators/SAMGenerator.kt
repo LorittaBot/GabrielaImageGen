@@ -2,28 +2,37 @@ package net.perfectdreams.imagegen.generators
 
 import net.perfectdreams.imagegen.graphics.Image
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 class SAMGenerator(val samLogo: Image) {
-    fun generate(source: Image): Image {
-        val random = Random(10)
-        val x = random.nextInt(0, max(1, source.width - samLogo.width))
-        val y = random.nextInt(0, max(1, source.height - samLogo.height))
+    fun generate(source: Image, xPercentage: Double, yPercentage: Double): Image {
+        // The SAM logo needs to be 1/4 of the original image
+        // (So we divide by 2... which is half the size)
+        val isHeightSmaller = source.width > source.height
+        val smallestSide = (if (isHeightSmaller) source.height else source.width) / 2
 
-        return generate(source, x, y)
-    }
+        // If the size is smaller than zero, just return the source image
+        if (0 >= smallestSide)
+            return source
 
-    fun generate(source: Image, x: Int, y: Int): Image {
-        val div = 2
+        val logoScalePercentage = if (isHeightSmaller)
+            smallestSide / source.height.toDouble()
+        else
+            smallestSide / source.width.toDouble()
 
-        val height = (source.height / div).toInt() // We are going to scale based on the source's height
-        // originalHeight -- newHeight
-        // originalWidth -- newWidth
-        val width = ((samLogo.width * height) / samLogo.height) // And now scale the width accordingly
+        val scaledSAMLogo = samLogo.getScaledInstance(
+            (samLogo.width * logoScalePercentage).toInt(),
+            (samLogo.height * logoScalePercentage).toInt(),
+            Image.ScaleType.SMOOTH
+        )
 
-        val seloSouthAmericaMemes = samLogo.getScaledInstance(width, height, Image.ScaleType.SMOOTH)
-
-        source.createGraphics().drawImage(seloSouthAmericaMemes, x, y)
+        // Now paste somewhere!
+        source.createGraphics().drawImage(
+            scaledSAMLogo,
+            ((xPercentage * source.width) - (scaledSAMLogo.width / 2)).toInt(),
+            ((yPercentage * source.height) - (scaledSAMLogo.height / 2)).toInt()
+        )
 
         return source
     }
