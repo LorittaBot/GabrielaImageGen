@@ -20,7 +20,7 @@ class KnucklesThrowGenerator(
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
-        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 7, true, true)
+        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 10, true, true)
 
         val loriImage = LorittaImage(targetImage)
         loriImage.resize(400, 225)

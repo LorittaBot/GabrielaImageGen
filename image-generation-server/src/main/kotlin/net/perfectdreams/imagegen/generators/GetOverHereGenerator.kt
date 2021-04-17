@@ -20,7 +20,7 @@ class GetOverHereGenerator(
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
-        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 7, true, true)
+        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 10, true, true)
 
         for (i in 0..52) {
             val file = File(assetsFolder, "scorpion_${i.toString().padStart(6, '0')}.png")

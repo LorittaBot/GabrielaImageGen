@@ -20,7 +20,7 @@ class NichijouYuukoPaperGenerator(
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
-        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 7, true, true)
+        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 10, true, true)
 
         // Those images are used in the GIF generation loop
         // Because they never change, we will pre-edit them, giving a smol performance boost!
