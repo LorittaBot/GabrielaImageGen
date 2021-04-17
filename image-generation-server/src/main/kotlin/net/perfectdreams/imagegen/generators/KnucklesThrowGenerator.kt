@@ -54,7 +54,7 @@ class KnucklesThrowGenerator(
         for (i in 0..61) {
             val file = File(assetsFolder, "base/knuxthrow_${i.toString().padStart(6, '0')}.png")
             if (file.exists()) {
-                val ogImage = ImageIO.read(File(assetsFolder, "base/knuxthrow_${i.toString().padStart(6, '0')}.png"))
+                val ogImage = ImageIO.read(file)
                 val graphics = ogImage.graphics
 
                 if (i in 2..19) {

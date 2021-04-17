@@ -26,7 +26,7 @@ class CepoDeMadeiraGenerator(
             val file = File(assetsFolder, "/base/cepo_${i.toString().padStart(6, '0')}.png")
 
             if (file.exists()) {
-                val ogImage = ImageIO.read(File(assetsFolder, "/base/cepo_${i.toString().padStart(6, '0')}.png"))
+                val ogImage = ImageIO.read(file)
                 val image = BufferedImage(ogImage.width, ogImage.height, BufferedImage.TYPE_INT_ARGB)
 
                 image.graphics.drawImage(ogImage, 0, 0, null)
