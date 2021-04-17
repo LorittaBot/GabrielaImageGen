@@ -9,17 +9,12 @@ class SAMGenerator(val samLogo: Image) {
     fun generate(source: Image, xPercentage: Double, yPercentage: Double): Image {
         // The SAM logo needs to be 1/4 of the original image
         // (So we divide by 2... which is half the size)
-        val isHeightSmaller = source.width > source.height
-        val smallestSide = (if (isHeightSmaller) source.height else source.width) / 2
-
-        // If the size is smaller than zero, just return the source image
-        if (0 >= smallestSide)
-            return source
-
-        val logoScalePercentage = if (isHeightSmaller)
-            smallestSide / source.height.toDouble()
-        else
-            smallestSide / source.width.toDouble()
+        val logoScalePercentage: Double
+        if (source.width > source.height) {
+            logoScalePercentage = (source.width / 2.0) / samLogo.width.toDouble()
+        } else {
+            logoScalePercentage = (source.height / 2.0) / samLogo.height.toDouble()
+        }
 
         val scaledSAMLogo = samLogo.getScaledInstance(
             (samLogo.width * logoScalePercentage).toInt(),
