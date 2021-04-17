@@ -24,6 +24,27 @@ fun main() {
     }
 
     runBlocking {
+        if (true) {
+            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/terminator-anime") {
+                body = buildJsonObject {
+                    putJsonArray("strings") {
+                        addJsonObject {
+                            put("string", "owo")
+                        }
+                        addJsonObject {
+                            put("string", "uwu")
+                        }
+                    }
+                }.toString()
+            }
+
+            println(r.status)
+            println(r)
+
+            File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\mania_title_card.png")
+                .writeBytes(r.readBytes())
+            return@runBlocking
+        }
         val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/nichijou-yuuko-paper") {
             body = buildJsonObject {
                 putJsonArray("images") {

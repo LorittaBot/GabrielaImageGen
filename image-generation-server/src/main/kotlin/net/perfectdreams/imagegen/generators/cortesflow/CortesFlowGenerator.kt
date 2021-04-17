@@ -1,6 +1,7 @@
 package net.perfectdreams.imagegen.generators.cortesflow
 
 import net.perfectdreams.imageserver.utils.ImageUtils
+import net.perfectdreams.imageserver.utils.extensions.enableFontAntialiasing
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -39,11 +40,7 @@ open class CortesFlowGenerator(
     fun generate(text: String): BufferedImage {
         val backgroundTemplate = ImageUtils.deepCopy(template)
         val graphics = backgroundTemplate.createGraphics()
-
-        graphics.setRenderingHint(
-            RenderingHints.KEY_TEXT_ANTIALIASING,
-            RenderingHints.VALUE_TEXT_ANTIALIAS_ON
-        )
+            .enableFontAntialiasing()
 
         val newImage = BufferedImage(
             backgroundTemplate.width,

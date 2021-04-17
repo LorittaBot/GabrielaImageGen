@@ -10,6 +10,7 @@ import net.perfectdreams.imagegen.generators.KnucklesThrowGenerator
 import net.perfectdreams.imagegen.generators.ManiaTitleCardGenerator
 import net.perfectdreams.imagegen.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.imagegen.generators.PetPetGenerator
+import net.perfectdreams.imagegen.generators.TerminatorAnimeGenerator
 import net.perfectdreams.imagegen.generators.TrumpGenerator
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.DrakeGenerator
@@ -38,6 +39,7 @@ import net.perfectdreams.imagegen.generators.skewed.RomeroBrittoGenerator
 import net.perfectdreams.imagegen.generators.skewed.WolverineFrameGenerator
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
+import java.awt.Font
 import java.io.File
 import java.util.*
 import javax.imageio.ImageIO
@@ -98,6 +100,11 @@ class Generators(val m: GabrielaImageGen) {
     val knucklesThrowGenerator = KnucklesThrowGenerator(m, File(assetsFolder, "image_templates/knux_throw"))
     val nichijouYuukoPaperGenerator = NichijouYuukoPaperGenerator(m, File(assetsFolder, "image_templates/nichijou_yuuko_paper"))
     val trumpGenerator = TrumpGenerator(m, File(assetsFolder, "image_templates/trump"))
+    val terminatorAnimeGenerator = TerminatorAnimeGenerator(
+        m,
+        ImageIO.read(File(assetsFolder, "image_templates/terminator_anime/template.png")),
+        Font.createFont(Font.TRUETYPE_FONT, File("image_templates/terminator_anime/lato_bold.ttf"))
+    )
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
