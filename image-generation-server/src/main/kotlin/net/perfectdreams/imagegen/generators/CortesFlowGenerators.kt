@@ -10,7 +10,7 @@ import javax.imageio.ImageIO
 class CortesFlowGenerators(val m: GabrielaImageGen) {
     val montserratExtraBold = Font.createFont(
         Font.TRUETYPE_FONT,
-        File(m.config.assetsFolder + "/image_templates/cortes_flow/montserrat-extrabold.otf")
+        File(m.config.assetsFolder + "/fonts/montserrat-extrabold.otf")
     )
 
     // ===[ CORTES FLOW ]===
