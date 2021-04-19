@@ -17,6 +17,7 @@ import net.perfectdreams.imageserver.routes.PostCarlyAaahRoute
 import net.perfectdreams.imageserver.routes.PostCepoDeMadeiraRoute
 import net.perfectdreams.imageserver.routes.PostCocieloChavesRoute
 import net.perfectdreams.imageserver.routes.PostGetOverHereRoute
+import net.perfectdreams.imageserver.routes.PostInvertColorsGeneratorRoute
 import net.perfectdreams.imageserver.routes.PostKnucklesThrowRoute
 import net.perfectdreams.imageserver.routes.PostManiaTitleCardRoute
 import net.perfectdreams.imageserver.routes.PostNichijouYuukoPaperRoute
@@ -65,6 +66,7 @@ class GabrielaImageGen(val config: AppConfig) {
         PostTerminatorAnimeRoute(this),
         PostSAMLogoRoute(this),
         PostToBeContinuedGeneratorRoute(this),
+        PostInvertColorsGeneratorRoute(this),
         *SkewedRoutes(this).all().toTypedArray(),
         *ScaledRoutes(this).all().toTypedArray(),
         *DrakeRoutes(this).all().toTypedArray(),

@@ -6,6 +6,7 @@ import net.perfectdreams.imagegen.generators.CepoDeMadeiraGenerator
 import net.perfectdreams.imagegen.generators.CocieloChavesGenerator
 import net.perfectdreams.imagegen.generators.CortesFlowGenerators
 import net.perfectdreams.imagegen.generators.GetOverHereGenerator
+import net.perfectdreams.imagegen.generators.InvertColorsGenerator
 import net.perfectdreams.imagegen.generators.KnucklesThrowGenerator
 import net.perfectdreams.imagegen.generators.ManiaTitleCardGenerator
 import net.perfectdreams.imagegen.generators.NichijouYuukoPaperGenerator
@@ -127,6 +128,7 @@ class Generators(val m: GabrielaImageGen) {
         m,
         ImageIO.read(File(assetsFolder, "image_templates/to_be_continued/arrow.png"))
     )
+    val invertColorsGenerator = InvertColorsGenerator()
 
     // ===[ SKEWED IMAGE GENERATORS ]===
     val artGenerator = createSimpleSkewedGenerator<ArtGenerator>()
