@@ -7,10 +7,10 @@ import net.perfectdreams.imagegen.graphics.createImage
 abstract class BasicSkewedImageGenerator(
     val template: Image,
     val corners: List<Corners>
-) {
+) : SingleSourceImageGenerator {
     constructor(template: Image, corner: Corners) : this(template, listOf(corner))
 
-    fun generate(source: Image): Image {
+    override fun generate(source: Image): Image {
         // Create a base image
         val newImage = createImage(template.width, template.height)
         val graphics = newImage.createGraphics()

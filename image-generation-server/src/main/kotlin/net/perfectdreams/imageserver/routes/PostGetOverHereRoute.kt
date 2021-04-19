@@ -9,26 +9,9 @@ import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
 import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
 
-class PostGetOverHereRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
+class PostGetOverHereRoute(m: GabrielaImageGen) : PostSingleSourceImageToByteArrayGeneratorRoute(
+    m,
+    m.generators.getOverHereGenerator,
+    ContentType.Image.GIF,
     "/images/get-over-here"
-) {
-    companion object {
-        private val logger = KotlinLogging.logger {}
-    }
-
-    override suspend fun onRequest(call: ApplicationCall) {
-        try {
-            withRequest(logger) {
-                val sourceImage = call.retrieveImageFromImageData(0)
-
-                val result = withContext(m.coroutineDispatcher) {
-                    m.generators.getOverHereGenerator.generate(sourceImage)
-                }
-
-                call.respondBytes(result, ContentType.Image.GIF)
-            }
-        } catch (e: Throwable) {
-            WebsiteExceptionProcessor.handle(e)
-        }
-    }
-}
+)

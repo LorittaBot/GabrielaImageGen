@@ -9,26 +9,9 @@ import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
 import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
 
-class PostKnucklesThrowRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
+class PostKnucklesThrowRoute(m: GabrielaImageGen) : PostSingleSourceImageToByteArrayGeneratorRoute(
+    m,
+    m.generators.knucklesThrowGenerator,
+    ContentType.Image.GIF,
     "/images/knuckles-throw"
-) {
-    companion object {
-        private val logger = KotlinLogging.logger {}
-    }
-
-    override suspend fun onRequest(call: ApplicationCall) {
-        try {
-            withRequest(logger) {
-                val sourceImage = call.retrieveImageFromImageData(0)
-
-                val result = withContext(m.coroutineDispatcher) {
-                    m.generators.knucklesThrowGenerator.generate(sourceImage)
-                }
-
-                call.respondBytes(result, ContentType.Image.GIF)
-            }
-        } catch (e: Throwable) {
-            WebsiteExceptionProcessor.handle(e)
-        }
-    }
-}
+)

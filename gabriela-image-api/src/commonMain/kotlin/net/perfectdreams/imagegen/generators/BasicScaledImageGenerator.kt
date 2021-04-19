@@ -9,8 +9,8 @@ abstract class BasicScaledImageGenerator(
     val scaleYTo: Int,
     val x: Int,
     val y: Int,
-) {
-    fun generate(source: Image): Image {
+) : SingleSourceImageGenerator {
+    override fun generate(source: Image): Image {
         // Create a base image
         val newImage = createImage(template.width, template.height)
         val graphics = newImage.createGraphics()

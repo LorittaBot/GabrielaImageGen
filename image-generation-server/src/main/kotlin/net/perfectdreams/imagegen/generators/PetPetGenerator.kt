@@ -11,7 +11,7 @@ import javax.imageio.stream.MemoryCacheImageOutputStream
 class PetPetGenerator(
     val m: GabrielaImageGen,
     assetsFolder: File
-) {
+) : SingleSourceBufferedImageToByteArrayGenerator {
     // Based on https://benisland.neocities.org/petpet/
     // Thx ben!
 
@@ -65,7 +65,7 @@ class PetPetGenerator(
         )
     )
     
-    fun generate(targetImage: BufferedImage): ByteArray {
+    override fun generate(source: BufferedImage): ByteArray {
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
@@ -74,7 +74,7 @@ class PetPetGenerator(
         for ((idx, frame) in spritePositions.withIndex()) {
             val new = BufferedImage(112, 112, BufferedImage.TYPE_INT_ARGB)
 
-            val editedFrame = targetImage.getScaledInstance(frame.w, frame.h, BufferedImage.SCALE_SMOOTH)
+            val editedFrame = source.getScaledInstance(frame.w, frame.h, BufferedImage.SCALE_SMOOTH)
             new.graphics.drawImage(editedFrame, frame.x, frame.y, null)
             new.graphics.drawImage(handPatSprites[idx], 0, 0, null)
 

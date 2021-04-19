@@ -4,19 +4,17 @@ import net.perfectdreams.imagegen.graphics.LorittaImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.GifSequenceWriter
 import net.perfectdreams.imageserver.utils.extensions.toBufferedImage
-import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.imageio.ImageIO
-import javax.imageio.stream.FileImageOutputStream
 import javax.imageio.stream.MemoryCacheImageOutputStream
 
 class NichijouYuukoPaperGenerator(
     val m: GabrielaImageGen,
     val assetsFolder: File
-) {
-    fun generate(targetImage: BufferedImage): ByteArray {
+) : SingleSourceBufferedImageToByteArrayGenerator {
+    override fun generate(source: BufferedImage): ByteArray {
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
@@ -25,7 +23,7 @@ class NichijouYuukoPaperGenerator(
         // Those images are used in the GIF generation loop
         // Because they never change, we will pre-edit them, giving a smol performance boost!
         // (And less memory garbage generated!)
-        val section1Scaled = targetImage.getScaledInstance(400, 224, BufferedImage.SCALE_SMOOTH).toBufferedImage()
+        val section1Scaled = source.getScaledInstance(400, 224, BufferedImage.SCALE_SMOOTH).toBufferedImage()
         val section1Transformed = LorittaImage(section1Scaled)
         section1Transformed.setCorners(131F, 55F,
             252F, 16F,
@@ -33,7 +31,7 @@ class NichijouYuukoPaperGenerator(
             190F, 223F)
         val section1Image = section1Transformed.bufferedImage
 
-        val scaled2Image = targetImage.getScaledInstance(500, 400, BufferedImage.SCALE_SMOOTH).toBufferedImage()
+        val scaled2Image = source.getScaledInstance(500, 400, BufferedImage.SCALE_SMOOTH).toBufferedImage()
         val scaled2Transformed = LorittaImage(scaled2Image)
         scaled2Transformed.setCorners(56F, 66F,
             297F, 0F,

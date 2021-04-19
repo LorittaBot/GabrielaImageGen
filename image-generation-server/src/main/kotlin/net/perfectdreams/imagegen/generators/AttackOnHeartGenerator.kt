@@ -13,8 +13,8 @@ class AttackOnHeartGenerator(
         val tempFolder: File,
         val assetsFolder: File,
         val ffmpegPath: File
-) {
-    fun generate(targetImage: BufferedImage): ByteArray {
+) : SingleSourceBufferedImageToByteArrayGenerator {
+    override fun generate(source: BufferedImage): ByteArray {
         val outputFileName = Generators.generateFileName("attack-on-heart", "mp4")
         val outputFile = File(tempFolder, outputFileName)
 
@@ -23,7 +23,7 @@ class AttackOnHeartGenerator(
 
         // we only need to scale it once, no need to scale every time inside of the "repeat" block
         val lorittaImage = LorittaImage(
-                targetImage.getScaledInstance(960, 540, BufferedImage.SCALE_SMOOTH)
+                source.getScaledInstance(960, 540, BufferedImage.SCALE_SMOOTH)
                         .toBufferedImage()
         )
 

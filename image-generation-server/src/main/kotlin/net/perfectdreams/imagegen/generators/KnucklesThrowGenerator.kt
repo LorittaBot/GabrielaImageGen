@@ -9,20 +9,19 @@ import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.imageio.ImageIO
-import javax.imageio.stream.FileImageOutputStream
 import javax.imageio.stream.MemoryCacheImageOutputStream
 
 class KnucklesThrowGenerator(
     val m: GabrielaImageGen,
     val assetsFolder: File
-) {
-    fun generate(targetImage: BufferedImage): ByteArray {
+) : SingleSourceBufferedImageToByteArrayGenerator {
+    override fun generate(source: BufferedImage): ByteArray {
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
         val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 10, true, true)
 
-        val loriImage = LorittaImage(targetImage)
+        val loriImage = LorittaImage(source)
         loriImage.resize(400, 225)
 
         val aux1 = loriImage.copy()
@@ -44,7 +43,7 @@ class KnucklesThrowGenerator(
         val auxBuf2 = aux2.bufferedImage
 
         // We scale it to 1x1 so we can get the average color of the target image
-        val scaleForColor = targetImage.getScaledInstance(1, 1, BufferedImage.SCALE_AREA_AVERAGING)
+        val scaleForColor = source.getScaledInstance(1, 1, BufferedImage.SCALE_AREA_AVERAGING)
         val override = Color(scaleForColor.toBufferedImage().getRGB(0, 0))
 
         val overrideHsbVals = FloatArray(3)

@@ -7,15 +7,14 @@ import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.imageio.ImageIO
-import javax.imageio.stream.FileImageOutputStream
 import javax.imageio.stream.MemoryCacheImageOutputStream
 
 class GetOverHereGenerator(
     val m: GabrielaImageGen,
     val assetsFolder: File
-) {
-    fun generate(targetImage: BufferedImage): ByteArray {
-        val scaledTargetImage = targetImage.getScaledInstance(50, 50, BufferedImage.SCALE_SMOOTH).toBufferedImage()
+) : SingleSourceBufferedImageToByteArrayGenerator {
+    override fun generate(source: BufferedImage): ByteArray {
+        val scaledTargetImage = source.getScaledInstance(50, 50, BufferedImage.SCALE_SMOOTH).toBufferedImage()
 
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)

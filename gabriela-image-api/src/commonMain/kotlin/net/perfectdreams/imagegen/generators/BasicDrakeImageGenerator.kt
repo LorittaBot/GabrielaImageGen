@@ -6,8 +6,8 @@ import net.perfectdreams.imagegen.graphics.createImage
 abstract class BasicDrakeImageGenerator(
     val template: Image,
     val scale: Int
-) {
-    fun generate(source1: Image, source2: Image): Image {
+) : TwoSourceImagesGenerator {
+    override fun generate(source1: Image, source2: Image): Image {
         // Clone the base template
         val clonedTemplate = template.clone()
         val graph = clonedTemplate.createGraphics()
