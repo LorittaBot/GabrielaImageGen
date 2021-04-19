@@ -12,6 +12,7 @@ import net.perfectdreams.imagegen.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.imagegen.generators.PetPetGenerator
 import net.perfectdreams.imagegen.generators.SAMGenerator
 import net.perfectdreams.imagegen.generators.TerminatorAnimeGenerator
+import net.perfectdreams.imagegen.generators.ToBeContinuedGenerator
 import net.perfectdreams.imagegen.generators.TrumpGenerator
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.DrakeGenerator
@@ -121,6 +122,10 @@ class Generators(val m: GabrielaImageGen) {
                 val character = it.nameWithoutExtension.toCharArray().first()
                 character to ImageIO.read(it)
             }.toMap()
+    )
+    val toBeContinuedGenerator = ToBeContinuedGenerator(
+        m,
+        ImageIO.read(File(assetsFolder, "image_templates/to_be_continued/arrow.png"))
     )
 
     // ===[ SKEWED IMAGE GENERATORS ]===

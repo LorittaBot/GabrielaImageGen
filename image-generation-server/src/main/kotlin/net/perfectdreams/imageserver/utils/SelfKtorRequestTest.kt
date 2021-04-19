@@ -1,17 +1,15 @@
 package net.perfectdreams.imageserver.utils
 
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 import io.ktor.client.engine.apache.*
-import io.ktor.client.request.post
+import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.add
 import kotlinx.serialization.json.addJsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
 import java.io.File
-import java.net.URL
 import java.util.*
 
 fun main() {
@@ -25,14 +23,12 @@ fun main() {
 
     runBlocking {
         if (true) {
-            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/terminator-anime") {
+            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/to-be-continued") {
                 body = buildJsonObject {
-                    putJsonArray("strings") {
+                    putJsonArray("images") {
                         addJsonObject {
-                            put("string", "owo")
-                        }
-                        addJsonObject {
-                            put("string", "uwu")
+                            put("type", "url")
+                            put("content", "https://i.redd.it/ltnccgp1v4u61.jpg")
                         }
                     }
                 }.toString()
@@ -41,7 +37,7 @@ fun main() {
             println(r.status)
             println(r)
 
-            File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\mania_title_card.png")
+            File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\to_be_continued.png")
                 .writeBytes(r.readBytes())
             return@runBlocking
         }
