@@ -23,7 +23,7 @@ class PostCocieloChavesRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
     override suspend fun onRequest(call: ApplicationCall) {
         try {
             withRequest(logger) {
-                val imagesContext = call.getImageDataContext()
+                val imagesContext = call.getImageDataContext(m.connectionManager)
 
                 val sourceImage1 = imagesContext.retrieveImage(0)
                 val sourceImage2 = imagesContext.retrieveImage(1)

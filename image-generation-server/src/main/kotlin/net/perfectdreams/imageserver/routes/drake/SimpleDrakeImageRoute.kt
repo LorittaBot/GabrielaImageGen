@@ -10,10 +10,8 @@ import net.perfectdreams.imagegen.graphics.Image
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.routes.VersionedAPIRoute
-import net.perfectdreams.imageserver.routes.scaled.SimpleScaledImageRoute
-import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
-import java.util.*
+import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
 
 abstract class SimpleDrakeImageRoute(val m: GabrielaImageGen, val generator: BasicDrakeImageGenerator, path: String) : VersionedAPIRoute(
     "/images/$path"
@@ -25,7 +23,7 @@ abstract class SimpleDrakeImageRoute(val m: GabrielaImageGen, val generator: Bas
     override suspend fun onRequest(call: ApplicationCall) {
         try {
             withRequest(logger) {
-                val imagesContext = call.getImageDataContext()
+                val imagesContext = call.getImageDataContext(m.connectionManager)
 
                 val source1 = imagesContext.retrieveImage(0)
                 val source2 = imagesContext.retrieveImage(1)

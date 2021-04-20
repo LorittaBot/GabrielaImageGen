@@ -5,9 +5,7 @@ import io.ktor.http.*
 import io.ktor.response.*
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
-import net.perfectdreams.imagegen.generators.SingleSourceBufferedImageToByteArrayGenerator
 import net.perfectdreams.imagegen.generators.SingleSourceImageGenerator
-import net.perfectdreams.imagegen.generators.SingleSourceImageToByteArrayGenerator
 import net.perfectdreams.imagegen.graphics.Image
 import net.perfectdreams.imagegen.graphics.JVMImage
 import net.perfectdreams.imageserver.GabrielaImageGen
@@ -29,7 +27,7 @@ open class PostSingleSourceImageGeneratorRoute(
     override suspend fun onRequest(call: ApplicationCall) {
         try {
             withRequest(logger) {
-                val sourceImage = call.retrieveImageFromImageData(0)
+                val sourceImage = call.retrieveImageFromImageData(m.connectionManager, 0)
 
                 val result = withContext(m.coroutineDispatcher) {
                     generator.generate(JVMImage(sourceImage))

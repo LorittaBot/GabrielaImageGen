@@ -8,7 +8,6 @@ import mu.KotlinLogging
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
 import net.perfectdreams.imageserver.utils.extensions.getImageDataContext
-import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
 
 class PostTrumpRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
     "/images/trump"
@@ -20,7 +19,7 @@ class PostTrumpRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
     override suspend fun onRequest(call: ApplicationCall) {
         try {
             withRequest(logger) {
-                val imageData = call.getImageDataContext()
+                val imageData = call.getImageDataContext(m.connectionManager)
                 val sourceImage1 = imageData.retrieveImage(0)
                 val sourceImage2 = imageData.retrieveImage(1)
 

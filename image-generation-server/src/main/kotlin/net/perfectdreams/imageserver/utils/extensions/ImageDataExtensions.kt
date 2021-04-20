@@ -3,14 +3,14 @@ package net.perfectdreams.imageserver.utils.extensions
 import io.ktor.application.*
 import io.ktor.request.*
 import net.perfectdreams.imageserver.data.SourceImagesContext
-import net.perfectdreams.imageserver.data.SourceStringData
 import net.perfectdreams.imageserver.data.SourceStringsContext
+import net.perfectdreams.imageserver.utils.ConnectionManager
 
-suspend fun ApplicationCall.getImageDataContext(): SourceImagesContext {
+suspend fun ApplicationCall.getImageDataContext(connectionManager: ConnectionManager): SourceImagesContext {
     val postResult = receiveText()
 
     println(postResult)
-    return SourceImagesContext.from(postResult)
+    return SourceImagesContext.from(connectionManager, postResult)
 }
 
 /**
@@ -21,7 +21,7 @@ suspend fun ApplicationCall.getImageDataContext(): SourceImagesContext {
  * @param index index of the image
  * @return the image from the context
  */
-suspend fun ApplicationCall.retrieveImageFromImageData(index: Int) = getImageDataContext().retrieveImage(index)
+suspend fun ApplicationCall.retrieveImageFromImageData(connectionManager: ConnectionManager, index: Int) = getImageDataContext(connectionManager).retrieveImage(index)
 
 suspend fun ApplicationCall.getStringDataContext(): SourceStringsContext {
     val postResult = receiveText()

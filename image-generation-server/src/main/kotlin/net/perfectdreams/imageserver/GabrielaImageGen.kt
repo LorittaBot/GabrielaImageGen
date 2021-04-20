@@ -31,6 +31,7 @@ import net.perfectdreams.imageserver.routes.cortesflow.GetCortesFlowRoute
 import net.perfectdreams.imageserver.routes.drake.DrakeRoutes
 import net.perfectdreams.imageserver.routes.scaled.ScaledRoutes
 import net.perfectdreams.imageserver.routes.skewed.SkewedRoutes
+import net.perfectdreams.imageserver.utils.ConnectionManager
 import net.perfectdreams.imageserver.utils.Gifsicle
 import net.perfectdreams.imageserver.utils.WebsiteAPIException
 import net.perfectdreams.imageserver.utils.extensions.alreadyHandledStatus
@@ -40,8 +41,6 @@ import java.util.concurrent.Executors
 
 class GabrielaImageGen(val config: AppConfig) {
     companion object {
-        val GIFSICLE_PATH = File("/usr/bin/gifsicle")
-
         private val logger = KotlinLogging.logger {}
     }
 
@@ -50,6 +49,49 @@ class GabrielaImageGen(val config: AppConfig) {
 
     val generators = Generators(this)
     val gifsicle = Gifsicle(File(config.gifsiclePath))
+
+    val connectionManager = ConnectionManager(
+        // Move this to a config!
+        listOf(
+            "discord.gg",
+            "discord.com",
+            "discordapp.com",
+            "discordapp.net",
+            "imgur.com",
+            "perfectdreams.net",
+            "sparklypower.net",
+            "loritta.website",
+            "lori.fun",
+            "loritta.land",
+            "twitch.tv",
+            "aminoapps.com",
+            "youtube.com",
+            "youtu.be",
+            "ytimg.com",
+            "soundcloud.com",
+            "maxcdn.com",
+            "fbcdn.net",
+            "twimg.com",
+            "narvii.com",
+            "mrpowergamerbr.com",
+            "reddit.com",
+            "redditmedia.com",
+            "google.com",
+            "googlenews.com",
+            "github.com",
+            "tenor.com",
+            "giphy.com",
+            "gfycat.com",
+            "twitter.com",
+            "facebook.com",
+            "minecraft.net",
+            "roblox.com",
+            "crafatar.com",
+            "rbxcdn.com",
+            "githubusercontent.com",
+            "prntscr.com"
+        )
+    )
 
     val routes = listOf(
         PostCarlyAaahRoute(this),

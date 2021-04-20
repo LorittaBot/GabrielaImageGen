@@ -37,6 +37,14 @@ object WebsiteExceptionProcessor {
                         }
                     }
             )
+            is UntrustedURLException -> throw WebsiteAPIException(
+                HttpStatusCode.UnprocessableEntity,
+                buildJsonObject {
+                    putJsonObject("error") {
+                        put("reason", "UntrustedURLException")
+                    }
+                }
+            )
             else -> throw WebsiteAPIException(
                     HttpStatusCode.InternalServerError,
                     buildJsonObject {

@@ -11,7 +11,6 @@ import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.WebsiteExceptionProcessor
 import net.perfectdreams.imageserver.utils.extensions.retrieveImageFromImageData
 import java.util.*
-import kotlin.math.max
 
 // Tio SAM, socorro!
 // https://youtu.be/jse4Lc9j28c
@@ -27,7 +26,7 @@ class PostSAMLogoRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
             val type = call.parameters["type"]
 
             withRequest(logger) {
-                val sourceImage = call.retrieveImageFromImageData(0)
+                val sourceImage = call.retrieveImageFromImageData(m.connectionManager, 0)
 
                 val generator = when (type) {
                     "1" -> m.generators.samLogo1Generator

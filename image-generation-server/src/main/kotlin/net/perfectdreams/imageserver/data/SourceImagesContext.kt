@@ -1,19 +1,21 @@
 package net.perfectdreams.imageserver.data
 
 import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import net.perfectdreams.imageserver.utils.ConnectionManager
 import net.perfectdreams.imageserver.utils.ImageUtils
+import net.perfectdreams.imageserver.utils.UntrustedURLException
 import java.awt.image.BufferedImage
-import java.lang.RuntimeException
-import java.net.URL
 import java.util.*
 import javax.imageio.ImageIO
 
-class SourceImagesContext(val images: List<SourceImageData>) {
+class SourceImagesContext(val connectionManager: ConnectionManager, val images: List<SourceImageData>) {
     companion object {
-        fun from(input: String): SourceImagesContext {
+        fun from(connectionManager: ConnectionManager, input: String): SourceImagesContext {
             val result = Json.parseToJsonElement(input)
-                    .jsonObject
+                .jsonObject
 
             if (!result.containsKey("images"))
                 throw RuntimeException("Image Array not found!")
@@ -21,7 +23,8 @@ class SourceImagesContext(val images: List<SourceImageData>) {
             val images = result["images"]!!.jsonArray
 
             return SourceImagesContext(
-                    Json.decodeFromJsonElement(ListSerializer(SourceImageData.serializer()), images)
+                connectionManager,
+                Json.decodeFromJsonElement(ListSerializer(SourceImageData.serializer()), images)
             )
         }
     }
@@ -31,6 +34,9 @@ class SourceImagesContext(val images: List<SourceImageData>) {
 
         return when (imageData.type) {
             SourceImageDataType.URL -> {
+                if (!connectionManager.isTrusted(imageData.content))
+                    throw UntrustedURLException(imageData.content)
+
                 ImageUtils.downloadImage(imageData.content) ?: throw IllegalArgumentException("Invalid image provided")
             }
 
