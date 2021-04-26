@@ -3,6 +3,9 @@ name: Continuous Integration
 # Controls when the action will run. Triggers the workflow on push or pull request.
 on: [ push, pull_request ]
 
+env:
+  IMAGE_NAME: gabriela-image-server
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -54,6 +57,7 @@ jobs:
 
     - name: Push Docker image to GitHub registry
       run: |
+        cd docker/gabriela-image-server/
         IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
 
         # Change all uppercase to lowercase
