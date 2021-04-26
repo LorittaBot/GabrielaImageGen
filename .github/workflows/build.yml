@@ -39,3 +39,18 @@ jobs:
       with:
         name: Image Generation Server
         path: image-generation-server/build/libs/image-generation-server-*.jar
+
+    # Now we are going to copy some of the files for our Docker build
+    - name: Copy assets for Docker build
+      run: "cp -r image-generation-server/build/libs/image-generation-server-*.jar image-generation-server/build/libs/libs assets docker/gabriela-image-server/files/"
+
+    # Build and Publish with Docker!
+    - name: Push to GitHub Packages
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: LorittaBot/GabrielaImageGen/gabriela-image-server
+        dockerfile: docker/gabriela-image-server/Dockerfile
+        tag_with_ref: true
