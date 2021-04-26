@@ -44,13 +44,18 @@ jobs:
     - name: Copy assets for Docker build
       run: "cp -r image-generation-server/build/libs/image-generation-server-*.jar image-generation-server/build/libs/libs assets docker/gabriela-image-server/files/"
 
-    # Build and Publish with Docker!
-    - name: Push to GitHub Packages
-      uses: docker/build-push-action@v1
+    # Login...
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
       with:
-        username: ${{ github.actor }}
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
-        registry: docker.pkg.github.com
-        repository: LorittaBot/GabrielaImageGen/gabriela-image-server
-        dockerfile: docker/gabriela-image-server/Dockerfile
-        tag_with_ref: true
+
+    # And now build and push the docker image!
+    - name: Build Docker Image and push
+      uses: docker/build-push-action@v2
+      with:
+        context: docker/gabriela-image-server/
+        push: true
+        tags: user/app:latest
