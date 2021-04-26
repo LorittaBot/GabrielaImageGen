@@ -47,6 +47,9 @@ jobs:
     - name: Copy assets for Docker build
       run: "cp -r image-generation-server/build/libs/image-generation-server-*.jar image-generation-server/build/libs/libs assets docker/gabriela-image-server/files/"
 
+    - name: Grant execute permission for the start script
+      run: chmod +x docker/gabriela-image-server/start.sh
+
     - name: Build Gabriela's Image Server Docker image
       run: |
         cd docker/gabriela-image-server/
