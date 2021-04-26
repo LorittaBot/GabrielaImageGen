@@ -58,4 +58,4 @@ jobs:
       with:
         context: docker/gabriela-image-server/
         push: true
-        tags: user/app:latest
+        tags: LorittaBot/GabrielaImageGen/gabriela-image-server
