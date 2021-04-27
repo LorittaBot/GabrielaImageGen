@@ -76,6 +76,7 @@ class GabrielaImageGen(val config: AppConfig) {
             "mrpowergamerbr.com",
             "reddit.com",
             "redditmedia.com",
+            "redd.it",
             "google.com",
             "googlenews.com",
             "github.com",

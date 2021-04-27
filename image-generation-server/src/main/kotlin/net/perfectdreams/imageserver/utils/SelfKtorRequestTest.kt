@@ -28,7 +28,7 @@ fun main() {
                     putJsonArray("images") {
                         addJsonObject {
                             put("type", "url")
-                            put("content", "https://i.redd.it/ltnccgp1v4u61.jpg")
+                            put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
                         }
                     }
                 }.toString()
