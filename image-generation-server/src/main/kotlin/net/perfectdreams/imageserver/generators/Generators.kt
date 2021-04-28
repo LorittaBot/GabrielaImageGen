@@ -10,6 +10,7 @@ import net.perfectdreams.imagegen.generators.GetOverHereGenerator
 import net.perfectdreams.imagegen.generators.InvertColorsGenerator
 import net.perfectdreams.imagegen.generators.KnucklesThrowGenerator
 import net.perfectdreams.imagegen.generators.ManiaTitleCardGenerator
+import net.perfectdreams.imagegen.generators.MemeMakerGenerator
 import net.perfectdreams.imagegen.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.imagegen.generators.PetPetGenerator
 import net.perfectdreams.imagegen.generators.SAMGenerator
@@ -138,6 +139,12 @@ class Generators(val m: GabrielaImageGen) {
         tempFolder,
         File(assetsFolder, "video_templates/fans_explaining"),
         ffmpegPath
+    )
+    val memeMakerGenerator = MemeMakerGenerator(
+        Font.createFont(
+            Font.TRUETYPE_FONT,
+            File(m.config.assetsFolder + "/fonts/montserrat-extrabold.otf")
+        )
     )
 
     // ===[ SKEWED IMAGE GENERATORS ]===

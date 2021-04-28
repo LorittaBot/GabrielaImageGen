@@ -23,42 +23,21 @@ fun main() {
 
     runBlocking {
         if (true) {
-            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/videos/fans-explaining") {
+            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/meme-maker") {
                 body = buildJsonObject {
+                    putJsonArray("images") {
+                        addJsonObject {
+                            put("type", "url")
+                            put("content", "https://cdn.discordapp.com/emojis/523233744656662548.png?v=1")
+                        }
+                    }
+
                     putJsonArray("strings") {
                         addJsonObject {
                             put("string", "power depois que a lori")
                         }
                         addJsonObject {
                             put("string", "chega em uma nova milestone")
-                        }
-
-                        addJsonObject {
-                            put("string", "staff teorizando")
-                        }
-                        addJsonObject {
-                            put("string", "o paradeiro do dokyo")
-                        }
-
-                        addJsonObject {
-                            put("string", "daniela depois que alguém")
-                        }
-                        addJsonObject {
-                            put("string", "fala mal de gacha")
-                        }
-
-                        addJsonObject {
-                            put("string", "arth")
-                        }
-                        addJsonObject {
-                            put("string", "esperando o dokyo")
-                        }
-
-                        addJsonObject {
-                            put("string", "staff depois que a helper menciona eles")
-                        }
-                        addJsonObject {
-                            put("string", "para ir ver as denúncias")
                         }
                     }
                 }.toString()
@@ -67,7 +46,7 @@ fun main() {
             println(r.status)
             println(r)
 
-            File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\fans_explaining.mp4")
+            File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\meme_maker.png")
                 .writeBytes(r.readBytes())
             return@runBlocking
         }
