@@ -5,7 +5,6 @@ import net.perfectdreams.imageserver.utils.extensions.enableFontAntialiasing
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
-import java.awt.RenderingHints
 import java.awt.image.BufferedImage
 import java.awt.image.ConvolveOp
 import java.awt.image.Kernel
@@ -58,7 +57,6 @@ open class CortesFlowGenerator(
         val newImageGraphics = newImage.createGraphics()
 
         // We are now going to brute force a good font size
-
         for (fontSize in 92 downTo (92 - (4 * 15)) step 4) {
             try {
                 val fontX = font.deriveFont(

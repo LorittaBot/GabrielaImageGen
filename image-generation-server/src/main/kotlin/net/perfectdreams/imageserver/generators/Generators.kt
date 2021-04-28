@@ -5,6 +5,7 @@ import net.perfectdreams.imagegen.generators.CarlyAaahGenerator
 import net.perfectdreams.imagegen.generators.CepoDeMadeiraGenerator
 import net.perfectdreams.imagegen.generators.CocieloChavesGenerator
 import net.perfectdreams.imagegen.generators.CortesFlowGenerators
+import net.perfectdreams.imagegen.generators.FansExplainingGenerator
 import net.perfectdreams.imagegen.generators.GetOverHereGenerator
 import net.perfectdreams.imagegen.generators.InvertColorsGenerator
 import net.perfectdreams.imagegen.generators.KnucklesThrowGenerator
@@ -129,6 +130,15 @@ class Generators(val m: GabrielaImageGen) {
         ImageIO.read(File(assetsFolder, "image_templates/to_be_continued/arrow.png"))
     )
     val invertColorsGenerator = InvertColorsGenerator()
+    val fansExplainingGenerator = FansExplainingGenerator(
+        Font.createFont(
+            Font.TRUETYPE_FONT,
+            File(m.config.assetsFolder + "/fonts/montserrat-extrabold.otf")
+        ),
+        tempFolder,
+        File(assetsFolder, "video_templates/fans_explaining"),
+        ffmpegPath
+    )
 
     // ===[ SKEWED IMAGE GENERATORS ]===
     val artGenerator = createSimpleSkewedGenerator<ArtGenerator>()

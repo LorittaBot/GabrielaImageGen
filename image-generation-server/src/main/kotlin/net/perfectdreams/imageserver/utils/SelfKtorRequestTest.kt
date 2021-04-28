@@ -23,12 +23,42 @@ fun main() {
 
     runBlocking {
         if (true) {
-            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/to-be-continued") {
+            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/videos/fans-explaining") {
                 body = buildJsonObject {
-                    putJsonArray("images") {
+                    putJsonArray("strings") {
                         addJsonObject {
-                            put("type", "url")
-                            put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                            put("string", "power depois que a lori")
+                        }
+                        addJsonObject {
+                            put("string", "chega em uma nova milestone")
+                        }
+
+                        addJsonObject {
+                            put("string", "staff teorizando")
+                        }
+                        addJsonObject {
+                            put("string", "o paradeiro do dokyo")
+                        }
+
+                        addJsonObject {
+                            put("string", "daniela depois que alguém")
+                        }
+                        addJsonObject {
+                            put("string", "fala mal de gacha")
+                        }
+
+                        addJsonObject {
+                            put("string", "arth")
+                        }
+                        addJsonObject {
+                            put("string", "esperando o dokyo")
+                        }
+
+                        addJsonObject {
+                            put("string", "staff depois que a helper menciona eles")
+                        }
+                        addJsonObject {
+                            put("string", "para ir ver as denúncias")
                         }
                     }
                 }.toString()
@@ -37,7 +67,7 @@ fun main() {
             println(r.status)
             println(r)
 
-            File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\to_be_continued.png")
+            File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\fans_explaining.mp4")
                 .writeBytes(r.readBytes())
             return@runBlocking
         }
