@@ -1,9 +1,6 @@
 # We use Amazon Corretto because OpenJDK only provides Early Access builds
 FROM amazoncorretto:15-alpine-jdk
 
-# Install ffmpeg
-RUN apk add ffmpeg
-
 # Install required dependencies
 RUN apk add ffmpeg gifsicle
 
