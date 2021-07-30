@@ -7,7 +7,6 @@ import java.awt.Color
 import java.awt.Graphics
 import java.awt.Image
 import java.awt.image.BufferedImage
-import java.lang.IllegalArgumentException
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.imageio.ImageIO
@@ -132,6 +131,19 @@ object ImageUtils {
         val isAlphaPremultiplied = cm.isAlphaPremultiplied
         val raster = bi.copyData(bi.raster.createCompatibleWritableRaster())
         return BufferedImage(cm, raster, isAlphaPremultiplied, null)
+    }
+
+    /**
+     * Clones the [input] to a new [BufferedImage.TYPE_INT_ARGB] image
+     *
+     * This is useful to avoid issues (example: black backgrounds) when manipulating the source image
+     */
+    fun cloneAsARGB(input: Image): BufferedImage {
+        val cloned = BufferedImage(input.getWidth(null), input.getHeight(null), BufferedImage.TYPE_INT_ARGB)
+        val graphics = cloned.createGraphics()
+        graphics.drawImage(input, 0, 0, null)
+        graphics.dispose()
+        return cloned
     }
 
     class ContentLengthTooLargeException : IllegalArgumentException()

@@ -3,6 +3,7 @@ package net.perfectdreams.imagegen.generators
 import net.perfectdreams.imagegen.graphics.LorittaImage
 import net.perfectdreams.imageserver.GabrielaImageGen
 import net.perfectdreams.imageserver.utils.GifSequenceWriter
+import net.perfectdreams.imageserver.utils.ImageUtils
 import net.perfectdreams.imageserver.utils.extensions.toBufferedImage
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -21,8 +22,11 @@ class KnucklesThrowGenerator(
 
         val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 10, true, true)
 
-        val loriImage = LorittaImage(source)
-        loriImage.resize(400, 225)
+        val loriImage = LorittaImage(
+            ImageUtils.cloneAsARGB(
+                source.getScaledInstance(400,255, BufferedImage.SCALE_SMOOTH)
+            )
+        )
 
         val aux1 = loriImage.copy()
         aux1.setCorners(
