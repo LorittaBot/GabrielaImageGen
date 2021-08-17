@@ -6,7 +6,6 @@ import io.ktor.request.*
 import io.ktor.response.*
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -28,7 +27,7 @@ class PostShipRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
             withRequest(logger) {
                 val postResult = call.receiveText()
 
-                val json = Json.encodeToJsonElement(postResult)
+                val json = Json.parseToJsonElement(postResult)
                     .jsonObject
                 val percentage = json["percentage"]!!.jsonPrimitive.int
 
