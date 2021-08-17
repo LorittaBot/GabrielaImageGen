@@ -26,7 +26,7 @@ class ShipGenerator(
     // There are 101 valid progress values, from 0 to 100
     // The sections is (101 - 2) / 3
     // 100: Best Ship
-    // 100 + Marriage: Variation of the aboveabove
+    // 100 + Marriage: Variation of the above
     // 0: The worst ship ever
     // Anything else: Split up in 33% chunks
     fun generate(user1Avatar: BufferedImage, user2Avatar: BufferedImage, percentage: Int): Image {
@@ -130,7 +130,7 @@ class ShipGenerator(
         }
 
         // Draw the recolored base
-        graphics.drawImage(baseImage, 13, 35, null)
+        graphics.drawImage(image, 13, 35, null)
 
         // Draw the base outline
         graphics.drawImage(assets.outlineBase, -1, 21, null)
