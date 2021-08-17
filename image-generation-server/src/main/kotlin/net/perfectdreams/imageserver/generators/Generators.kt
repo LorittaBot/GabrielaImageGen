@@ -14,6 +14,7 @@ import net.perfectdreams.imagegen.generators.MemeMakerGenerator
 import net.perfectdreams.imagegen.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.imagegen.generators.PetPetGenerator
 import net.perfectdreams.imagegen.generators.SAMGenerator
+import net.perfectdreams.imagegen.generators.ShipGenerator
 import net.perfectdreams.imagegen.generators.TerminatorAnimeGenerator
 import net.perfectdreams.imagegen.generators.ToBeContinuedGenerator
 import net.perfectdreams.imagegen.generators.TrumpGenerator
@@ -113,6 +114,29 @@ class Generators(val m: GabrielaImageGen) {
     val samLogo1Generator = SAMGenerator(loadImage("image_templates/sam/sam_1.png"))
     val samLogo2Generator = SAMGenerator(loadImage("image_templates/sam/sam_2.png"))
     val samLogo3Generator = SAMGenerator(loadImage("image_templates/sam/sam_3.png"))
+
+    val shipGenerator = ShipGenerator(
+        ShipGenerator.ShipGeneratorAssets(
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_sparkling_hearts.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_hearts.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_shrug.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_sob.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_skulls.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_outline.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_sparkling_heart.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_heart.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_shrug.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_sob.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_skull.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/avatar_wrapper_outline.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/avatar_wrapper_background.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar_background.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar_overlay.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar_reflection.png")),
+            Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/gorditas-bold.ttf"))
+        )
+    )
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
