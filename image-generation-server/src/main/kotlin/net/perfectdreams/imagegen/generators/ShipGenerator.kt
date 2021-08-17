@@ -130,7 +130,7 @@ class ShipGenerator(
         }
 
         // Draw the recolored base
-        graphics.drawImage(image, 13, 35, null)
+        graphics.drawImage(image, 12, 35, null)
 
         // Draw the base outline
         graphics.drawImage(assets.outlineBase, -1, 21, null)
