@@ -20,7 +20,7 @@ class ShipGenerator(
         /**
          * The Y difference of the ship container in relation to the canvas
          */
-        const val BASE_DIFF_Y = 50
+        const val BASE_DIFF_Y = 40
 
         private val MAX_LOVE_COLOR = HueSaturationBrightness(339f / 360, 82f  / 100, 92f / 100)
         private val MAX_SHRUG_COLOR = HueSaturationBrightness(266f / 360, 49f / 100, 79f / 100)
@@ -39,7 +39,7 @@ class ShipGenerator(
     // 0: The worst ship ever
     // Anything else: Split up in 33% chunks
     fun generate(user1Avatar: BufferedImage, user2Avatar: BufferedImage, percentage: Int): Image {
-        val canvas = BufferedImage(730, 356, BufferedImage.TYPE_INT_ARGB)
+        val canvas = BufferedImage(730, 346, BufferedImage.TYPE_INT_ARGB)
         val graphics = ImageUtils.enableTextAntialiasing(canvas.createGraphics())
 
         val baseImage: BufferedImage
@@ -221,7 +221,7 @@ class ShipGenerator(
                 1, // Pantufa is a tiny bit smoler
                 null
             )
-        
+
         // ===[ PROGRESS BAR ]===
         graphics.drawImage(
             assets.progressBarBackground,
