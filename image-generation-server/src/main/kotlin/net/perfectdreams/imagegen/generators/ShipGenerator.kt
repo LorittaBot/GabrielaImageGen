@@ -26,7 +26,7 @@ class ShipGenerator(
         private val MAX_SHRUG_COLOR = HueSaturationBrightness(266f / 360, 49f / 100, 79f / 100)
         private val MAX_SOB_COLOR = HueSaturationBrightness(206f / 360, 82f / 100, 80f / 100)
         private val MAX_LOST_COLOR = HueSaturationBrightness(0f / 360, 0f / 100, 5f / 100)
-        private val PERCENTAGE_RECTANGLE = Rectangle(65 + BASE_DIFF_X, 253 + BASE_DIFF_Y, 494, 39)
+        private val PERCENTAGE_RECTANGLE = Rectangle(59 + BASE_DIFF_X, 253 + BASE_DIFF_Y, 494, 39)
     }
 
     private val font = assets.font.deriveFont(30f)
@@ -39,7 +39,7 @@ class ShipGenerator(
     // 0: The worst ship ever
     // Anything else: Split up in 33% chunks
     fun generate(user1Avatar: BufferedImage, user2Avatar: BufferedImage, percentage: Int): Image {
-        val canvas = BufferedImage(729, 356, BufferedImage.TYPE_INT_ARGB)
+        val canvas = BufferedImage(730, 356, BufferedImage.TYPE_INT_ARGB)
         val graphics = ImageUtils.enableTextAntialiasing(canvas.createGraphics())
 
         val baseImage: BufferedImage
@@ -59,7 +59,7 @@ class ShipGenerator(
             100 -> {
                 baseImage = assets.sparklingHeartsBase
                 status = assets.sparklingHeartStatus
-                statusCoordinates = Pair(184 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_LOVE_COLOR
                 targetValues = MAX_LOVE_COLOR
@@ -69,7 +69,7 @@ class ShipGenerator(
             in 67..99 -> {
                 baseImage = assets.heartsBase
                 status = assets.heartStatus
-                statusCoordinates = Pair(184 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_SHRUG_COLOR
                 targetValues = MAX_LOVE_COLOR
@@ -79,7 +79,7 @@ class ShipGenerator(
             in 34..66 -> {
                 baseImage = assets.shrugBase
                 status = assets.shrugStatus
-                statusCoordinates = Pair(194 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_SOB_COLOR
                 targetValues = MAX_SHRUG_COLOR
@@ -89,7 +89,7 @@ class ShipGenerator(
             in 1..33 -> {
                 baseImage = assets.sobBase
                 status = assets.sobStatus
-                statusCoordinates = Pair(194 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_LOST_COLOR
                 targetValues = MAX_SOB_COLOR
@@ -99,7 +99,7 @@ class ShipGenerator(
             0 -> {
                 baseImage = assets.skullsBase
                 status = assets.skullStatus
-                statusCoordinates = Pair(196 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_LOST_COLOR
                 targetValues = MAX_LOST_COLOR
@@ -164,7 +164,7 @@ class ShipGenerator(
         if (showPantufa)
             graphics.drawImage(
                 assets.pantufa,
-                600,
+                601,
                 1, // Pantufa is a tiny bit smoler
                 null
             )
@@ -180,7 +180,7 @@ class ShipGenerator(
 
         graphics.drawImage(
             assets.avatarWrapperBackground,
-            393 + BASE_DIFF_X,
+            391 + BASE_DIFF_X,
             51 + BASE_DIFF_Y,
             null
         )
@@ -202,7 +202,7 @@ class ShipGenerator(
                 ImageUtils.toBufferedImage(user2Avatar.getScaledInstance(189, 189, BufferedImage.SCALE_SMOOTH)),
                 999
             ),
-            393 + BASE_DIFF_X,
+            391 + BASE_DIFF_X,
             51 + BASE_DIFF_Y,
             null
         )
@@ -217,7 +217,7 @@ class ShipGenerator(
 
         graphics.drawImage(
             assets.avatarWrapperOutline,
-            380 + BASE_DIFF_X,
+            378 + BASE_DIFF_X,
             38 + BASE_DIFF_Y,
             null
         )
@@ -225,7 +225,7 @@ class ShipGenerator(
         // ===[ PROGRESS BAR ]===
         graphics.drawImage(
             assets.progressBarBackground,
-            51 + BASE_DIFF_X,
+            45 + BASE_DIFF_X,
             239 + BASE_DIFF_Y,
             null
         )
@@ -237,7 +237,7 @@ class ShipGenerator(
             graphics.drawImage(
                 assets.progressBar
                     .getSubimage(0, 0, width, 39),
-                65 + BASE_DIFF_X,
+                59 + BASE_DIFF_X,
                 253 + BASE_DIFF_Y,
                 null
             )
@@ -254,14 +254,14 @@ class ShipGenerator(
 
         graphics.drawImage(
             assets.progressBarOverlay,
-            51 + BASE_DIFF_X,
+            45 + BASE_DIFF_X,
             239 + BASE_DIFF_Y,
             null
         )
 
         graphics.drawImage(
             assets.progressBarReflection,
-            66 + BASE_DIFF_X,
+            60 + BASE_DIFF_X,
             254 + BASE_DIFF_Y,
             null
         )
