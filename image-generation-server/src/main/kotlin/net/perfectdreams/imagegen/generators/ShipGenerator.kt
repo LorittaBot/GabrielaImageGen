@@ -152,23 +152,6 @@ class ShipGenerator(
         // Draw the ship status
         graphics.drawImage(status, statusCoordinates.first, statusCoordinates.second, null)
 
-        // ===[ CUPID ]===
-        if (showGabriela)
-            graphics.drawImage(
-                assets.gabriela,
-                0,
-                0,
-                null
-            )
-
-        if (showPantufa)
-            graphics.drawImage(
-                assets.pantufa,
-                601,
-                1, // Pantufa is a tiny bit smoler
-                null
-            )
-
         // ===[ AVATARS ]===
         // First we will draw the avatar wrapper background, because what if the user has a transparent background? kinda sus...
         graphics.drawImage(
@@ -222,6 +205,23 @@ class ShipGenerator(
             null
         )
 
+        // ===[ CUPID ]===
+        if (showGabriela)
+            graphics.drawImage(
+                assets.gabriela,
+                0,
+                0,
+                null
+            )
+
+        if (showPantufa)
+            graphics.drawImage(
+                assets.pantufa,
+                601,
+                1, // Pantufa is a tiny bit smoler
+                null
+            )
+        
         // ===[ PROGRESS BAR ]===
         graphics.drawImage(
             assets.progressBarBackground,
