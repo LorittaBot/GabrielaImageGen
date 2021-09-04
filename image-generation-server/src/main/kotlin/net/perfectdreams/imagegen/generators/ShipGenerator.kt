@@ -79,7 +79,7 @@ class ShipGenerator(
             in 34..66 -> {
                 baseImage = assets.shrugBase
                 status = assets.shrugStatus
-                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(194 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_SOB_COLOR
                 targetValues = MAX_SHRUG_COLOR
@@ -89,7 +89,7 @@ class ShipGenerator(
             in 1..33 -> {
                 baseImage = assets.sobBase
                 status = assets.sobStatus
-                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(193 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_LOST_COLOR
                 targetValues = MAX_SOB_COLOR
@@ -99,7 +99,7 @@ class ShipGenerator(
             0 -> {
                 baseImage = assets.skullsBase
                 status = assets.skullStatus
-                statusCoordinates = Pair(183 + BASE_DIFF_X, 0)
+                statusCoordinates = Pair(196 + BASE_DIFF_X, 0)
 
                 beginningValues = MAX_LOST_COLOR
                 targetValues = MAX_LOST_COLOR
