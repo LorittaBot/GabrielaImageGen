@@ -62,6 +62,6 @@ jib {
     }
 
     from {
-        image = "extraDirectories.paths"
+        image = "ghcr.io/lorittabot/16-alpine-corretto-with-ffmpeg-gifsicle:main"
     }
 }
