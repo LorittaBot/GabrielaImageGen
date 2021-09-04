@@ -131,6 +131,27 @@ class GabrielaImageGen(val config: AppConfig) {
                 }
             }
 
+            install(Compression) {
+                // Enable Compression for specific types, because Ktor doesn't do that by default
+                // https://ktor.io/docs/compression.html#configure_content_type
+                matchContentType(
+                    ContentType.Text.Any,
+
+                    // TODO: Check if "any" means that it would compress a video tagged as MP4
+                    // ===[ VIDEOS ]===
+                    ContentType.Video.MP4,
+                    ContentType.Video.OGG,
+                    ContentType.Video.QuickTime,
+                    ContentType.Video.MPEG,
+                    ContentType.Video.Any,
+
+                    // ===[ IMAGES ]===
+                    ContentType.Image.PNG,
+                    ContentType.Image.JPEG,
+                    ContentType.Image.Any,
+                )
+            }
+
             routing {
                 get("/") {
                     call.respondText("Hello World!", ContentType.Text.Plain)
