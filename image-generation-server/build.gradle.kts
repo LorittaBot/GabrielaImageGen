@@ -41,6 +41,11 @@ jib {
     extraDirectories {
         paths {
             path {
+                setFrom("src/main/jib/")
+                into = "/"
+            }
+
+            path {
                 setFrom("../assets")
                 into = "/assets"
             }
