@@ -38,6 +38,15 @@ tasks.test {
 }
 
 jib {
+    extraDirectories {
+        paths {
+            path {
+                setFrom(file("../assets"))
+                into = "/assets"
+            }
+        }
+    }
+
     container {
         ports = listOf("8001")
         mainClass = "net.perfectdreams.imageserver.GabrielaImageGenLauncher"
@@ -53,6 +62,6 @@ jib {
     }
 
     from {
-        image = "openjdk:15.0.2-slim-buster"
+        image = "extraDirectories.paths"
     }
 }
