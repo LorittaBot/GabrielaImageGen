@@ -44,7 +44,7 @@ jib {
     }
 
     to {
-        image = "ghcr.io/lorittabot/16-alpine-corretto-with-ffmpeg-gifsicle:main"
+        image = "ghcr.io/lorittabot/gabriela-image-server:latest"
 
         auth {
             username = System.getProperty("DOCKER_USERNAME") ?: System.getenv("DOCKER_USERNAME")
