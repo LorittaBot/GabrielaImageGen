@@ -40,7 +40,7 @@ tasks.test {
 jib {
     container {
         ports = listOf("8001")
-        main = "net.perfectdreams.imageserver.GabrielaImageGenLauncher"
+        mainClass = "net.perfectdreams.imageserver.GabrielaImageGenLauncher"
     }
 
     to {
