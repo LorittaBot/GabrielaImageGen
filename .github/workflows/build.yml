@@ -37,27 +37,5 @@ jobs:
     - name: Build with Gradle
       run: "./gradlew build -Dgithub.build.id=$GITHUB_RUN_ID -Dbuild.number=$GITHUB_RUN_NUMBER -Dgit.branch=$GITHUB_REF -Dcommit.hash=$GITHUB_SHA -Dcompiled.at=${{ steps.current-time.outputs.time }}"
 
-    # Upload Artifacts to GitHub
-    - uses: actions/upload-artifact@v2
-      name: "Upload Image Generation Server"
-      with:
-        name: Image Generation Server
-        path: image-generation-server/build/libs/image-generation-server-*.jar
-
-    # Now we are going to copy some of the files for our Docker build
-    - name: Copy assets for Docker build
-      run: "cp -r image-generation-server/build/libs/image-generation-server-*.jar image-generation-server/build/libs/libs assets docker/gabriela-image-server/files/"
-
-    - name: Grant execute permission for the start script
-      run: chmod +x docker/gabriela-image-server/files/start.sh
-
-    - name: Build Gabriela's Image Server Docker image
-      run: |
-        cd docker/gabriela-image-server/
-        docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
-
-    - name: Log into GitHub registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
     - name: Publish to Docker
       run: "./gradlew :image-generation-server:jib -Dgithub.build.id=$GITHUB_RUN_ID -Dbuild.number=$GITHUB_RUN_NUMBER -Dgit.branch=$GITHUB_REF -Dcommit.hash=$GITHUB_SHA -Dcompiled.at=${{ steps.current-time.outputs.time }}"
