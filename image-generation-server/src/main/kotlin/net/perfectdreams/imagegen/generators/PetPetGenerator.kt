@@ -14,7 +14,6 @@ class PetPetGenerator(
 ) : SingleSourceBufferedImageToByteArrayGenerator {
     // Based on https://benisland.neocities.org/petpet/
     // Thx ben!
-
     val handPatSprites = mutableListOf<BufferedImage>()
 
     init {
