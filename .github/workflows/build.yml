@@ -4,7 +4,8 @@ name: Continuous Integration
 on: [ push, pull_request ]
 
 env:
-  IMAGE_NAME: gabriela-image-server
+  DOCKER_USERNAME: "${{ github.actor }}"
+  DOCKER_PASSWORD: "${{ secrets.GITHUB_TOKEN }}"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -58,20 +59,5 @@ jobs:
     - name: Log into GitHub registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-    - name: Push Docker image to GitHub registry
-      run: |
-        cd docker/gabriela-image-server/
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-
-        # Change all uppercase to lowercase
-        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-        # Strip git ref prefix from version
-        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        # Strip "v" prefix from tag name
-        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-        # Use Docker `latest` tag convention
-        [ "$VERSION" == "master" ] && VERSION=latest
-        echo IMAGE_ID=$IMAGE_ID
-        echo VERSION=$VERSION
-        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-        docker push $IMAGE_ID:$VERSION
+    - name: Publish to Docker
+      run: "./gradlew :image-generation-server:jib -Dgithub.build.id=$GITHUB_RUN_ID -Dbuild.number=$GITHUB_RUN_NUMBER -Dgit.branch=$GITHUB_REF -Dcommit.hash=$GITHUB_SHA -Dcompiled.at=${{ steps.current-time.outputs.time }}"

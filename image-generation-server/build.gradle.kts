@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.4.10"
     kotlin("plugin.serialization") version "1.4.10" apply true
+    id("com.google.cloud.tools.jib") version "3.1.4"
 }
 
 group = "net.perfectdreams.imagegeneratorserver"
@@ -36,39 +37,21 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks {
-    val fatJar = task("fatJar", type = Jar::class) {
-        // We only want to execute this AFTER everything was built, not during the configuration phase
-        println("Building fat jar for ${project.name}...")
-
-        archiveBaseName.set("${project.name}-fat")
-
-        manifest {
-            attributes["Main-Class"] = "net.perfectdreams.imageserver.GabrielaImageGenLauncher"
-            attributes["Class-Path"] =
-                configurations.runtimeClasspath.get().joinToString(" ", transform = { "libs/" + it.name })
-        }
-
-        val libs = File(project.projectDir, "build/libs/libs")
-        println("Libs: $libs")
-        // We could delete the "libs" folder now, but this would take longer to copy the libs, so we won't do that
-        libs.mkdirs()
-
-        doLast {
-            from(configurations.runtimeClasspath.get().mapNotNull {
-                val output = File(libs, it.name)
-
-                if (!output.exists())
-                    it.copyTo(output, true)
-
-                null
-            })
-        }
-
-        with(jar.get() as CopySpec)
+jib {
+    container {
+        ports = listOf("8001")
     }
 
-    "build" {
-        dependsOn(fatJar)
+    to {
+        image = "ghcr.io/lorittabot/gabriela-image-server"
+
+        auth {
+            username = System.getProperty("DOCKER_USERNAME") ?: System.getenv("DOCKER_USERNAME")
+            password = System.getProperty("DOCKER_PASSWORD") ?: System.getenv("DOCKER_PASSWORD")
+        }
+    }
+
+    from {
+        image = "openjdk:15.0.2-slim-buster"
     }
 }
