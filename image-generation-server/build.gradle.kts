@@ -33,8 +33,14 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.19.0")
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks {
+    processResources {
+        from("../assets/") // Include folders from the resources root folder
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
 jib {

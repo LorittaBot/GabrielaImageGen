@@ -17,6 +17,7 @@ import net.perfectdreams.imagegen.generators.SAMGenerator
 import net.perfectdreams.imagegen.generators.ShipGenerator
 import net.perfectdreams.imagegen.generators.TerminatorAnimeGenerator
 import net.perfectdreams.imagegen.generators.ToBeContinuedGenerator
+import net.perfectdreams.imagegen.generators.TobyTextBoxGenerators
 import net.perfectdreams.imagegen.generators.TrumpGenerator
 import net.perfectdreams.imagegen.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.imagegen.generators.drake.DrakeGenerator
@@ -207,6 +208,9 @@ class Generators(val m: GabrielaImageGen) {
     // ===[ CORTES FLOW GENERATORS ]===
     val cortesFlowGenerators = CortesFlowGenerators(m)
 
+    // ===[ TOBY FOX TEXT BOX GENERATOR ]===
+    val tobyTextBoxGenerators = TobyTextBoxGenerators(this)
+
     /**
      * Loads a image from the [clazz] in the [path] as a [JVMImage]
      *
@@ -214,6 +218,14 @@ class Generators(val m: GabrielaImageGen) {
      * @result      the image
      */
     fun loadImage(path: String) = JVMImage(ImageIO.read(File(m.config.assetsFolder + path)))
+
+    /**
+     * Loads a image from the [clazz] in the [path] as a [BufferedImage]
+     *
+     * @param  path the path inside of the [assetsFolder] where the file is
+     * @result      the image
+     */
+    fun loadBufferedImage(path: String) = ImageIO.read(File(m.config.assetsFolder + path))
 
     inline fun <reified T> createSimpleSkewedGenerator() = T::class.constructors.first().call(
         loadImage(

@@ -2,6 +2,7 @@ package net.perfectdreams.imageserver.utils
 
 import io.ktor.client.*
 import io.ktor.client.engine.apache.*
+import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -13,25 +14,24 @@ import kotlinx.serialization.json.putJsonArray
 import java.io.File
 
 fun main() {
-    val http = HttpClient(Apache)
+    val http = HttpClient(Apache) {
+        install(HttpTimeout) {
+            this.requestTimeoutMillis = 999999
+            this.requestTimeoutMillis = 999999
+            this.socketTimeoutMillis = 999999
+        }
+    }
 
     runBlocking {
-        if (false) {
-            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/meme-maker") {
+        if (true) {
+            val r = http.post<HttpResponse>("http://127.0.0.1:8001/api/v1/images/toby-text-box") {
                 body = buildJsonObject {
-                    putJsonArray("images") {
-                        addJsonObject {
-                            put("type", "url")
-                            put("content", "https://cdn.discordapp.com/emojis/523233744656662548.png?v=1")
-                        }
-                    }
+                    put("type", "ORIGINAL")
+                    put("portrait", "ralsei/neutral")
 
                     putJsonArray("strings") {
                         addJsonObject {
-                            put("string", "power depois que a lori")
-                        }
-                        addJsonObject {
-                            put("string", "chega em uma nova milestone")
+                            put("string", "ayaya")
                         }
                     }
                 }.toString()
@@ -45,7 +45,36 @@ fun main() {
             return@runBlocking
         }
 
-        val r = http.post<HttpResponse>("https://gabriela.loritta.website/api/v1/images/ship") {
+        println(
+            buildJsonObject {
+                putJsonArray("images") {
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
+                }
+            }.toString()
+        )
+
+        return@runBlocking
+
+        val r = http.post<HttpResponse>("https://gabriela.loritta.website/api/v1/videos/cocielo-chaves") {
             userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0")
 
             body = buildJsonObject {
@@ -58,16 +87,26 @@ fun main() {
                         put("type", "url")
                         put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
                     }
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
+                    addJsonObject {
+                        put("type", "url")
+                        put("content", "https://cdn.discordapp.com/emojis/585536267530534913.png?v=1")
+                    }
                 }
-
-                put("percentage", 99)
             }.toString()
         }
 
         println(r.status)
         println(r)
 
-        File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\ship.png")
+        File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\cocielo-chaves.mp4")
             .writeBytes(r.readBytes())
     }
 }
