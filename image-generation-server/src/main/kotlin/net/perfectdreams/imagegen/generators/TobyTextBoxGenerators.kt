@@ -1,6 +1,7 @@
 package net.perfectdreams.imagegen.generators
 
 import net.perfectdreams.imagegen.generators.undertale.textbox.CharacterPortrait
+import net.perfectdreams.imagegen.generators.undertale.textbox.DeltaruneBoxGenerator
 import net.perfectdreams.imagegen.generators.undertale.textbox.TobyGameCharacterPortrait
 import net.perfectdreams.imagegen.generators.undertale.textbox.UndertaleBoxGenerator
 import net.perfectdreams.imageserver.generators.Generators
@@ -45,7 +46,7 @@ class TobyTextBoxGenerators(val m: Generators) {
         undertaleDialogFont
     )
 
-    val darkWorldTextBoxGenerator = UndertaleBoxGenerator(
+    val darkWorldTextBoxGenerator = DeltaruneBoxGenerator(
         m.loadBufferedImage("image_templates/undertale/textbox/dark_world.png"),
         undertaleDialogFont
     )
