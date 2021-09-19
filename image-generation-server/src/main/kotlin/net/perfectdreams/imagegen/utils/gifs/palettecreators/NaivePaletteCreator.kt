@@ -21,9 +21,9 @@ class NaivePaletteCreator : PaletteCreator {
         val rgbValues = mutableMapOf<Color, Int>()
         var k1 = 0
         for (i in 0 until nPix) {
-            val b = pixels!![k1++].toInt() and 0xff
-            val g = pixels!![k1++].toInt() and 0xff
-            val r = pixels!![k1++].toInt() and 0xff
+            val b = pixels[k1++].toInt() and 0xff
+            val g = pixels[k1++].toInt() and 0xff
+            val r = pixels[k1++].toInt() and 0xff
             val color = Color(r, g, b)
             rgbValues[color] = rgbValues.getOrPut(color) { 0 }
         }
@@ -69,7 +69,7 @@ class NaivePaletteCreator : PaletteCreator {
                     mostSimilarColor = index.toByte()
                     transparentIndex = mostSimilarColor
                     break
-                } else {
+                } else if (color != transparent) { // We don't want colors similar to the transparent color being chosen!
                     // https://stackoverflow.com/a/9085524/7271796
                     val rMean = (r.toLong() + color.red.toLong()) / 2
                     val rDist = r.toLong() - color.red.toLong()
