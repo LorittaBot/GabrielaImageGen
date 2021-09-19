@@ -1,5 +1,7 @@
 package net.perfectdreams.imagegen.utils.gifs
 
+import net.perfectdreams.imagegen.utils.gifs.palettecreators.NaivePaletteCreator
+import net.perfectdreams.imagegen.utils.gifs.palettecreators.PaletteCreator
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.DataBufferByte
@@ -29,7 +31,7 @@ import java.io.OutputStream
  * @version 1.03 November 2003
  */
 class AnimatedGifEncoder(
-    private val out: OutputStream,
+    private val out: OutputStream
 ) {
     protected var width // image size
             = 0
@@ -65,11 +67,20 @@ class AnimatedGifEncoder(
      * `setSize` was not invoked, the size of the first image is used
      * for all subsequent frames.
      *
-     * @param im
-     * BufferedImage containing frame to write.
+     * @param im the BufferedImage containing frame that will be added
+     * @param frameDelay the delay on this frame
+     * @param xPosition the X position of this frame in the logical screen
+     * @param yPosition the Y position of this frame in the logical screen
+     * @param paletteCreator what palette creator should be used, if not provided, [NaivePaletteCreator] will be used
      * @return true if successful.
      */
-    fun addFrame(im: BufferedImage?, frameDelay: Int = delay, xPosition: Int = 0, yPosition: Int = 0): Boolean {
+    fun addFrame(
+        im: BufferedImage?,
+        frameDelay: Int = delay,
+        xPosition: Int = 0,
+        yPosition: Int = 0,
+        paletteCreator: PaletteCreator = NaivePaletteCreator()
+    ): Boolean {
         if (im == null || !started) {
             return false
         }
@@ -80,8 +91,10 @@ class AnimatedGifEncoder(
                 setSize(im.width, im.height)
             }
             image = im
+
             convertImagePixels(im, im.width, im.height) // convert to correct format if necessary
-            analyzePixels() // build color table & map pixels
+            analyzePixels(paletteCreator) // build color table & map pixels
+
             if (firstFrame) {
                 // Because this is the first frame, we should NOT write the hacky north-east coords
                 writeLSD() // logical screen descriptior
@@ -194,7 +207,7 @@ class AnimatedGifEncoder(
     /**
      * Analyzes image colors and creates color map.
      */
-    protected fun analyzePixels() {
+    protected fun analyzePixels(paletteCreator: PaletteCreator) {
         val len = pixels!!.size
         val nPix = len / 3
 
@@ -215,68 +228,21 @@ class AnimatedGifEncoder(
         }
 
         indexedPixels = ByteArray(nPix)
-        val nq = NeuQuant(pixels!!, len, sample)
-        // initialize quantizer
-        colorTab = nq.process() // create reduced palette
-        // convert map from BGR to RGB
-        run {
-            var i: Int = 0
-            while (i < colorTab!!.size) {
-                val temp: Byte = colorTab!!.get(i)
-                colorTab!![i] = colorTab!!.get(i + 2)
-                colorTab!![i + 2] = temp
-                usedEntry[i / 3] = false
-                i += 3
-            }
-        }
 
-        // map image pixels to new palette
-        var k = 0
-        for (i in 0 until nPix) {
-            val index = nq.map(pixels!![k++].toInt() and 0xff, pixels!![k++].toInt() and 0xff, pixels!![k++].toInt() and 0xff)
-            usedEntry[index] = true
-            indexedPixels!![i] = index.toByte()
-        }
+        val (colorTab, colorDepth, palSize, transIndex) = paletteCreator.createPaletteFromPixels(
+            pixels!!,
+            indexedPixels!!,
+            transparent,
+            hasTransparentPixels
+        )
+
         pixels = null
-        colorDepth = 8
-        palSize = 7
 
-        // Get closest match to transparent color if specified and if the current frame has transparent pixels
-        // We check if they are present to avoid issues if the frame only has a solid color without any transparency
-        if (hasTransparentPixels) {
-            transIndex = findClosest(transparent!!)
-        } else {
-            transIndex = -1 // reset transparent index to avoid issues (magic value)
-        }
+        this.colorTab = colorTab
+        this.colorDepth = colorDepth
+        this.palSize = palSize
+        this.transIndex = transIndex
     }
-
-    /**
-     * Returns index of palette color closest to c
-     *
-     */
-    protected fun findClosest(c: Color): Int {
-        if (colorTab == null) return -1
-        val r = c.red
-        val g = c.green
-        val b = c.blue
-        var minpos = 0
-        var dmin = 256 * 256 * 256
-        val len = colorTab!!.size
-        var i = 0
-        while (i < len) {
-            val dr: Int = r - (colorTab!![i++].toInt() and 0xff)
-            val dg: Int = g - (colorTab!![i++].toInt() and 0xff)
-            val db: Int = b - (colorTab!![i].toInt() and 0xff)
-            val d = dr * dr + dg * dg + db * db
-            val index = i / 3
-            if (usedEntry[index] && d < dmin) {
-                dmin = d
-                minpos = index
-            }
-            i++
-        }
-        return minpos
-    }// create new image with right size/format
 
     /**
      * Extracts image pixels into byte array "pixels"

@@ -76,8 +76,6 @@ abstract class TobyBoxGenerator(
         if (builder.isNotEmpty())
             lines.add(builder.toString())
 
-        println(lines)
-
         return generate(
             lines.take(3), // Only 3 lines can fit in the text box anyway
             portrait
