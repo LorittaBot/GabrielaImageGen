@@ -38,12 +38,15 @@ class PostTobyTextBoxRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
 
 
                 val portraitString = json["portrait"]?.jsonPrimitive?.content
-                val portrait: CharacterPortrait
-                if (portraitString != null)
-                    portrait = m.generators.tobyTextBoxGenerators.portraits[portraitString] ?: error("Portrait $portraitString does not exist!")
+
+                val portrait = if (portraitString != null)
+                    m.generators.tobyTextBoxGenerators.portraits[portraitString] ?: error("Portrait $portraitString does not exist!")
                 else {
                     val imagesContext = SourceImagesContext.from(m.connectionManager, postResult)
-                    portrait = CharacterPortrait.fromCustom(imagesContext.retrieveImage(0))
+                    if (imagesContext.images.isNotEmpty())
+                        CharacterPortrait.fromCustom(imagesContext.retrieveImage(0))
+                    else
+                        null
                 }
 
                 val stringsContext = SourceStringsContext.from(postResult)
