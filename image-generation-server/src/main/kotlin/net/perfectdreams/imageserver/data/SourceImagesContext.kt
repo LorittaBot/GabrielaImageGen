@@ -13,12 +13,14 @@ import javax.imageio.ImageIO
 
 class SourceImagesContext(val connectionManager: ConnectionManager, val images: List<SourceImageData>) {
     companion object {
-        fun from(connectionManager: ConnectionManager, input: String): SourceImagesContext {
+        fun from(connectionManager: ConnectionManager, input: String) = fromOrNull(connectionManager, input) ?: throw RuntimeException("Image Array not found!")
+
+        fun fromOrNull(connectionManager: ConnectionManager, input: String): SourceImagesContext? {
             val result = Json.parseToJsonElement(input)
                 .jsonObject
 
             if (!result.containsKey("images"))
-                throw RuntimeException("Image Array not found!")
+                return null
 
             val images = result["images"]!!.jsonArray
 

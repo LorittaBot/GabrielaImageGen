@@ -1,10 +1,13 @@
 package net.perfectdreams.imagegen.generators.undertale.textbox
 
 import net.perfectdreams.imagegen.utils.gifs.AnimatedGifEncoder
+import net.perfectdreams.imagegen.utils.gifs.palettecreators.CachedPaletteCreator
+import net.perfectdreams.imagegen.utils.gifs.palettecreators.NaiveDistancePaletteCreator
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
+import java.awt.image.DataBufferByte
 import java.io.ByteArrayOutputStream
 import javax.imageio.stream.MemoryCacheImageOutputStream
 
@@ -13,13 +16,16 @@ abstract class TobyBoxGenerator(
     private val font: Font
 ) {
     companion object {
-        private const val PORTRAIT_CENTER_X = 93
-        private const val PORTRAIT_CENTER_Y = 86
+        const val PORTRAIT_CENTER_X = 93
+        const val PORTRAIT_CENTER_Y = 86
 
         // The font is fixed width, so we know how many characters fit in a single line!
         private const val MAX_CHARACTERS_IN_LINE_WITH_PORTRAIT = 24
         private const val MAX_CHARACTERS_IN_LINE_NO_PORTRAIT = 31
     }
+
+    private val undertaleDialogBoxFont = font
+        .deriveFont(26f)
 
     fun generate(input: String, portrait: CharacterPortrait?): ByteArray {
         val builder = StringBuilder()
@@ -94,11 +100,10 @@ abstract class TobyBoxGenerator(
         gifEncoder.transparent = Color.MAGENTA
         gifEncoder.start()
 
-        val asteriskXBeginning = if (hasPortrait) 151 else 37
-        val textXBeginning = asteriskXBeginning + 32
-
-        val undertaleDialogBoxFont = font
-            .deriveFont(26f)
+        // To avoid intensive palette calculations, we are going to cache the palette!
+        // Because the colors won't even change between frames anyway, so don't even bother recalculating it!
+        // TODO: Maybe it would be better to generate the last frame first, calculate the palette and then generate the rest of the frames!
+        var cachedColorTab: ByteArray? = null
 
         repeat(lines.sumOf { it.length }) {
             val indexPlusOne = it + 1
@@ -116,53 +121,37 @@ abstract class TobyBoxGenerator(
                 }
             }
 
-            val base = BufferedImage(
-                dialogBoxImage.width,
-                dialogBoxImage.height,
-                BufferedImage.TYPE_INT_RGB
+            val frame = generateFrame(
+                toBeDrawn,
+                portrait
             )
 
-            val baseGraphics = base.createGraphics()
-            baseGraphics.color = Color.MAGENTA
-            baseGraphics.fillRect(0, 0, base.width, base.height)
-
-            baseGraphics.drawImage(
-                dialogBoxImage,
-                0,
-                0,
-                null
-            )
-
-            if (hasPortrait && portraitImage != null)
-                baseGraphics.drawImage(
-                    portraitImage,
-                    PORTRAIT_CENTER_X - (portraitImage.getWidth(null) / 2),
-                    PORTRAIT_CENTER_Y - (portraitImage.getHeight(null) / 2),
-                    null
+            val colorTab = cachedColorTab ?: run {
+                NaiveDistancePaletteCreator.createPaletteFromRgbValues(
+                    (frame.raster.dataBuffer as DataBufferByte).data,
+                    // We want BLACK and WHITE to ALWAYS be present!
+                    // This also gives a SUPER nice performance boost, because those palettes will be present at the beginning of the palette
+                    // So the createPaletteFromRgbValues will hit those values more frequently, bringing down GIF generation speed from ~5500ms to 1000ms (sweet)!
+                    listOf(
+                        Color.BLACK,
+                        Color.WHITE
+                    ),
+                    16,
+                    Color.MAGENTA,
+                    // Less = Faster GIF generation
+                    // In my tests, using 256 takes 6s to generate a text box with "owo uwu owo uwu owo uwu owo uwu owo uwu owo uwu owo uwu"
+                    // (This is due to the RGBPaletteToGIFPaletteConverter)
+                    192
                 )
-
-            baseGraphics.font = undertaleDialogBoxFont
-
-            drawString(
-                baseGraphics,
-                "* ",
-                asteriskXBeginning,
-                54
-            )
-
-            var yOffset = 0
-            for (line in toBeDrawn) {
-                drawString(
-                    baseGraphics,
-                    line,
-                    textXBeginning, // 36,
-                    53 + yOffset
-                )
-
-                yOffset += 36
             }
 
-            gifEncoder.addFrame(base, 3)
+            cachedColorTab = colorTab
+
+            gifEncoder.addFrame(
+                frame,
+                3,
+                paletteCreator = CachedPaletteCreator(colorTab)
+            )
         }
 
         gifEncoder.finish()
@@ -172,6 +161,68 @@ abstract class TobyBoxGenerator(
         baos.close()
 
         return endResult
+    }
+
+    private fun generateFrame(toBeDrawn: List<String>, portrait: CharacterPortrait?): BufferedImage {
+        val portraitImage = portrait?.image
+        val hasPortrait = portraitImage != null
+
+        val asteriskXBeginning = if (hasPortrait) 151 else 37
+        val textXBeginning = asteriskXBeginning + 32
+
+        val base = BufferedImage(
+            dialogBoxImage.width,
+            dialogBoxImage.height,
+            // This NEEDS to be BGR, because we will cache the palette of an frame!
+            // If it isn't, the code will fail while casting to DataBufferByte!
+            BufferedImage.TYPE_3BYTE_BGR
+        )
+
+        val baseGraphics = base.createGraphics()
+        baseGraphics.color = Color.MAGENTA
+        baseGraphics.fillRect(0, 0, base.width, base.height)
+
+        baseGraphics.drawImage(
+            dialogBoxImage,
+            0,
+            0,
+            null
+        )
+
+        if (hasPortrait && portraitImage != null) {
+            val centerX = (portrait as? TobyGameCharacterPortrait)?.centerX ?: PORTRAIT_CENTER_X
+            val centerY = (portrait as? TobyGameCharacterPortrait)?.centerY ?: PORTRAIT_CENTER_Y
+
+            baseGraphics.drawImage(
+                portraitImage,
+                centerX - (portraitImage.getWidth(null) / 2),
+                centerY - (portraitImage.getHeight(null) / 2),
+                null
+            )
+        }
+
+        baseGraphics.font = undertaleDialogBoxFont
+
+        drawString(
+            baseGraphics,
+            "* ",
+            asteriskXBeginning,
+            54
+        )
+
+        var yOffset = 0
+        for (line in toBeDrawn) {
+            drawString(
+                baseGraphics,
+                line,
+                textXBeginning, // 36,
+                53 + yOffset
+            )
+
+            yOffset += 36
+        }
+
+        return base
     }
 
     abstract fun drawString(graphics2D: Graphics2D, str: String, x: Int, y: Int)

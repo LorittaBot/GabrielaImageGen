@@ -2,6 +2,7 @@ package net.perfectdreams.imagegen.generators
 
 import net.perfectdreams.imagegen.generators.undertale.textbox.CharacterPortrait
 import net.perfectdreams.imagegen.generators.undertale.textbox.DeltaruneBoxGenerator
+import net.perfectdreams.imagegen.generators.undertale.textbox.TobyBoxGenerator
 import net.perfectdreams.imagegen.generators.undertale.textbox.TobyGameCharacterPortrait
 import net.perfectdreams.imagegen.generators.undertale.textbox.UndertaleBoxGenerator
 import net.perfectdreams.imageserver.generators.Generators
@@ -26,11 +27,33 @@ class TobyTextBoxGenerators(val m: Generators) {
             FileSystems.newFileSystem(uri, env).getPath("/image_templates/undertale/textbox/characters/")
         }
 
-        Files.list(dirPath).filter { Files.isDirectory(it) }.forEach { directoryPath ->
-            Files.list(directoryPath).forEach { filePath ->
-                if (filePath.fileName.toString().endsWith(".png")) {
-                    portraits["${directoryPath.fileName}/${filePath.fileName.toString().substringBeforeLast(".")}"] = CharacterPortrait.fromGame(
-                        ImageIO.read(Files.newInputStream(filePath)))
+        Files.list(dirPath).filter { Files.isDirectory(it) }.forEach { gameDirectory ->
+            Files.list(gameDirectory).filter { Files.isDirectory(it) }.forEach { characterDirectory ->
+                Files.list(characterDirectory).forEach { filePath ->
+                    if (filePath.fileName.toString().endsWith(".png")) {
+                        val centerX: Int
+                        val centerY: Int
+
+                        // Workaround because a lot of the portraits aren't properly centered
+                        when (characterDirectory.fileName.toString()) {
+                            "asriel" -> {
+                                centerX = 69 + 7
+                                centerY = 67 + 7
+                            }
+                            else -> {
+                                centerX = TobyBoxGenerator.PORTRAIT_CENTER_X
+                                centerY = TobyBoxGenerator.PORTRAIT_CENTER_Y
+                            }
+                        }
+
+                        portraits["${gameDirectory.fileName}/${characterDirectory.fileName}/${
+                            filePath.fileName.toString().substringBeforeLast(".")
+                        }"] = CharacterPortrait.fromGame(
+                            ImageIO.read(Files.newInputStream(filePath)),
+                            centerX,
+                            centerY
+                        )
+                    }
                 }
             }
         }

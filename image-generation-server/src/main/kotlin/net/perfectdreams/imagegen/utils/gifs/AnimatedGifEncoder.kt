@@ -279,7 +279,7 @@ class AnimatedGifEncoder(
         } else {
             transp = if (transIndex != -1) 1 else 0 // If the trans index is our magic value, then it means that we do not have transparency on this frame!
             // TODO: Allow customizing the dispose method
-            disp = 0 // do not dispose (original: force clear if using transparent color)
+            disp = 2 // disp = 0 // do not dispose (original: force clear if using transparent color)
         }
         if (dispose >= 0) {
             disp = dispose and 7 // user override

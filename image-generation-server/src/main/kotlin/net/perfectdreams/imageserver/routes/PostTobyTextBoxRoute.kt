@@ -36,15 +36,14 @@ class PostTobyTextBoxRoute(val m: GabrielaImageGen) : VersionedAPIRoute(
                     else -> error("Unsupported type $type!")
                 }
 
-
                 val portraitString = json["portrait"]?.jsonPrimitive?.content
 
                 val portrait = if (portraitString != null)
                     m.generators.tobyTextBoxGenerators.portraits[portraitString] ?: error("Portrait $portraitString does not exist!")
                 else {
-                    val imagesContext = SourceImagesContext.from(m.connectionManager, postResult)
-                    if (imagesContext.images.isNotEmpty())
-                        CharacterPortrait.fromCustom(imagesContext.retrieveImage(0))
+                    val imagesContext = SourceImagesContext.fromOrNull(m.connectionManager, postResult)
+                    if (imagesContext?.images?.isNotEmpty() == true)
+                        CharacterPortrait.fromCustom(imagesContext.retrieveImage(0), CharacterPortrait.ColorPortraitType.valueOf(json["colorPortraitType"]!!.jsonPrimitive.content))
                     else
                         null
                 }
