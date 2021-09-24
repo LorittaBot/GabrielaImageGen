@@ -19,12 +19,13 @@ object RGBPaletteToGIFPaletteConverter {
         val len = pixels.size
         val nPix = len / 3
 
+        // TODO: Use isTransparencyColor + transparentIndex
         var transparentIndex = -1
         var k = 0
 
         var cachedLastColorR: Int? = null
-        var cachedLastColorB: Int? = null
         var cachedLastColorG: Int? = null
+        var cachedLastColorB: Int? = null
         var cachedLastIndex: Int? = null
 
         for (i in 0 until nPix) {
@@ -40,9 +41,7 @@ object RGBPaletteToGIFPaletteConverter {
             var colorTabIdx = 0
             // First we will check the cached RGB color!
             if (cachedLastColorR != null && cachedLastColorG != null && cachedLastColorB != null && cachedLastIndex != null) {
-                val distance = NaivePaletteCreator.colorDistance(r, g, b, cachedLastColorR, cachedLastColorG, cachedLastColorB)
-
-                currentColorDistance = distance
+                currentColorDistance = NaivePaletteCreator.colorDistance(r, g, b, cachedLastColorR, cachedLastColorG, cachedLastColorB)
                 mostSimilarColor = cachedLastIndex
             }
 
@@ -60,6 +59,10 @@ object RGBPaletteToGIFPaletteConverter {
                     if ((isTransparencyColor && cTabR == r && cTabG == g && cTabB == b)) {
                         mostSimilarColor = colorIdx
                         transparentIndex = mostSimilarColor
+
+                        cachedLastColorR = cTabR
+                        cachedLastColorG = cTabG
+                        cachedLastColorB = cTabB
                         break
                     } else if (!isTransparencyColor) { // We don't want colors similar to the transparent color being chosen!
                         // TODO: This is very slow, but how could we improve its speed?
@@ -80,8 +83,8 @@ object RGBPaletteToGIFPaletteConverter {
                 }
             }
 
-            indexedPixels[i] = mostSimilarColor.toByte()
             cachedLastIndex = mostSimilarColor
+            indexedPixels[i] = mostSimilarColor.toByte()
         }
 
         return transparentIndex

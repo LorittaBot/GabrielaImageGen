@@ -89,9 +89,6 @@ abstract class TobyBoxGenerator(
     }
 
     fun generate(lines: List<String>, portrait: CharacterPortrait?): ByteArray {
-        val portraitImage = portrait?.image
-        val hasPortrait = portraitImage != null
-
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
