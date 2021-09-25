@@ -9,6 +9,12 @@ class UndertaleBoxGenerator(
     dialogBoxImage: BufferedImage,
     font: Font
 ) : TobyBoxGenerator(dialogBoxImage, font) {
+    override val colorsThatShouldBePresent = listOf(
+        Color.BLACK,
+        Color.WHITE
+    )
+
+
     override fun drawString(graphics2D: Graphics2D, str: String, x: Int, y: Int) {
         graphics2D.color = Color.WHITE
         graphics2D.drawString(

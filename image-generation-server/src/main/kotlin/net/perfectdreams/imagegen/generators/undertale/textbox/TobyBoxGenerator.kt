@@ -27,6 +27,11 @@ abstract class TobyBoxGenerator(
     private val undertaleDialogBoxFont = font
         .deriveFont(26f)
 
+    /**
+     * List of colors that should always be present in the GIF palette, the box and text colors should be in here!
+     */
+    abstract val colorsThatShouldBePresent: List<Color>
+
     fun generate(input: String, portrait: CharacterPortrait?): ByteArray {
         val builder = StringBuilder()
         val lines = mutableListOf<String>()
@@ -129,10 +134,7 @@ abstract class TobyBoxGenerator(
                     // We want BLACK and WHITE to ALWAYS be present!
                     // This also gives a SUPER nice performance boost, because those palettes will be present at the beginning of the palette
                     // So the createPaletteFromRgbValues will hit those values more frequently, bringing down GIF generation speed from ~5500ms to 1000ms (sweet)!
-                    listOf(
-                        Color.BLACK,
-                        Color.WHITE
-                    ),
+                    colorsThatShouldBePresent,
                     16,
                     Color.MAGENTA,
                     // Less = Faster GIF generation
