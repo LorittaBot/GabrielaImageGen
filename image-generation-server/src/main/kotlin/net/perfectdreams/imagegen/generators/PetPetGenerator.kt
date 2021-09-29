@@ -11,10 +11,10 @@ import javax.imageio.stream.MemoryCacheImageOutputStream
 class PetPetGenerator(
     val m: GabrielaImageGen,
     assetsFolder: File
-) : SingleSourceBufferedImageToByteArrayGenerator {
+) {
     // Based on https://benisland.neocities.org/petpet/
     // Thx ben!
-    val handPatSprites = mutableListOf<BufferedImage>()
+    private val handPatSprites = mutableListOf<BufferedImage>()
 
     init {
         val sprites = ImageIO.read(File(assetsFolder, "sprite.png"))
@@ -24,58 +24,83 @@ class PetPetGenerator(
         }
     }
 
-    private val baseFrame = GraphicFrame(
-        18,
-        18,
-        112,
-        112
-    )
-    private val scale = 0.875
-    private val spritePositions = listOf(
+    /**
+     * Frame offset values
+     */
+    private val frameOffsets = listOf(
         GraphicFrame(
-            baseFrame.x,
-            baseFrame.y,
-            (baseFrame.w * scale).toInt(),
-            (baseFrame.h * scale).toInt()
+            0,
+            0,
+            0,
+            0
         ),
         GraphicFrame(
-            baseFrame.x - 4,
-            baseFrame.y + 12,
-            (baseFrame.w * scale).toInt() + 4,
-            (baseFrame.h * scale).toInt() - 12
+            -4,
+            12,
+            4,
+            -12
         ),
         GraphicFrame(
-            baseFrame.x - 12,
-            baseFrame.y + 18,
-            (baseFrame.w * scale).toInt() + 12,
-            (baseFrame.h * scale).toInt() - 18
+            -12,
+            18,
+            12,
+            -18
         ),
         GraphicFrame(
-            baseFrame.x - 12,
-            baseFrame.y + 12,
-            (baseFrame.w * scale).toInt() + 4,
-            (baseFrame.h * scale).toInt() - 12
+            -8,
+            12,
+            4,
+            -12
         ),
         GraphicFrame(
-            baseFrame.x - 4,
-            baseFrame.y,
-            (baseFrame.w * scale).toInt(),
-            (baseFrame.h * scale).toInt()
+            -4,
+            0,
+            0,
+            0
         )
     )
-    
-    override fun generate(source: BufferedImage): ByteArray {
+
+    /**
+     * Get the sprite's positioning for a frame
+     * @param frame the current frame
+     */
+    private fun getSpriteFrame(frame: Int, options: PetPetOptions): GraphicFrame {
+        val offset = frameOffsets[frame]
+
+        return GraphicFrame(
+            (Defaults.spriteX + offset.x * (options.squish * 0.4)).toInt(),
+            (Defaults.spriteY + offset.y * (options.squish * 0.9)).toInt(),
+            ((Defaults.spriteWidth + offset.w * options.squish) * Defaults.scale).toInt(),
+            ((Defaults.spriteHeight + offset.h * options.squish) * Defaults.scale).toInt()
+        )
+    }
+
+    fun generate(source: BufferedImage, options: PetPetOptions): ByteArray {
         val baos = ByteArrayOutputStream()
         val baosAsMemoryCacheImage = MemoryCacheImageOutputStream(baos)
 
-        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, 7, true, true)
+        val gifWriter = GifSequenceWriter(baosAsMemoryCacheImage, BufferedImage.TYPE_INT_ARGB, options.delayBetweenFrames, true, true)
 
-        for ((idx, frame) in spritePositions.withIndex()) {
+        repeat(frameOffsets.size) {
+            val cf = getSpriteFrame(it, options)
             val new = BufferedImage(112, 112, BufferedImage.TYPE_INT_ARGB)
 
-            val editedFrame = source.getScaledInstance(frame.w, frame.h, BufferedImage.SCALE_SMOOTH)
-            new.graphics.drawImage(editedFrame, frame.x, frame.y, null)
-            new.graphics.drawImage(handPatSprites[idx], 0, 0, null)
+            val editedFrame = source.getScaledInstance(cf.w, cf.h, BufferedImage.SCALE_SMOOTH)
+
+            new.graphics.drawImage(
+                editedFrame,
+                cf.x,
+                cf.y,
+                null
+            )
+
+            new.graphics.drawImage(
+                handPatSprites[it],
+                0,
+                // okay ben I won't ask bb - don't ask where these numbers are from they just work....
+                (cf.y * 0.75 - Defaults.spriteY.coerceAtLeast(0) - 0.5).toInt().coerceAtLeast(0),
+                null
+            )
 
             gifWriter.writeToSequence(new)
         }
@@ -93,4 +118,22 @@ class PetPetGenerator(
         val w: Int,
         val h: Int
     )
+
+    data class PetPetOptions(
+        val squish: Double,
+        val delayBetweenFrames: Int,
+    )
+
+    // Those values are from Ben's original generator
+    private object Defaults {
+        // val squish = 1.25
+        val scale = 0.875
+        // val delay = 60
+        val spriteX = 14
+        val spriteY = 20
+        val spriteWidth = 112
+        val spriteHeight = 112
+        // val currentFrame = 0
+        // val flip = false
+    }
 }
