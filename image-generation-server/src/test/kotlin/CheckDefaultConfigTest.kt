@@ -1,8 +1,8 @@
 import com.typesafe.config.ConfigFactory
 import kotlinx.serialization.hocon.Hocon
 import kotlinx.serialization.hocon.decodeFromConfig
-import net.perfectdreams.imageserver.GabrielaImageGenLauncher
-import net.perfectdreams.imageserver.config.AppConfig
+import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGenLauncher
+import net.perfectdreams.gabrielaimageserver.webserver.config.AppConfig
 import org.junit.jupiter.api.Test
 
 class CheckDefaultConfigTest {

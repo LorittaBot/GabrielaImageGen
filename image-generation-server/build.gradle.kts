@@ -1,11 +1,11 @@
 plugins {
-    kotlin("jvm") version "1.4.10"
-    kotlin("plugin.serialization") version "1.4.10" apply true
-    id("com.google.cloud.tools.jib") version "3.1.4"
+    kotlin("jvm") version Versions.KOTLIN
+    kotlin("plugin.serialization") version Versions.KOTLIN apply true
+    id("com.google.cloud.tools.jib") version Versions.JIB
 }
 
 group = "net.perfectdreams.imagegeneratorserver"
-version = "1.0-SNAPSHOT"
+version = Versions.GABRIELA_IMAGE_SERVER
 
 repositories {
     mavenCentral()
@@ -14,23 +14,37 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    api(project(":common"))
     api(project(":image-generators"))
 
     // Logging Stuff
     implementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
-    implementation("io.github.microutils:kotlin-logging:1.8.3")
+    implementation("io.github.microutils:kotlin-logging:2.0.11")
 
-    api("io.ktor:ktor-server-core:1.4.1")
-    api("io.ktor:ktor-server-netty:1.4.1")
-    api("io.ktor:ktor-client-core:1.4.1")
-    api("io.ktor:ktor-client-apache:1.4.1")
+    api("io.ktor:ktor-server-core:${Versions.KTOR}")
+    api("io.ktor:ktor-server-netty:${Versions.KTOR}")
+    api("io.ktor:ktor-client-core:${Versions.KTOR}")
+    api("io.ktor:ktor-client-apache:${Versions.KTOR}")
 
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0")
-    api("org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.0.0")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX_SERIALIZATION}")
+    api("org.jetbrains.kotlinx:kotlinx-serialization-hocon:${Versions.KOTLINX_SERIALIZATION}")
+    
+    // Prometheus, for metrics
+    api("io.prometheus:simpleclient:${Versions.PROMETHEUS}")
+    api("io.prometheus:simpleclient_hotspot:${Versions.PROMETHEUS}")
+    api("io.prometheus:simpleclient_common:${Versions.PROMETHEUS}")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.0-M1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.0-M1")
+    // Required for tests, if this is missing then Gradle will throw
+    // "No tests found for given includes: [***Test](filter.includeTestsMatching)"
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.testcontainers:testcontainers:1.16.0")
+    testImplementation("org.testcontainers:junit-jupiter:1.16.0")
     testImplementation("org.assertj:assertj-core:3.19.0")
+
+    testImplementation(project(":client"))
+    testImplementation("io.ktor:ktor-client-apache:1.6.3")
+    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
+    testImplementation(kotlin("reflect"))
 }
 
 tasks {
@@ -39,6 +53,7 @@ tasks {
     }
 
     test {
+        dependsOn(jibDockerBuild)
         useJUnitPlatform()
     }
 }
@@ -60,7 +75,7 @@ jib {
 
     container {
         ports = listOf("8001")
-        mainClass = "net.perfectdreams.imageserver.GabrielaImageGenLauncher"
+        mainClass = "net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGenLauncher"
     }
 
     to {
