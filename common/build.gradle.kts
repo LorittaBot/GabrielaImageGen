@@ -1,15 +1,11 @@
 plugins {
-    kotlin("multiplatform") version "1.5.31"
-    kotlin("plugin.serialization") version "1.5.31"
-    `maven-publish`
+    kotlin("multiplatform")
+    kotlin("plugin.serialization")
+    id("maven-publish")
 }
 
-group = "net.perfectdreams.imagegen"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
+group = "net.perfectdreams.gabrielaimageserver"
+version = Versions.GABRIELA_IMAGE_SERVER
 
 kotlin {
     jvm {
@@ -24,30 +20,6 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
             }
-        }
-
-        jvm().compilations["main"].defaultSourceSet {
-            dependencies {
-
-            }
-        }
-
-        val jvmTest by getting {
-            dependencies {
-                // Required for tests, if this is missing then Gradle will throw
-                // "No tests found for given includes: [***Test](filter.includeTestsMatching)"
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-                implementation("org.junit.jupiter:junit-jupiter:5.4.2")
-            }
-        }
-    }
-}
-
-publishing {
-    publications {
-        register("PerfectDreams", MavenPublication::class.java) {
-            from(components["java"])
         }
     }
 }

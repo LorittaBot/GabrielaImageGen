@@ -1,7 +1,6 @@
 plugins {
-    kotlin("multiplatform") version Versions.KOTLIN
-    kotlin("plugin.serialization") version Versions.KOTLIN
-    `maven-publish`
+    kotlin("multiplatform")
+    kotlin("plugin.serialization")
 }
 
 group = "net.perfectdreams.gabrielaimageserver"
@@ -28,14 +27,6 @@ kotlin {
                 api("io.ktor:ktor-client-core:${Versions.KTOR}")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX_SERIALIZATION}")
             }
-        }
-    }
-}
-
-publishing {
-    publications {
-        register("PerfectDreams", MavenPublication::class.java) {
-            from(components["java"])
         }
     }
 }
