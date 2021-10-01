@@ -3,6 +3,7 @@ package net.perfectdreams.gabrielaimageserver.client.services
 import net.perfectdreams.gabrielaimageserver.client.GabrielaImageServerClient
 import net.perfectdreams.gabrielaimageserver.data.CortesFlowRequest
 import net.perfectdreams.gabrielaimageserver.data.ManiaTitleCardRequest
+import net.perfectdreams.gabrielaimageserver.data.MemeMakerRequest
 import net.perfectdreams.gabrielaimageserver.data.PetPetRequest
 import net.perfectdreams.gabrielaimageserver.data.SAMLogoRequest
 import net.perfectdreams.gabrielaimageserver.data.ShipRequest
@@ -16,6 +17,7 @@ class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun petPet(request: PetPetRequest) = execute("/images/pet-pet", request)
     suspend fun maniaTitleCard(request: ManiaTitleCardRequest) = execute("/images/mania-title-card", request)
     suspend fun tobyTextBox(request: TobyTextBoxRequest) = execute("/images/toby-text-box", request)
+    suspend fun memeMaker(request: MemeMakerRequest) = execute("/images/meme-maker", request)
 
     suspend fun invertColors(request: SingleImageRequest) = execute("/images/invert-colors", request)
     suspend fun toBeContinued(request: SingleImageRequest) = execute("/images/to-be-continued", request)
@@ -43,6 +45,7 @@ class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun bolsonaro(request: SingleImageRequest) = execute("/images/bolsonaro", request)
     suspend fun bolsonaro2(request: SingleImageRequest) = execute("/images/bolsonaro2", request)
     suspend fun briggsCover(request: SingleImageRequest) = execute("/images/briggs-cover", request)
+    suspend fun buckShirt(request: SingleImageRequest) = execute("/images/buck-shirt", request)
     suspend fun canellaDvd(request: SingleImageRequest) = execute("/images/canella-dvd", request)
     suspend fun chicoAta(request: SingleImageRequest) = execute("/images/chico-ata", request)
     suspend fun ednaldoBandeira(request: SingleImageRequest) = execute("/images/ednaldo-bandeira", request)
