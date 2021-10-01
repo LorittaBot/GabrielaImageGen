@@ -1,5 +1,8 @@
 plugins {
-    `maven-publish`
+    kotlin("multiplatform") version Versions.KOTLIN apply false
+    kotlin("jvm") version Versions.KOTLIN apply false
+    kotlin("plugin.serialization") version Versions.KOTLIN apply false
+    id("maven-publish")
 }
 
 group = "net.perfectdreams.gabrielaimageserver"
@@ -13,7 +16,8 @@ allprojects {
 
 subprojects {
     apply<MavenPublishPlugin>()
-    version = "0.0.10-SNAPSHOT"
+    group = "net.perfectdreams.gabrielaimageserver"
+    version = Versions.GABRIELA_IMAGE_SERVER
 
     publishing {
         repositories {
