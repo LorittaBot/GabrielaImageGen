@@ -1,7 +1,5 @@
-import java.io.File
-
 plugins {
-    kotlin("multiplatform") version "1.4.20-M2"
+    kotlin("jvm") version Versions.KOTLIN
 }
 
 repositories {
@@ -9,50 +7,22 @@ repositories {
     jcenter()
 }
 
-kotlin {
-    jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
-        }
+dependencies {
+    api(project(":common"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
-        withJava()
-    }
+    // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging
+    implementation("io.github.microutils:kotlin-logging:2.0.11")
 
-    js {
-        browser {
-            binaries.executable()
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                }
-            }
-        }
-    }
+    // Required for tests, if this is missing then Gradle will throw
+    // "No tests found for given includes: [***Test](filter.includeTestsMatching)"
+    implementation(kotlin("test"))
+    implementation(kotlin("test-junit"))
+    implementation("org.junit.jupiter:junit-jupiter:5.4.2")
+}
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(project(":gabriela-image-api"))
-            }
-        }
-
-        val jvmMain by getting {
-            dependencies {
-                api(project(":gabriela-image-api"))
-            }
-        }
-
-        val jvmTest by getting {
-            dependencies {
-                api(project(":gabriela-image-api"))
-                // api(project(":image-generators:ednaldo-bandeira"))
-
-                // Required for tests, if this is missing then Gradle will throw
-                // "No tests found for given includes: [***Test](filter.includeTestsMatching)"
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-                implementation("org.junit.jupiter:junit-jupiter:5.4.2")
-            }
-        }
+tasks {
+    processResources {
+        from("../assets/") // Include folders from the resources root folder
     }
 }

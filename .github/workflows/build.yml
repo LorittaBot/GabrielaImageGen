@@ -37,5 +37,13 @@ jobs:
     - name: Build with Gradle
       run: "./gradlew build -Dgithub.build.id=$GITHUB_RUN_ID -Dbuild.number=$GITHUB_RUN_NUMBER -Dgit.branch=$GITHUB_REF -Dcommit.hash=$GITHUB_SHA -Dcompiled.at=${{ steps.current-time.outputs.time }}"
 
+    - name: Publish to PerfectDreams' repository
+      if: github.ref == 'refs/heads/master'
+      env:
+        USERNAME: ${{ secrets.PERFECTDREAMS_REPO_USERNAME }}
+        PASSWORD: ${{ secrets.PERFECTDREAMS_REPO_PASSWORD }}
+      run: "./gradlew publish -DUSERNAME=$USERNAME -DPASSWORD=$PASSWORD"
+
     - name: Publish to Docker
+      if: github.ref == 'refs/heads/master'
       run: "./gradlew :image-generation-server:jib -Dgithub.build.id=$GITHUB_RUN_ID -Dbuild.number=$GITHUB_RUN_NUMBER -Dgit.branch=$GITHUB_REF -Dcommit.hash=$GITHUB_SHA -Dcompiled.at=${{ steps.current-time.outputs.time }}"

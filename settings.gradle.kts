@@ -7,16 +7,14 @@ pluginManagement {
 
 rootProject.name = "GabrielaImageGen"
 
-// Image API
-include(":gabriela-image-api")
+// Common module shared between the client and the image generators
+include(":common")
+
+// Gabriela Image Server's REST API Client
+include(":client")
 
 // Generators
 include(":image-generators")
-
-// Browser Version
-include(":image-generation-browser:generators-info")
-include(":image-generation-browser:backend")
-include(":image-generation-browser:frontend")
 
 // Backend (Micro Service)
 include(":image-generation-server")
