@@ -1,13 +1,7 @@
 package net.perfectdreams.gabrielaimageserver
 import io.ktor.client.*
 import io.ktor.client.features.*
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.Semaphore
-import kotlinx.coroutines.sync.withPermit
 import net.perfectdreams.gabrielaimageserver.client.GabrielaImageServerClient
 import net.perfectdreams.gabrielaimageserver.client.services.ImagesService
 import net.perfectdreams.gabrielaimageserver.client.services.VideosService
@@ -29,7 +23,6 @@ import org.testcontainers.containers.GenericContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import java.io.File
-import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.reflect.full.callSuspend
 import kotlin.reflect.jvm.jvmErasure
 
