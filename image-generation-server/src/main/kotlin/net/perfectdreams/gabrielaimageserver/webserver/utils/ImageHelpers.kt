@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import net.perfectdreams.gabrielaimageserver.data.Base64ImageData
 import net.perfectdreams.gabrielaimageserver.data.SourceImageData
 import net.perfectdreams.gabrielaimageserver.data.URLImageData
+import net.perfectdreams.gabrielaimageserver.exceptions.ImageNotFoundException
 import net.perfectdreams.gabrielaimageserver.exceptions.UntrustedURLException
 import java.util.*
 import javax.imageio.ImageIO
@@ -13,7 +14,7 @@ suspend fun SourceImageData.retrieveImage(connectionManager: ConnectionManager) 
     when (this@retrieveImage) {
         is Base64ImageData -> {
             ImageIO.read(Base64.getDecoder().decode(this@retrieveImage.data).inputStream())
-                ?: throw IllegalArgumentException("Invalid image provided")
+                ?: throw ImageNotFoundException()
         }
         is URLImageData -> {
             val url = this@retrieveImage.url
@@ -21,7 +22,7 @@ suspend fun SourceImageData.retrieveImage(connectionManager: ConnectionManager) 
             if (!connectionManager.isTrusted(url))
                 throw UntrustedURLException(url)
 
-            ImageUtils.downloadImage(url) ?: throw IllegalArgumentException("Invalid image provided")
+            ImageUtils.downloadImage(url) ?: throw ImageNotFoundException()
         }
     }
 }
