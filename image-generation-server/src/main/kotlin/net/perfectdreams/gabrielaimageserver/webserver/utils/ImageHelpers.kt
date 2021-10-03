@@ -7,6 +7,7 @@ import net.perfectdreams.gabrielaimageserver.data.SourceImageData
 import net.perfectdreams.gabrielaimageserver.data.URLImageData
 import net.perfectdreams.gabrielaimageserver.exceptions.ImageNotFoundException
 import net.perfectdreams.gabrielaimageserver.exceptions.UntrustedURLException
+import java.io.FileNotFoundException
 import java.util.*
 import javax.imageio.ImageIO
 
@@ -22,7 +23,12 @@ suspend fun SourceImageData.retrieveImage(connectionManager: ConnectionManager) 
             if (!connectionManager.isTrusted(url))
                 throw UntrustedURLException(url)
 
-            ImageUtils.downloadImage(url) ?: throw ImageNotFoundException()
+            try {
+                ImageUtils.downloadImage(url) ?: throw ImageNotFoundException()
+            } catch (e: FileNotFoundException) {
+                // This can be thrown when calling "getHeaderFieldInt"
+                throw ImageNotFoundException()
+            }
         }
     }
 }
