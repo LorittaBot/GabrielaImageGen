@@ -13,7 +13,7 @@ class SimpleCortesFlowRoute(
     m: GabrielaImageGen,
     val generator: CortesFlowGenerator
 ) : SimpleBufferedImageAPIv2Route<CortesFlowRequest>(
-    "/cortes-flow/$path",
+    "/images/cortes-flow/$path",
     m
 ) {
     override val deserializationBlock: (String) -> CortesFlowRequest = { Json.decodeFromString(it) }
