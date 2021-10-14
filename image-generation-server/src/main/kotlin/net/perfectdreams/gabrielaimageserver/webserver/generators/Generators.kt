@@ -137,6 +137,7 @@ class Generators(val m: GabrielaImageGen) {
             ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar_reflection.png")),
             ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/gabi_resized.png")),
             ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/pantufa_resized.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/loritta_resized.png")),
             Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/gorditas-bold.ttf"))
         )
     )

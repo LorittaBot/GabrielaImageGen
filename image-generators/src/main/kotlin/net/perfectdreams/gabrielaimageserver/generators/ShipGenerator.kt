@@ -219,6 +219,14 @@ class ShipGenerator(
                 null
             )
 
+        if (showLoritta)
+            graphics.drawImage(
+                assets.loritta,
+                305,
+                129,
+                null
+            )
+
         // ===[ PROGRESS BAR ]===
         graphics.drawImage(
             assets.progressBarBackground,
@@ -302,6 +310,7 @@ class ShipGenerator(
 
         val gabriela: BufferedImage,
         val pantufa: BufferedImage,
+        val loritta: BufferedImage,
 
         val font: Font
     )
