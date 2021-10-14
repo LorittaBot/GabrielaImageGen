@@ -219,14 +219,6 @@ class ShipGenerator(
                 null
             )
 
-        if (showLoritta)
-            graphics.drawImage(
-                assets.loritta,
-                305,
-                129,
-                null
-            )
-
         // ===[ PROGRESS BAR ]===
         graphics.drawImage(
             assets.progressBarBackground,
@@ -270,6 +262,15 @@ class ShipGenerator(
             254 + BASE_DIFF_Y,
             null
         )
+
+        // Draw on top of everything, so it looks like Loritta is standing on top of the progress bar
+        if (showLoritta)
+            graphics.drawImage(
+                assets.loritta,
+                305,
+                129,
+                null
+            )
 
         return canvas
     }
