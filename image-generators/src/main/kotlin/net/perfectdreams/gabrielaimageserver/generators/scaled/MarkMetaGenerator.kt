@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage
 
 class MarkMetaGenerator(template: BufferedImage) : BasicScaledImageGenerator(
     template,
-    823,
-    600,
-    1027,
-    177
+    411,
+    300,
+    513,
+    88
 )
