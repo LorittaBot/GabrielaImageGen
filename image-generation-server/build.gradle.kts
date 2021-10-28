@@ -37,8 +37,6 @@ dependencies {
     // Required for tests, if this is missing then Gradle will throw
     // "No tests found for given includes: [***Test](filter.includeTestsMatching)"
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    testImplementation("org.testcontainers:testcontainers:1.16.2")
-    testImplementation("org.testcontainers:junit-jupiter:1.16.2")
     testImplementation("org.assertj:assertj-core:3.19.0")
 
     testImplementation(project(":client"))

@@ -4,7 +4,8 @@ import net.perfectdreams.gabrielaimageserver.webserver.utils.ConnectionManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ConnectionManagerTest {
+class
+ConnectionManagerTest {
     private val trustedUrls = listOf(
         "loritta.website",
     )
