@@ -37,6 +37,7 @@ class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun pepeDream(request: SingleImageRequest) = execute("/images/pepe-dream", request)
     suspend fun loriScared(request: SingleImageRequest) = execute("/images/lori-scared", request)
     suspend fun studiopolisTv(request: SingleImageRequest) = execute("/images/studiopolis-tv", request)
+    suspend fun markMeta(request: SingleImageRequest) = execute("/images/mark-meta", request)
 
     // ===[ SKEWED IMAGES (with one single image) GENERATORS ]===
     suspend fun art(request: SingleImageRequest) = execute("/images/art", request)

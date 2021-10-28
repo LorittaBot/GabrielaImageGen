@@ -29,7 +29,8 @@ class SimpleSingleSourceGeneratorRoutes(val m: GabrielaImageGen) {
     fun scaled() = listOf(
         createImage(m, ContentType.Image.PNG, Generators::pepeDreamGenerator),
         createImage(m, ContentType.Image.PNG, Generators::loriScaredGenerator),
-        createImage(m, ContentType.Image.PNG, Generators::studiopolisTVGenerator)
+        createImage(m, ContentType.Image.PNG, Generators::studiopolisTVGenerator),
+        createImage(m, ContentType.Image.PNG, Generators::markMetaGenerator)
     )
 
     fun skewed() = listOf(

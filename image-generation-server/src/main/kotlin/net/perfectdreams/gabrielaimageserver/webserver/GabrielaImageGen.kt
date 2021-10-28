@@ -179,6 +179,10 @@ class GabrielaImageGen(val config: AppConfig) {
             }
 
             routing {
+                trace {
+                    println(it.buildText())
+                }
+
                 get("/") {
                     call.respondText("Hello World!", ContentType.Text.Plain)
                 }

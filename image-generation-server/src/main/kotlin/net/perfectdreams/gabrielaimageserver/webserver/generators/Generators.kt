@@ -21,6 +21,7 @@ import net.perfectdreams.gabrielaimageserver.generators.drake.BolsoDrakeGenerato
 import net.perfectdreams.gabrielaimageserver.generators.drake.DrakeGenerator
 import net.perfectdreams.gabrielaimageserver.generators.drake.LoriDrakeGenerator
 import net.perfectdreams.gabrielaimageserver.generators.scaled.LoriScaredGenerator
+import net.perfectdreams.gabrielaimageserver.generators.scaled.MarkMetaGenerator
 import net.perfectdreams.gabrielaimageserver.generators.scaled.PepeDreamGenerator
 import net.perfectdreams.gabrielaimageserver.generators.scaled.StudiopolisTVGenerator
 import net.perfectdreams.gabrielaimageserver.generators.skewed.ArtGenerator
@@ -199,6 +200,7 @@ class Generators(val m: GabrielaImageGen) {
     val loriScaredGenerator = createSimpleScaledGenerator<LoriScaredGenerator>()
     val pepeDreamGenerator = createSimpleScaledGenerator<PepeDreamGenerator>()
     val studiopolisTVGenerator = createSimpleScaledGenerator<StudiopolisTVGenerator>()
+    val markMetaGenerator = createSimpleScaledGenerator<MarkMetaGenerator>()
 
     // ===[ DRAKE GENERATORS ]===
     val drakeGenerator = createSimpleDrakeGenerator<DrakeGenerator>()
