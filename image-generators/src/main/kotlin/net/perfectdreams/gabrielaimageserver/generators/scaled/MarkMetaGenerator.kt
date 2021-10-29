@@ -7,6 +7,6 @@ class MarkMetaGenerator(template: BufferedImage) : BasicScaledImageGenerator(
     template,
     411,
     300,
-    513,
+    514,
     88
 )
