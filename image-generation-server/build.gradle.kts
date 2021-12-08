@@ -25,6 +25,7 @@ dependencies {
     api("io.ktor:ktor-server-netty:${Versions.KTOR}")
     api("io.ktor:ktor-client-core:${Versions.KTOR}")
     api("io.ktor:ktor-client-apache:${Versions.KTOR}")
+    implementation("net.perfectdreams.sequins.ktor:base-route:1.0.2")
 
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX_SERIALIZATION}")
     api("org.jetbrains.kotlinx:kotlinx-serialization-hocon:${Versions.KOTLINX_SERIALIZATION}")

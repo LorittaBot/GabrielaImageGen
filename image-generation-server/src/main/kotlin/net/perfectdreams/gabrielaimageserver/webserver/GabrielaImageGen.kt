@@ -142,6 +142,7 @@ class GabrielaImageGen(val config: AppConfig) {
         PostMemeMakerRoute(this),
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSAMLogoRoute(this),
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostTerminatorAnimeRoute(this),
+        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMinecraftSkinLorittaSweatshirtRoute(this),
 
         *net.perfectdreams.gabrielaimageserver.webserver.routes.v2.CortesFlowRoutes(this).all().toTypedArray(),
         *SimpleSingleSourceGeneratorRoutes(this).all().toTypedArray(),

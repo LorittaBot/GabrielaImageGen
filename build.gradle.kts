@@ -11,6 +11,7 @@ version = Versions.GABRIELA_IMAGE_SERVER
 allprojects {
     repositories {
         mavenCentral()
+        maven("https://repo.perfectdreams.net/")
     }
 }
 

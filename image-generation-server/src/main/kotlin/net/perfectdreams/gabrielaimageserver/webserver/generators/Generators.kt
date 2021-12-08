@@ -10,6 +10,7 @@ import net.perfectdreams.gabrielaimageserver.generators.InvertColorsGenerator
 import net.perfectdreams.gabrielaimageserver.generators.KnucklesThrowGenerator
 import net.perfectdreams.gabrielaimageserver.generators.ManiaTitleCardGenerator
 import net.perfectdreams.gabrielaimageserver.generators.MemeMakerGenerator
+import net.perfectdreams.gabrielaimageserver.generators.MinecraftSkinLorittaSweatshirtGenerator
 import net.perfectdreams.gabrielaimageserver.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.gabrielaimageserver.generators.PetPetGenerator
 import net.perfectdreams.gabrielaimageserver.generators.SAMGenerator
@@ -140,6 +141,23 @@ class Generators(val m: GabrielaImageGen) {
             ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/pantufa_resized.png")),
             ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/loritta_resized.png")),
             Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/gorditas-bold.ttf"))
+        )
+    )
+
+    val minecraftSkinLorittaSweatshirtGenerator = MinecraftSkinLorittaSweatshirtGenerator(
+        MinecraftSkinLorittaSweatshirtGenerator.MinecraftSkinLorittaSweatshirtGeneratorAssets(
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_light.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_light.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_dark.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_dark.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_wavy.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_wavy.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_wavy_stitches.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_wavy_stitches.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_vertical.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_vertical.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_vertical_stitches.png")),
+            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_vertical_stitches.png"))
         )
     )
 

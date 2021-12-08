@@ -24,3 +24,6 @@ data class ImageNotFoundExceptionResponse(override val reason: String?) : ErrorR
 
 @Serializable
 data class InternalServerErrorExceptionResponse(override val reason: String?) : ErrorResponse()
+
+@Serializable
+data class InvalidMinecraftSkinExceptionResponse(override val reason: String?) : ErrorResponse()
