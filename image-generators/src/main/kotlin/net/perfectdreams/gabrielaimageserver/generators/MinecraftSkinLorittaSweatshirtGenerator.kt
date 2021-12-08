@@ -63,7 +63,7 @@ class MinecraftSkinLorittaSweatshirtGenerator(
 
         val template = when (sweatshirtStyle) {
             MinecraftSkinLorittaSweatshirtRequest.SweatshirtStyle.LIGHT -> if (isAlex) assets.slimLight else assets.classicLight
-            MinecraftSkinLorittaSweatshirtRequest.SweatshirtStyle.DARK -> if (isAlex) assets.slimDark else assets.slimLight
+            MinecraftSkinLorittaSweatshirtRequest.SweatshirtStyle.DARK -> if (isAlex) assets.slimDark else assets.classicDark
             MinecraftSkinLorittaSweatshirtRequest.SweatshirtStyle.MIX_WAVY -> if (isAlex) assets.slimMixWavy else assets.classicMixWavy
             MinecraftSkinLorittaSweatshirtRequest.SweatshirtStyle.MIX_WAVY_WITH_STITCHES -> if (isAlex) assets.slimMixWavyWithStitches else assets.classicMixWavyWithStitches
             MinecraftSkinLorittaSweatshirtRequest.SweatshirtStyle.MIX_VERTICAL -> if (isAlex) assets.slimMixVertical else assets.classicMixVertical
