@@ -39,6 +39,8 @@ import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.cortesflow.GetC
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.drake.DrakeRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.scaled.ScaledRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.skewed.SkewedRoutes
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskAtendenteRoute
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskWordRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMemeMakerRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleSingleSourceGeneratorRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleTwoSourcesGeneratorRoutes
@@ -143,6 +145,8 @@ class GabrielaImageGen(val config: AppConfig) {
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSAMLogoRoute(this),
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostTerminatorAnimeRoute(this),
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMinecraftSkinLorittaSweatshirtRoute(this),
+        PostDrawnMaskAtendenteRoute(this),
+        PostDrawnMaskWordRoute(this),
 
         *net.perfectdreams.gabrielaimageserver.webserver.routes.v2.CortesFlowRoutes(this).all().toTypedArray(),
         *SimpleSingleSourceGeneratorRoutes(this).all().toTypedArray(),

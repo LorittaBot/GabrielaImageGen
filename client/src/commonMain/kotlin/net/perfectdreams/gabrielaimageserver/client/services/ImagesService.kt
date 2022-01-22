@@ -2,6 +2,8 @@ package net.perfectdreams.gabrielaimageserver.client.services
 
 import net.perfectdreams.gabrielaimageserver.client.GabrielaImageServerClient
 import net.perfectdreams.gabrielaimageserver.data.CortesFlowRequest
+import net.perfectdreams.gabrielaimageserver.data.DrawnMaskAtendenteRequest
+import net.perfectdreams.gabrielaimageserver.data.DrawnMaskWordRequest
 import net.perfectdreams.gabrielaimageserver.data.ManiaTitleCardRequest
 import net.perfectdreams.gabrielaimageserver.data.MemeMakerRequest
 import net.perfectdreams.gabrielaimageserver.data.MinecraftSkinLorittaSweatshirtRequest
@@ -20,6 +22,8 @@ class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun tobyTextBox(request: TobyTextBoxRequest) = execute("/images/toby-text-box", request)
     suspend fun memeMaker(request: MemeMakerRequest) = execute("/images/meme-maker", request)
     suspend fun minecraftSkinLorittaSweatshirt(request: MinecraftSkinLorittaSweatshirtRequest) = execute("/images/minecraft-skin-loritta-sweatshirt", request)
+    suspend fun drawnMaskAtendente(request: DrawnMaskAtendenteRequest) = execute("/images/drawn-mask-atendente", request)
+    suspend fun drawnMaskWord(request: DrawnMaskWordRequest) = execute("/images/drawn-mask-word", request)
 
     suspend fun invertColors(request: SingleImageRequest) = execute("/images/invert-colors", request)
     suspend fun toBeContinued(request: SingleImageRequest) = execute("/images/to-be-continued", request)
@@ -27,6 +31,7 @@ class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun knucklesThrow(request: SingleImageRequest) = execute("/images/knuckles-throw", request)
     suspend fun nichijouYuukoPaper(request: SingleImageRequest) = execute("/images/nichijou-yuuko-paper", request)
     suspend fun getOverHere(request: SingleImageRequest) = execute("/images/get-over-here", request)
+    suspend fun drawnMaskSign(request: SingleImageRequest) = execute("/images/drawn-mask-sign", request)
     suspend fun drake(request: TwoImagesRequest) = execute("/images/drake", request)
     suspend fun bolsoDrake(request: TwoImagesRequest) = execute("/images/bolso-drake", request)
     suspend fun loriDrake(request: TwoImagesRequest) = execute("/images/lori-drake", request)

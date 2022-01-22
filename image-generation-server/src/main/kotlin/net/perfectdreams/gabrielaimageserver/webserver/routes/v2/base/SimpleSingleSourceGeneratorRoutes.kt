@@ -19,6 +19,7 @@ class SimpleSingleSourceGeneratorRoutes(val m: GabrielaImageGen) {
 
     fun simple() = listOf(
         createImage(m, ContentType.Image.PNG, Generators::toBeContinuedGenerator),
+        createImage(m, ContentType.Image.PNG, Generators::drawnMaskSignGenerator),
         createImage(m, ContentType.Image.PNG, Generators::invertColorsGenerator),
         createImage(m, ContentType.Image.GIF, Generators::cepoDeMadeiraGenerator),
         createImage(m, ContentType.Image.GIF, Generators::knucklesThrowGenerator),

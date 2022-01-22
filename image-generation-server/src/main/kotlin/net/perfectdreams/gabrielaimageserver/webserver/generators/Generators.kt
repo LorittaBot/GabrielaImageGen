@@ -4,6 +4,9 @@ import net.perfectdreams.gabrielaimageserver.generators.AttackOnHeartGenerator
 import net.perfectdreams.gabrielaimageserver.generators.CarlyAaahGenerator
 import net.perfectdreams.gabrielaimageserver.generators.CepoDeMadeiraGenerator
 import net.perfectdreams.gabrielaimageserver.generators.CocieloChavesGenerator
+import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskAtendenteGenerator
+import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskSignGenerator
+import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskWordGenerator
 import net.perfectdreams.gabrielaimageserver.generators.FansExplainingGenerator
 import net.perfectdreams.gabrielaimageserver.generators.GetOverHereGenerator
 import net.perfectdreams.gabrielaimageserver.generators.InvertColorsGenerator
@@ -172,6 +175,21 @@ class Generators(val m: GabrielaImageGen) {
                 val character = it.nameWithoutExtension.toCharArray().first()
                 character to ImageIO.read(it)
             }.toMap()
+    )
+    val drawnMaskAtendenteGenerator = DrawnMaskAtendenteGenerator(
+        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_atendente/template.png")),
+        Font.createFont(
+            Font.TRUETYPE_FONT,
+            File(m.config.assetsFolder + "/fonts/komika-hand.ttf")
+        )
+    )
+    val drawnMaskSignGenerator = DrawnMaskSignGenerator(
+        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_sign/template.png"))
+    )
+    val drawnMaskWordGenerator = DrawnMaskWordGenerator(
+        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_word/drawn_mask_word.png")),
+        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_word/drawn_mask_word_bottom.png")),
+        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_word/drawn_word.png"))
     )
     val toBeContinuedGenerator = ToBeContinuedGenerator(
         ImageIO.read(File(assetsFolder, "image_templates/to_be_continued/arrow.png"))

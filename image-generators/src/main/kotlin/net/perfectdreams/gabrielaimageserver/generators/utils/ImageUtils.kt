@@ -2,6 +2,7 @@ package net.perfectdreams.gabrielaimageserver.generators.utils
 
 import java.awt.AlphaComposite
 import java.awt.Color
+import java.awt.FontMetrics
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.Image
@@ -136,5 +137,58 @@ object ImageUtils {
         val y = rect.y + (rect.height - metrics.height) / 2 + metrics.ascent
         // Draw the String
         graphics.drawString(text, x, y)
+    }
+
+    /**
+     * Escreve um texto em um Graphics, fazendo wrap caso necessário
+     *
+     * Esta versão separa entre espaços o texto, para ficar mais bonito
+     *
+     * @param text Texto
+     * @param startX X inicial
+     * @param startY Y inicial
+     * @param endX X máximo, caso o texto ultrapasse o endX, ele automaticamente irá fazer wrap para a próxima linha
+     * @param endY Y máximo, atualmente unused
+     * @param fontMetrics Metrics da fonte
+     * @param graphics Graphics usado para escrever a imagem
+     * @return Y final
+     */
+    fun drawTextWrapSpaces(text: String, startX: Int, startY: Int, endX: Int, endY: Int, fontMetrics: FontMetrics, graphics: Graphics): Int {
+        val lineHeight = fontMetrics.height // Aqui é a altura da nossa fonte
+
+        var currentX = startX // X atual
+        var currentY = startY // Y atual
+
+        val split = text.split("((?<= )|(?= ))".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray() // Nós precisamos deixar os espaços entre os splits!
+        for (str in split) {
+            var width = fontMetrics.stringWidth(str) // Width do texto que nós queremos colocar
+            if (currentX + width > endX) { // Se o currentX é maior que o endX... (Nós usamos currentX + width para verificar "ahead of time")
+                currentX = startX // Nós iremos fazer wrapping do texto
+                currentY += lineHeight
+            }
+            var idx = 0
+            for (c in str.toCharArray()) { // E agora nós iremos printar todos os chars
+                idx++
+                if (c == '\n') {
+                    currentX = startX // Nós iremos fazer wrapping do texto
+                    currentY += lineHeight
+                    continue
+                }
+                width = fontMetrics.charWidth(c)
+                /* if (!graphics.font.canDisplay(c)) {
+                    // Talvez seja um emoji!
+                    val emoteImage = getTwitterEmoji(str, idx)
+                    if (emoteImage != null) {
+                        graphics.drawImage(emoteImage.getScaledInstance(width, width, BufferedImage.SCALE_SMOOTH), currentX, currentY - width, null)
+                        currentX += width
+                    }
+
+                    continue
+                } */
+                graphics.drawString(c.toString(), currentX, currentY) // Escreva o char na imagem
+                currentX += width // E adicione o width no nosso currentX
+            }
+        }
+        return currentY
     }
 }
