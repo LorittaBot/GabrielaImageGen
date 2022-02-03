@@ -9,6 +9,7 @@ import net.perfectdreams.gabrielaimageserver.data.MemeMakerRequest
 import net.perfectdreams.gabrielaimageserver.data.MinecraftSkinLorittaSweatshirtRequest
 import net.perfectdreams.gabrielaimageserver.data.PetPetRequest
 import net.perfectdreams.gabrielaimageserver.data.SAMLogoRequest
+import net.perfectdreams.gabrielaimageserver.data.SadRealityRequest
 import net.perfectdreams.gabrielaimageserver.data.ShipRequest
 import net.perfectdreams.gabrielaimageserver.data.SingleImageRequest
 import net.perfectdreams.gabrielaimageserver.data.TerminatorAnimeRequest
@@ -24,6 +25,7 @@ class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun minecraftSkinLorittaSweatshirt(request: MinecraftSkinLorittaSweatshirtRequest) = execute("/images/minecraft-skin-loritta-sweatshirt", request)
     suspend fun drawnMaskAtendente(request: DrawnMaskAtendenteRequest) = execute("/images/drawn-mask-atendente", request)
     suspend fun drawnMaskWord(request: DrawnMaskWordRequest) = execute("/images/drawn-mask-word", request)
+    suspend fun sadReality(request: SadRealityRequest) = execute("/images/sad-reality", request)
 
     suspend fun invertColors(request: SingleImageRequest) = execute("/images/invert-colors", request)
     suspend fun toBeContinued(request: SingleImageRequest) = execute("/images/to-be-continued", request)

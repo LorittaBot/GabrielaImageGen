@@ -17,6 +17,7 @@ import net.perfectdreams.gabrielaimageserver.generators.MinecraftSkinLorittaSwea
 import net.perfectdreams.gabrielaimageserver.generators.NichijouYuukoPaperGenerator
 import net.perfectdreams.gabrielaimageserver.generators.PetPetGenerator
 import net.perfectdreams.gabrielaimageserver.generators.SAMGenerator
+import net.perfectdreams.gabrielaimageserver.generators.SadRealityGenerator
 import net.perfectdreams.gabrielaimageserver.generators.ShipGenerator
 import net.perfectdreams.gabrielaimageserver.generators.TerminatorAnimeGenerator
 import net.perfectdreams.gabrielaimageserver.generators.ToBeContinuedGenerator
@@ -161,6 +162,13 @@ class Generators(val m: GabrielaImageGen) {
             ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_vertical.png")),
             ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_vertical_stitches.png")),
             ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_vertical_stitches.png"))
+        )
+    )
+
+    val sadRealityGenerator = SadRealityGenerator(
+        Font.createFont(
+            Font.TRUETYPE_FONT,
+            File(m.config.assetsFolder + "/fonts/bebas-neue-regular.ttf")
         )
     )
 
