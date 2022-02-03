@@ -36,7 +36,7 @@ class SadRealityGenerator(
         )
 
         for ((text, name, image) in results) {
-            baseGraph.drawImage(image, x, y, null)
+            baseGraph.drawImage(image.getScaledInstance(128, 128, BufferedImage.SCALE_SMOOTH), x, y, null)
 
             if (name != null) {
                 baseGraph.font = userNameFont.deriveFont(10f)
