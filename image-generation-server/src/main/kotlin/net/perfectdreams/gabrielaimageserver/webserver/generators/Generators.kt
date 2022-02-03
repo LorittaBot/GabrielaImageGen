@@ -168,6 +168,10 @@ class Generators(val m: GabrielaImageGen) {
     val sadRealityGenerator = SadRealityGenerator(
         Font.createFont(
             Font.TRUETYPE_FONT,
+            File(m.config.assetsFolder + "/fonts/pixolletta-8px.ttf")
+        ),
+        Font.createFont(
+            Font.TRUETYPE_FONT,
             File(m.config.assetsFolder + "/fonts/bebas-neue-regular.ttf")
         )
     )

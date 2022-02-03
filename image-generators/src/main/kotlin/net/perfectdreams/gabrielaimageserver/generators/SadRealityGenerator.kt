@@ -9,21 +9,16 @@ import java.awt.Rectangle
 import java.awt.image.BufferedImage
 
 class SadRealityGenerator(
-    val font: Font
+    val userNameFont: Font,
+    val userTypeFont: Font
 ) : Generator {
     fun generateImage(
-        text1: String,
-        text2: String,
-        text3: String,
-        text4: String,
-        text5: String,
-        text6: String,
-        image1: BufferedImage,
-        image2: BufferedImage,
-        image3: BufferedImage,
-        image4: BufferedImage,
-        image5: BufferedImage,
-        image6: BufferedImage
+        user1: SadRealityUserWithBufferedImage,
+        user2: SadRealityUserWithBufferedImage,
+        user3: SadRealityUserWithBufferedImage,
+        user4: SadRealityUserWithBufferedImage,
+        user5: SadRealityUserWithBufferedImage,
+        user6: SadRealityUserWithBufferedImage
     ): BufferedImage {
         var x = 0
         var y = 0
@@ -32,27 +27,36 @@ class SadRealityGenerator(
         val baseGraph = base.createGraphics().enableFontAntialiasing()
 
         val results = listOf(
-            Pair(text1, image1),
-            Pair(text2, image2),
-            Pair(text3, image3),
-            Pair(text4, image4),
-            Pair(text5, image5),
-            Pair(text6, image6)
+            user1,
+            user2,
+            user3,
+            user4,
+            user5,
+            user6
         )
 
-        for ((text, image) in results) {
+        for ((text, name, image) in results) {
             baseGraph.drawImage(image, x, y, null)
 
-            /* baseGraph.font = Constants.MINECRAFTIA.deriveFont(Font.PLAIN, 8f)
-            baseGraph.color = Color.BLACK
-            baseGraph.drawString(member.name + "#" + member.handle.discriminator, x + 1, y + 12)
-            baseGraph.drawString(member.name + "#" + member.handle.discriminator, x + 1, y + 14)
-            baseGraph.drawString(member.name + "#" + member.handle.discriminator, x, y + 13)
-            baseGraph.drawString(member.name + "#" + member.handle.discriminator, x + 2, y + 13)
-            baseGraph.color = Color.WHITE
-            baseGraph.drawString(member.name + "#" + member.handle.discriminator, x + 1, y + 13) */
+            if (name != null) {
+                baseGraph.font = userNameFont.deriveFont(10f)
+                baseGraph.color = Color.BLACK
+                val stringYBase = y + 10
+                val stringXBase = x + 1
 
-            baseGraph.font = font.deriveFont(22f)
+                // Outline
+                for (xPlus in -1..1) {
+                    for (yPlus in -1..1) {
+                        baseGraph.drawString(name, stringXBase + xPlus, stringYBase + yPlus)
+                    }
+                }
+
+                baseGraph.color = Color.WHITE
+                // Text
+                baseGraph.drawString(name, stringXBase, stringYBase)
+            }
+
+            baseGraph.font = userTypeFont.deriveFont(22f)
 
             drawCentralizedTextOutlined(
                 baseGraph,
@@ -125,4 +129,10 @@ class SadRealityGenerator(
             y += skipHeight
         }
     }
+
+    data class SadRealityUserWithBufferedImage(
+        val text: String,
+        val name: String?,
+        val image: BufferedImage,
+    )
 }
