@@ -50,9 +50,9 @@ open class SimpleTwoImagesRoute(
     override val deserializationBlock: (String) -> TwoImagesRequest = { Json.decodeFromString(it) }
 
     override suspend fun generate(data: TwoImagesRequest): ByteArray {
-        val (imageData) = data
-        val image1 = imageData.retrieveImage(m.connectionManager)
-        val image2 = imageData.retrieveImage(m.connectionManager)
+        val (image1Data, image2Data) = data
+        val image1 = image1Data.retrieveImage(m.connectionManager)
+        val image2 = image2Data.retrieveImage(m.connectionManager)
 
         return measureGeneratorLatency(generator) {
             generate(image1, image2)
