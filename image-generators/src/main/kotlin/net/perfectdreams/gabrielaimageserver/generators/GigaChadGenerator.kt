@@ -46,7 +46,7 @@ class GigaChadGenerator(
             "-c:v",
             "libx264",
             "-preset",
-            "superfast",
+            "ultrafast", // we can trade superfast to ultrafast because the video is super short, it shaves ~0.5s from the generation time
             "-pix_fmt",
             "yuv420p",
             "-y",
