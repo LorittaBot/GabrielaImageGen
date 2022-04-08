@@ -3,12 +3,12 @@ package net.perfectdreams.gabrielaimageserver.generators
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.perfectdreams.gabrielaimageserver.generators.utils.GeneratorsUtils
-import net.perfectdreams.gabrielaimageserver.generators.utils.NoCopyByteArrayOutputStream
 import net.perfectdreams.gabrielaimageserver.generators.utils.enableFontAntialiasing
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
 import java.awt.image.BufferedImage
+import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.concurrent.thread
@@ -96,9 +96,6 @@ class FansExplainingGenerator(
             }
 
             val graphics = imageFrame.createGraphics()
-                .enableFontAntialiasing()
-
-            graphics.font = font
 
             if (frame in SECTION_1_FRAMES) {
                 graphics.drawImage(section1Frame, 0, 0, null)
@@ -120,10 +117,7 @@ class FansExplainingGenerator(
                 graphics.drawImage(section5Frame, 0, 0, null)
             }
 
-            val derivedFont = font.deriveFont(92f)
-            graphics.font = derivedFont
-
-            val baos = NoCopyByteArrayOutputStream()
+            val baos = ByteArrayOutputStream()
 
             withContext(Dispatchers.IO) {
                 // BMP is waaaaay faster to write than png, so let's use it!
@@ -214,7 +208,7 @@ class FansExplainingGenerator(
      * @param borderPadding padding between the borders
      * @param inverted      if the text should be written from the bottom to top
      */
-    fun calculatePositionsOfTextWithinFrame(
+    private fun calculatePositionsOfTextWithinFrame(
         frame: BufferedImage,
         graphics: Graphics,
         text: String,
@@ -340,5 +334,5 @@ class FansExplainingGenerator(
         return Pair(matchedLines, matchedSize)
     }
 
-    data class TextPosition(val x: Int, val y: Int, val text: String)
+    private data class TextPosition(val x: Int, val y: Int, val text: String)
 }

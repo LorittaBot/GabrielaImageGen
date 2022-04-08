@@ -8,11 +8,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.perfectdreams.gabrielaimageserver.generators.utils.GeneratorsUtils
-import net.perfectdreams.gabrielaimageserver.generators.utils.NoCopyByteArrayOutputStream
 import net.perfectdreams.gabrielaimageserver.graphics.LorittaImage
 import java.awt.AlphaComposite
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
+import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.concurrent.thread
@@ -120,7 +120,7 @@ class CocieloChavesGenerator(
 
                 val imageFrameFile = File(assetsFolder, "frames/$fileName")
 
-                val noCopyByteArrayOutputStream = NoCopyByteArrayOutputStream()
+                val noCopyByteArrayOutputStream = ByteArrayOutputStream()
 
                 ImageIO.write(
                     ImageIO.read(imageFrameFile),
@@ -298,7 +298,7 @@ class CocieloChavesGenerator(
                     // println("[Frame $frame] Took ${System.currentTimeMillis() - start}ms to do overlay data stuff!")
 
                     // time = System.currentTimeMillis()
-                    val baos = NoCopyByteArrayOutputStream()
+                    val baos = ByteArrayOutputStream()
 
                     withContext(Dispatchers.IO) {
                         // BMP is waaaaay faster to write than png, so let's use it!

@@ -41,6 +41,7 @@ import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.scaled.ScaledRo
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.skewed.SkewedRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskAtendenteRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskWordRoute
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostGigaChadRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMemeMakerRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSadRealityRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleSingleSourceGeneratorRoutes
@@ -129,6 +130,7 @@ class GabrielaImageGen(val config: AppConfig) {
         PostFansExplainingGeneratorRoute(this),
         PostMemeMakerGeneratorRoute(this),
         PostShipRoute(this),
+        PostGigaChadRoute(this),
         *SkewedRoutes(this).all().toTypedArray(),
         *ScaledRoutes(this).all().toTypedArray(),
         *DrakeRoutes(this).all().toTypedArray(),

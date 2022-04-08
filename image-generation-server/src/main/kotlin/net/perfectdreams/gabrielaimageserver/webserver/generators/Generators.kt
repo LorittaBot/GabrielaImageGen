@@ -9,6 +9,7 @@ import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskSignGenerator
 import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskWordGenerator
 import net.perfectdreams.gabrielaimageserver.generators.FansExplainingGenerator
 import net.perfectdreams.gabrielaimageserver.generators.GetOverHereGenerator
+import net.perfectdreams.gabrielaimageserver.generators.GigaChadGenerator
 import net.perfectdreams.gabrielaimageserver.generators.InvertColorsGenerator
 import net.perfectdreams.gabrielaimageserver.generators.KnucklesThrowGenerator
 import net.perfectdreams.gabrielaimageserver.generators.ManiaTitleCardGenerator
@@ -214,6 +215,15 @@ class Generators(val m: GabrielaImageGen) {
         ),
         tempFolder,
         File(assetsFolder, "video_templates/fans_explaining"),
+        ffmpegPath
+    )
+    val gigachadGenerator = GigaChadGenerator(
+        Font.createFont(
+            Font.TRUETYPE_FONT,
+            File(m.config.assetsFolder + "/fonts/montserrat-extrabold.otf")
+        ),
+        tempFolder,
+        File(assetsFolder, "video_templates/gigachad"),
         ffmpegPath
     )
     val memeMakerGenerator = MemeMakerGenerator(

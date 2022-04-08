@@ -15,6 +15,7 @@ import java.awt.Rectangle
 import java.awt.RenderingHints
 import java.awt.geom.RoundRectangle2D
 import java.awt.image.BufferedImage
+import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.imageio.ImageIO
@@ -216,7 +217,7 @@ object ImageUtils {
     }
 
     suspend fun BufferedImage.toByteArray(formatType: ImageFormatType) = withContext(Dispatchers.IO) {
-        val output = NoCopyByteArrayOutputStream()
+        val output = ByteArrayOutputStream()
         ImageIO.write(this@toByteArray, formatType.name, output)
         output.toByteArray()
     }
