@@ -118,7 +118,7 @@ class GigaChadGenerator(
             graphics.drawImage(
                 imageFrame,
                 0,
-                text1.height
+                biggerText.height
             )
 
             val baos = ByteArrayOutputStream()
