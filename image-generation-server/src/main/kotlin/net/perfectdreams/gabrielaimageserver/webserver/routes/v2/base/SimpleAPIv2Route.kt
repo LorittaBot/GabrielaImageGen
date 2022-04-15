@@ -1,9 +1,9 @@
 package net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base
 
-import io.ktor.application.*
+import io.ktor.server.application.*
 import io.ktor.http.*
-import io.ktor.request.*
-import io.ktor.response.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
 import kotlinx.coroutines.withContext
 import net.perfectdreams.gabrielaimageserver.generators.Generator
 import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGen

@@ -31,14 +31,14 @@ open class Service(private val client: GabrielaImageServerClient) {
     suspend inline fun <reified T> execute(endpoint: String, body: T) = execute(endpoint, Json.encodeToJsonElement<T>(body).jsonObject)
 
     suspend fun execute(endpoint: String, body: JsonObject): ByteArray {
-        val response = client.http.post<HttpResponse>("${client.baseUrl}/api/$apiVersion$endpoint") {
-            this.body = body.toString()
+        val response = client.http.post("${client.baseUrl}/api/$apiVersion$endpoint") {
+            this.setBody(body.toString())
         }
 
         // If the status code is not between 400..499, then it means that it was (probably) a invalid input or something
         if (response.status.value !in 200..299) {
             // If it wasn't successful, let's try parsing the response!
-            val errorResponse = Json.decodeFromString<ErrorResponse>(response.readText())
+            val errorResponse = Json.decodeFromString<ErrorResponse>(response.bodyAsText())
 
             when (errorResponse) {
                 is ContentLengthTooLargeExceptionResponse -> throw ContentLengthTooLargeException()
@@ -51,6 +51,6 @@ open class Service(private val client: GabrielaImageServerClient) {
             }
         }
 
-        return response.receive()
+        return response.body()
     }
 }

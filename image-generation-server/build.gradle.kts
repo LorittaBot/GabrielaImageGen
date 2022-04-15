@@ -9,7 +9,6 @@ version = Versions.GABRIELA_IMAGE_SERVER
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
@@ -18,14 +17,16 @@ dependencies {
     api(project(":image-generators"))
 
     // Logging Stuff
-    implementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
-    implementation("io.github.microutils:kotlin-logging:2.0.11")
+    implementation("ch.qos.logback:logback-classic:1.3.0-alpha14")
+    implementation("io.github.microutils:kotlin-logging:2.1.21")
 
     api("io.ktor:ktor-server-core:${Versions.KTOR}")
     api("io.ktor:ktor-server-netty:${Versions.KTOR}")
     api("io.ktor:ktor-client-core:${Versions.KTOR}")
     api("io.ktor:ktor-client-apache:${Versions.KTOR}")
-    implementation("net.perfectdreams.sequins.ktor:base-route:1.0.2")
+    implementation("io.ktor:ktor-server-compression:${Versions.KTOR}")
+    implementation("io.ktor:ktor-server-status-pages:${Versions.KTOR}")
+    implementation("net.perfectdreams.sequins.ktor:base-route:1.0.4")
 
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX_SERIALIZATION}")
     api("org.jetbrains.kotlinx:kotlinx-serialization-hocon:${Versions.KOTLINX_SERIALIZATION}")
@@ -42,7 +43,7 @@ dependencies {
 
     testImplementation(project(":client"))
     testImplementation("io.ktor:ktor-client-apache:1.6.3")
-    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha5")
+    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha14")
     testImplementation(kotlin("reflect"))
 }
 

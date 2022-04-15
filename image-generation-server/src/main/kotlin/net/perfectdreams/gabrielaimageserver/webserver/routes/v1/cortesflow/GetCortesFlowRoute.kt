@@ -1,7 +1,7 @@
 package net.perfectdreams.gabrielaimageserver.webserver.routes.v1.cortesflow
 
-import io.ktor.application.*
-import io.ktor.response.*
+import io.ktor.server.application.*
+import io.ktor.server.response.*
 import kotlinx.serialization.json.addJsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.put

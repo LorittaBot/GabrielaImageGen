@@ -1,7 +1,7 @@
 package net.perfectdreams.gabrielaimageserver.webserver.utils.extensions
 
-import io.ktor.application.*
-import io.ktor.request.*
+import io.ktor.server.application.*
+import io.ktor.server.request.*
 import net.perfectdreams.gabrielaimageserver.webserver.data.SourceImagesContext
 import net.perfectdreams.gabrielaimageserver.webserver.data.SourceStringsContext
 import net.perfectdreams.gabrielaimageserver.webserver.utils.ConnectionManager

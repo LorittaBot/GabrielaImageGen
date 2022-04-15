@@ -1,49 +1,32 @@
 package net.perfectdreams.gabrielaimageserver.webserver
 
-import io.ktor.application.*
-import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.http.content.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
+import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import io.ktor.server.plugins.compression.*
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import kotlinx.coroutines.*
 import mu.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.utils.Gifsicle
 import net.perfectdreams.gabrielaimageserver.webserver.config.AppConfig
 import net.perfectdreams.gabrielaimageserver.webserver.generators.Generators
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostAttackOnHeartRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostCarlyAaahRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostCepoDeMadeiraRoute
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.*
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostCocieloChavesRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostFansExplainingGeneratorRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostGetOverHereRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostInvertColorsGeneratorRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostKnucklesThrowRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostManiaTitleCardRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostMemeMakerGeneratorRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostNichijouYuukoPaperRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostSAMLogoRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostShipRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTerminatorAnimeRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostToBeContinuedGeneratorRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTobyTextBoxRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTrumpRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.cortesflow.CortesFlowRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.cortesflow.GetCortesFlowRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.drake.DrakeRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.scaled.ScaledRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.skewed.SkewedRoutes
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskAtendenteRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskWordRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostGigaChadRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMemeMakerRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSadRealityRoute
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.*
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleSingleSourceGeneratorRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleTwoSourcesGeneratorRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.utils.ConnectionManager
@@ -160,7 +143,7 @@ class GabrielaImageGen(val config: AppConfig) {
     fun start() {
         val server = embeddedServer(Netty, port = 8001) {
             install(StatusPages) {
-                exception<WebsiteAPIException> { cause ->
+                exception<WebsiteAPIException> { call, cause ->
                     call.alreadyHandledStatus = true
                     call.respondJson(cause.payload, cause.status)
                 }
