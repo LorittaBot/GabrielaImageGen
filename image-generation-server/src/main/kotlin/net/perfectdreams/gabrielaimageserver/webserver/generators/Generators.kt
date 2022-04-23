@@ -1,28 +1,6 @@
 package net.perfectdreams.gabrielaimageserver.webserver.generators
 
-import net.perfectdreams.gabrielaimageserver.generators.AttackOnHeartGenerator
-import net.perfectdreams.gabrielaimageserver.generators.CarlyAaahGenerator
-import net.perfectdreams.gabrielaimageserver.generators.CepoDeMadeiraGenerator
-import net.perfectdreams.gabrielaimageserver.generators.CocieloChavesGenerator
-import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskAtendenteGenerator
-import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskSignGenerator
-import net.perfectdreams.gabrielaimageserver.generators.DrawnMaskWordGenerator
-import net.perfectdreams.gabrielaimageserver.generators.FansExplainingGenerator
-import net.perfectdreams.gabrielaimageserver.generators.GetOverHereGenerator
-import net.perfectdreams.gabrielaimageserver.generators.GigaChadGenerator
-import net.perfectdreams.gabrielaimageserver.generators.InvertColorsGenerator
-import net.perfectdreams.gabrielaimageserver.generators.KnucklesThrowGenerator
-import net.perfectdreams.gabrielaimageserver.generators.ManiaTitleCardGenerator
-import net.perfectdreams.gabrielaimageserver.generators.MemeMakerGenerator
-import net.perfectdreams.gabrielaimageserver.generators.MinecraftSkinLorittaSweatshirtGenerator
-import net.perfectdreams.gabrielaimageserver.generators.NichijouYuukoPaperGenerator
-import net.perfectdreams.gabrielaimageserver.generators.PetPetGenerator
-import net.perfectdreams.gabrielaimageserver.generators.SAMGenerator
-import net.perfectdreams.gabrielaimageserver.generators.SadRealityGenerator
-import net.perfectdreams.gabrielaimageserver.generators.ShipGenerator
-import net.perfectdreams.gabrielaimageserver.generators.TerminatorAnimeGenerator
-import net.perfectdreams.gabrielaimageserver.generators.ToBeContinuedGenerator
-import net.perfectdreams.gabrielaimageserver.generators.TrumpGenerator
+import net.perfectdreams.gabrielaimageserver.generators.*
 import net.perfectdreams.gabrielaimageserver.generators.drake.BolsoDrakeGenerator
 import net.perfectdreams.gabrielaimageserver.generators.drake.DrakeGenerator
 import net.perfectdreams.gabrielaimageserver.generators.drake.LoriDrakeGenerator
@@ -174,6 +152,13 @@ class Generators(val m: GabrielaImageGen) {
         Font.createFont(
             Font.TRUETYPE_FONT,
             File(m.config.assetsFolder + "/fonts/bebas-neue-regular.ttf")
+        )
+    )
+
+    val colorInfoGenerator = ColorInfoGenerator(
+        Font.createFont(
+            Font.TRUETYPE_FONT,
+            File(m.config.assetsFolder + "/fonts/pixolletta-8px.ttf")
         )
     )
 
