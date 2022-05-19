@@ -29,7 +29,6 @@ import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostManiaTitleC
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostMemeMakerGeneratorRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostNichijouYuukoPaperRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostSAMLogoRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostShipRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTerminatorAnimeRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostToBeContinuedGeneratorRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTobyTextBoxRoute
@@ -129,8 +128,6 @@ class GabrielaImageGen(val config: AppConfig) {
         PostInvertColorsGeneratorRoute(this),
         PostFansExplainingGeneratorRoute(this),
         PostMemeMakerGeneratorRoute(this),
-        PostShipRoute(this),
-        PostGigaChadRoute(this),
         *SkewedRoutes(this).all().toTypedArray(),
         *ScaledRoutes(this).all().toTypedArray(),
         *DrakeRoutes(this).all().toTypedArray(),
@@ -151,6 +148,7 @@ class GabrielaImageGen(val config: AppConfig) {
         PostDrawnMaskAtendenteRoute(this),
         PostDrawnMaskWordRoute(this),
         PostSadRealityRoute(this),
+        PostGigaChadRoute(this),
 
         *net.perfectdreams.gabrielaimageserver.webserver.routes.v2.CortesFlowRoutes(this).all().toTypedArray(),
         *SimpleSingleSourceGeneratorRoutes(this).all().toTypedArray(),
