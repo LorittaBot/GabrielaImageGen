@@ -78,7 +78,7 @@ class ChavesOpeningGenerator(
     }
 
     private val diamondFrames = (1..284).map {
-        ImageIO.read(File(assetsFolder, "diamond\\${it.toString().padStart(4, '0')}.png"))
+        ImageIO.read(File(assetsFolder, "diamond/${it.toString().padStart(4, '0')}.png"))
     }
 
     private val backgroundFrames = (0 until 360 step ROTATION_PER_FRAME).map {
