@@ -1,20 +1,7 @@
 package net.perfectdreams.gabrielaimageserver.client.services
 
 import net.perfectdreams.gabrielaimageserver.client.GabrielaImageServerClient
-import net.perfectdreams.gabrielaimageserver.data.CortesFlowRequest
-import net.perfectdreams.gabrielaimageserver.data.DrawnMaskAtendenteRequest
-import net.perfectdreams.gabrielaimageserver.data.DrawnMaskWordRequest
-import net.perfectdreams.gabrielaimageserver.data.ManiaTitleCardRequest
-import net.perfectdreams.gabrielaimageserver.data.MemeMakerRequest
-import net.perfectdreams.gabrielaimageserver.data.MinecraftSkinLorittaSweatshirtRequest
-import net.perfectdreams.gabrielaimageserver.data.PetPetRequest
-import net.perfectdreams.gabrielaimageserver.data.SAMLogoRequest
-import net.perfectdreams.gabrielaimageserver.data.SadRealityRequest
-import net.perfectdreams.gabrielaimageserver.data.ShipRequest
-import net.perfectdreams.gabrielaimageserver.data.SingleImageRequest
-import net.perfectdreams.gabrielaimageserver.data.TerminatorAnimeRequest
-import net.perfectdreams.gabrielaimageserver.data.TobyTextBoxRequest
-import net.perfectdreams.gabrielaimageserver.data.TwoImagesRequest
+import net.perfectdreams.gabrielaimageserver.data.*
 
 class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun ship(request: ShipRequest) = execute("/images/ship", request)
@@ -26,6 +13,7 @@ class ImagesService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun drawnMaskAtendente(request: DrawnMaskAtendenteRequest) = execute("/images/drawn-mask-atendente", request)
     suspend fun drawnMaskWord(request: DrawnMaskWordRequest) = execute("/images/drawn-mask-word", request)
     suspend fun sadReality(request: SadRealityRequest) = execute("/images/sad-reality", request)
+    suspend fun colorInfo(request: ColorInfoRequest) = execute("/images/color-info", request)
 
     suspend fun invertColors(request: SingleImageRequest) = execute("/images/invert-colors", request)
     suspend fun toBeContinued(request: SingleImageRequest) = execute("/images/to-be-continued", request)

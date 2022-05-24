@@ -1,5 +1,6 @@
 package net.perfectdreams.gabrielaimageserver.generators.cortesflow
 
+import mu.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.generators.Generator
 import net.perfectdreams.gabrielaimageserver.generators.utils.ImageUtils
 import net.perfectdreams.gabrielaimageserver.generators.utils.enableFontAntialiasing
@@ -18,8 +19,10 @@ open class CortesFlowGenerator(
     val source: String
 ) : Generator {
     companion object {
+        private val logger = KotlinLogging.logger {}
+
         val CONVOLVE_OP: ConvolveOp = run {
-            println("Creating Convolve Op")
+            logger.info { "Creating Convolve Op..." }
             val radius = 20
             val size = radius * 2 + 1
             val weight = 1.0f / (size * size)
@@ -31,6 +34,8 @@ open class CortesFlowGenerator(
 
             val kernel = Kernel(size, size, data)
             ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null)
+        }.also {
+            logger.info { "Finished Creating Op!" }
         }
 
         val LEFT_SIDE_TEXT = 374

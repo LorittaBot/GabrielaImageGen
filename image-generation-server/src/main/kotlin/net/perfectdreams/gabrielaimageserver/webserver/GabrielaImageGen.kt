@@ -1,13 +1,14 @@
 package net.perfectdreams.gabrielaimageserver.webserver
 
-import io.ktor.application.*
-import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.http.content.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
+import io.ktor.server.http.content.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.compression.*
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -38,11 +39,14 @@ import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.cortesflow.GetC
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.drake.DrakeRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.scaled.ScaledRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.skewed.SkewedRoutes
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostChavesOpeningRoute
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostColorInfoRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskAtendenteRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskWordRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostGigaChadRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMemeMakerRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSadRealityRoute
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostShipRoute
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleSingleSourceGeneratorRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleTwoSourcesGeneratorRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.utils.ConnectionManager
@@ -145,11 +149,14 @@ class GabrielaImageGen(val config: AppConfig) {
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSAMLogoRoute(this),
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostTerminatorAnimeRoute(this),
         net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMinecraftSkinLorittaSweatshirtRoute(this),
+        PostShipRoute(this),
+        PostGigaChadRoute(this),
         PostDrawnMaskAtendenteRoute(this),
         PostDrawnMaskWordRoute(this),
         PostSadRealityRoute(this),
         PostGigaChadRoute(this),
-
+        PostColorInfoRoute(this),
+        PostChavesOpeningRoute(this),
         *net.perfectdreams.gabrielaimageserver.webserver.routes.v2.CortesFlowRoutes(this).all().toTypedArray(),
         *SimpleSingleSourceGeneratorRoutes(this).all().toTypedArray(),
         *SimpleTwoSourcesGeneratorRoutes(this).all().toTypedArray()
@@ -158,7 +165,7 @@ class GabrielaImageGen(val config: AppConfig) {
     fun start() {
         val server = embeddedServer(Netty, port = 8001) {
             install(StatusPages) {
-                exception<WebsiteAPIException> { cause ->
+                exception<WebsiteAPIException> { call, cause ->
                     call.alreadyHandledStatus = true
                     call.respondJson(cause.payload, cause.status)
                 }

@@ -3,14 +3,13 @@ package net.perfectdreams.gabrielaimageserver.generators
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.perfectdreams.gabrielaimageserver.generators.utils.GeneratorsUtils
-import net.perfectdreams.gabrielaimageserver.generators.utils.ImageUtils
 import net.perfectdreams.gabrielaimageserver.generators.utils.enableFontAntialiasing
 import java.awt.Color
 import java.awt.Font
 import java.awt.font.FontRenderContext
 import java.awt.geom.AffineTransform
 import java.awt.image.BufferedImage
-import java.io.ByteArrayOutputStream
+import java.awt.image.DataBufferByte
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.concurrent.thread
@@ -35,10 +34,36 @@ class GigaChadGenerator(
         val outputFileName = GeneratorsUtils.generateFileName("gigachad", "mp4")
         val outputFile = File(tempFolder, outputFileName)
 
+        // We are going to pre-generate the text, this way we avoid recreating the text within the loop (which would be expensive!)
+        // Also the text doesn't change, so it is better to do it this way :)
+        // We will limit the text in 1000 chars, to avoid overloading the generator
+        val text1 = generateTextWithinFrame(virginLine.take(1000))
+        val text2 = generateTextWithinFrame(gigachadLine.take(1000))
+
+        val biggerText = if (text1.height > text2.height)
+            text1
+        else
+            text2
+
+        // Calculate the center of the caption height, used to centralize the text1 and text2
+        val centerYOfTheCaption = biggerText.height - (biggerText.height / 2)
+
+        var newHeight = 452 + biggerText.height
+        // Video should be divisible by 2
+        if (newHeight % 2 == 1) {
+            newHeight--
+        }
+
         val processBuilder = ProcessBuilder(
             ffmpegPath.toString(),
             "-framerate",
             "24",
+            "-f",
+            "rawvideo",
+            "-pixel_format",
+            "bgr24", // This is what the "BufferedImage.TYPE_3BYTE_BGR" uses behind the scenes
+            "-video_size",
+            "540x$newHeight",
             "-i",
             "-", // We will write to output stream
             "-i",
@@ -66,20 +91,6 @@ class GigaChadGenerator(
             }
         }
 
-        // We are going to pre-generate the text, this way we avoid recreating the text within the loop (which would be expensive!)
-        // Also the text doesn't change, so it is better to do it this way :)
-        // We will limit the text in 1000 chars, to avoid overloading the generator
-        val text1 = generateTextWithinFrame(virginLine.take(1000))
-        val text2 = generateTextWithinFrame(gigachadLine.take(1000))
-
-        val biggerText = if (text1.height > text2.height)
-            text1
-        else
-            text2
-
-        // Calculate the center of the caption height, used to centralize the text1 and text2
-        val centerYOfTheCaption = biggerText.height - (biggerText.height / 2)
-
         for (frame in 0..378) {
             // We are in a "No Edit Frame", so we are going to just copy the frame data as is instead of loading it into memory using ImageIO (and that uses a lot of memory!)
             val paddedFrames = frame.toString()
@@ -95,8 +106,8 @@ class GigaChadGenerator(
 
             val base = BufferedImage(
                 imageFrame.width,
-                imageFrame.height + biggerText.height,
-                BufferedImage.TYPE_INT_RGB // must be rgb because bmp doesn't support alpha (argb)
+                newHeight,
+                BufferedImage.TYPE_3BYTE_BGR // must be rgb because bmp doesn't support alpha (argb)
             )
 
             val graphics = base.createGraphics()
@@ -121,36 +132,9 @@ class GigaChadGenerator(
                 biggerText.height
             )
 
-            val baos = ByteArrayOutputStream()
-
-            withContext(Dispatchers.IO) {
-                // BMP is waaaaay faster to write than png, so let's use it!
-                // Video should be divisible by 2
-                val newWidth = if (base.width % 2 == 1)
-                    base.width + 1
-                else base.width
-
-                val newHeight = if (base.height % 2 == 1)
-                    base.height + 1
-                else base.height
-
-                ImageIO.write(
-                    ImageUtils.toBufferedImage(
-                        base.getScaledInstance(
-                            newWidth,
-                            newHeight,
-                            BufferedImage.SCALE_FAST
-                        ),
-                        BufferedImage.TYPE_INT_RGB,
-                    ),
-                    "bmp",
-                    baos
-                )
-            }
-
             // Write to ffmpeg output
             withContext(Dispatchers.IO) {
-                processBuilder.outputStream.write(baos.toByteArray())
+                processBuilder.outputStream.write((base.raster.dataBuffer as DataBufferByte).data)
                 processBuilder.outputStream.flush()
             }
         }

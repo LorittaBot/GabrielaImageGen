@@ -1,8 +1,8 @@
 package net.perfectdreams.gabrielaimageserver.webserver.routes
 
-import io.ktor.application.*
+import io.ktor.server.application.*
 import io.ktor.http.*
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 
 abstract class BaseRoute(val path: String) {
