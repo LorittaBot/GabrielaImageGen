@@ -86,6 +86,8 @@ class Generators(val m: GabrielaImageGen) {
         AttackOnHeartGenerator(tempFolder, File(assetsFolder, "video_templates/attack_on_heart"), ffmpegPath)
     val cocieloChavesGenerator =
         CocieloChavesGenerator(tempFolder, File(assetsFolder, "video_templates/cocielo_chaves"), ffmpegPath)
+    val chavesOpeningGenerator =
+        ChavesOpeningGenerator(tempFolder, File(assetsFolder, "video_templates/chaves"), ffmpegPath, Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/carter-one-regular.ttf")))
     val petPetGenerator = PetPetGenerator(m.gifsicle, File(assetsFolder, "image_templates/hand_pat"))
     val cepoDeMadeiraGenerator = CepoDeMadeiraGenerator(m.gifsicle, File(assetsFolder, "image_templates/cepo"))
     val getOverHereGenerator = GetOverHereGenerator(m.gifsicle, File(assetsFolder, "image_templates/get_over_here"))

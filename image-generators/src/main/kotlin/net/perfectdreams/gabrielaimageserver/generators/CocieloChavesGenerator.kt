@@ -12,7 +12,7 @@ import net.perfectdreams.gabrielaimageserver.graphics.LorittaImage
 import java.awt.AlphaComposite
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
-import java.io.ByteArrayOutputStream
+import java.awt.image.DataBufferByte
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.concurrent.thread
@@ -120,15 +120,7 @@ class CocieloChavesGenerator(
 
                 val imageFrameFile = File(assetsFolder, "frames/$fileName")
 
-                val noCopyByteArrayOutputStream = ByteArrayOutputStream()
-
-                ImageIO.write(
-                    ImageIO.read(imageFrameFile),
-                    "bmp",
-                    noCopyByteArrayOutputStream
-                )
-
-                noEditsFramesData[frame] = noCopyByteArrayOutputStream.toByteArray()
+                noEditsFramesData[frame] = (ImageIO.read(imageFrameFile).raster.dataBuffer as DataBufferByte).data
             }
         }
 
@@ -164,6 +156,12 @@ class CocieloChavesGenerator(
                 "15"
             else
                 "30",
+            "-f",
+            "rawvideo",
+            "-pixel_format",
+            "bgr24", // This is what the "BufferedImage.TYPE_3BYTE_BGR" uses behind the scenes
+            "-video_size",
+            "640x360",
             "-i",
             "-", // We will write to output stream
             "-i",
@@ -297,23 +295,7 @@ class CocieloChavesGenerator(
 
                     // println("[Frame $frame] Took ${System.currentTimeMillis() - start}ms to do overlay data stuff!")
 
-                    // time = System.currentTimeMillis()
-                    val baos = ByteArrayOutputStream()
-
-                    withContext(Dispatchers.IO) {
-                        // BMP is waaaaay faster to write than png, so let's use it!
-                        ImageIO.write(
-                            imageFrame,
-                            "bmp",
-                            baos
-                        )
-                    }
-
-                    // println("[Frame $frame] Took ${System.currentTimeMillis() - time}ms to write the frame!")
-
-                    // println("Took ${System.currentTimeMillis() - startFrame}ms to generate frame $frame")
-
-                    return@async baos.toByteArray()
+                    return@async (imageFrame.raster.dataBuffer as DataBufferByte).data
                 }
             }
 

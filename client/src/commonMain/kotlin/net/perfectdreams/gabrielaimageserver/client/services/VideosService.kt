@@ -1,6 +1,7 @@
 package net.perfectdreams.gabrielaimageserver.client.services
 
 import net.perfectdreams.gabrielaimageserver.client.GabrielaImageServerClient
+import net.perfectdreams.gabrielaimageserver.data.ChavesOpeningRequest
 import net.perfectdreams.gabrielaimageserver.data.CocieloChavesRequest
 import net.perfectdreams.gabrielaimageserver.data.FansExplainingRequest
 import net.perfectdreams.gabrielaimageserver.data.GigaChadRequest
@@ -12,4 +13,5 @@ class VideosService(client: GabrielaImageServerClient) : Service(client) {
     suspend fun fansExplaining(request: FansExplainingRequest) = execute("/videos/fans-explaining", request)
     suspend fun cocieloChaves(request: CocieloChavesRequest) = execute("/videos/cocielo-chaves", request)
     suspend fun gigaChad(request: GigaChadRequest) = execute("/videos/gigachad", request)
+    suspend fun chavesOpening(request: ChavesOpeningRequest) = execute("/videos/chaves-opening", request)
 }

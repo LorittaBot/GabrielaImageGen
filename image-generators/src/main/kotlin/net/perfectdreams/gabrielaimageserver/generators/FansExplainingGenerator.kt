@@ -8,7 +8,7 @@ import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
 import java.awt.image.BufferedImage
-import java.io.ByteArrayOutputStream
+import java.awt.image.DataBufferByte
 import java.io.File
 import javax.imageio.ImageIO
 import kotlin.concurrent.thread
@@ -47,6 +47,12 @@ class FansExplainingGenerator(
             ffmpegPath.toString(),
             "-framerate",
             "30",
+            "-f",
+            "rawvideo",
+            "-pixel_format",
+            "bgr24", // This is what the "BufferedImage.TYPE_3BYTE_BGR" uses behind the scenes
+            "-video_size",
+            "420x420",
             "-i",
             "-", // We will write to output stream
             "-i",
@@ -117,20 +123,9 @@ class FansExplainingGenerator(
                 graphics.drawImage(section5Frame, 0, 0, null)
             }
 
-            val baos = ByteArrayOutputStream()
-
-            withContext(Dispatchers.IO) {
-                // BMP is waaaaay faster to write than png, so let's use it!
-                ImageIO.write(
-                    imageFrame,
-                    "bmp",
-                    baos
-                )
-            }
-
             // Write to ffmpeg output
             withContext(Dispatchers.IO) {
-                processBuilder.outputStream.write(baos.toByteArray())
+                processBuilder.outputStream.write((imageFrame.raster.dataBuffer as DataBufferByte).data)
                 processBuilder.outputStream.flush()
             }
         }
