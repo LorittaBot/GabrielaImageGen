@@ -8,6 +8,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
+import net.perfectdreams.gabrielaimageserver.exceptions.InvalidChavesOpeningTextException
 import net.perfectdreams.gabrielaimageserver.generators.utils.AEKeyframes
 import net.perfectdreams.gabrielaimageserver.generators.utils.GeneratorsUtils
 import net.perfectdreams.gabrielaimageserver.generators.utils.enableFontAntialiasing
@@ -268,7 +269,6 @@ class ChavesOpeningGenerator(
         // height --- newHeight
         val newWidth = hatCharacterWidth * 1.55
         val newHeight = (hat.height * newWidth) / hat.width
-
         val multiplier = (newWidth / hat.width)
 
         // Then we paste it offset by 91, 200
@@ -276,15 +276,22 @@ class ChavesOpeningGenerator(
         val offsetX = 91 * multiplier
         val offsetY = 200 * multiplier
 
+        val newWidthAsInt = newWidth.toInt()
+        val newHeightAsInt = newHeight.toInt()
+
+        // If the width or height is 0, then the scaled hat code would fail because it can't scale something to zero width or height!
+        if (newWidthAsInt == 0 || newHeightAsInt == 0)
+            throw InvalidChavesOpeningTextException()
+
         val scaledHatBackground = hatBackground.getScaledInstance(
-            newWidth.toInt(),
-            newHeight.toInt(),
+            newWidthAsInt,
+            newHeightAsInt,
             BufferedImage.SCALE_SMOOTH
         ).toBufferedImage()
 
         val scaledHat = hat.getScaledInstance(
-            newWidth.toInt(),
-            newHeight.toInt(),
+            newWidthAsInt,
+            newHeightAsInt,
             BufferedImage.SCALE_SMOOTH
         ).toBufferedImage()
 
@@ -650,7 +657,7 @@ class ChavesOpeningGenerator(
     }
 
     // This is the most "correct" way to find the character height
-// Because using getStringBounds, getLineMetrics... never returned proper height
+    // Because using getStringBounds, getLineMetrics... never returned proper height
     private fun getPixelBoundsForText(font: Font, text: String) = font.createGlyphVector(FONT_RENDER_CONTEXT, text)
         .getPixelBounds(FONT_RENDER_CONTEXT, 0.0f, 0.0f)
 

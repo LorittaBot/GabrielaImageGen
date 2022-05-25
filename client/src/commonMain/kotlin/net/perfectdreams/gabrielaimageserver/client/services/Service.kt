@@ -14,6 +14,7 @@ import net.perfectdreams.gabrielaimageserver.data.ErrorResponse
 import net.perfectdreams.gabrielaimageserver.data.ImageNotFoundExceptionResponse
 import net.perfectdreams.gabrielaimageserver.data.ImageTooLargeExceptionResponse
 import net.perfectdreams.gabrielaimageserver.data.InternalServerErrorExceptionResponse
+import net.perfectdreams.gabrielaimageserver.data.InvalidChavesOpeningTextExceptionResponse
 import net.perfectdreams.gabrielaimageserver.data.InvalidMinecraftSkinExceptionResponse
 import net.perfectdreams.gabrielaimageserver.data.StreamExceedsLimitExceptionResponse
 import net.perfectdreams.gabrielaimageserver.data.UntrustedURLExceptionResponse
@@ -21,6 +22,7 @@ import net.perfectdreams.gabrielaimageserver.exceptions.ContentLengthTooLargeExc
 import net.perfectdreams.gabrielaimageserver.exceptions.ImageNotFoundException
 import net.perfectdreams.gabrielaimageserver.exceptions.ImageTooLargeException
 import net.perfectdreams.gabrielaimageserver.exceptions.InternalServerErrorException
+import net.perfectdreams.gabrielaimageserver.exceptions.InvalidChavesOpeningTextException
 import net.perfectdreams.gabrielaimageserver.exceptions.InvalidMinecraftSkinException
 import net.perfectdreams.gabrielaimageserver.exceptions.StreamExceedsLimitException
 import net.perfectdreams.gabrielaimageserver.exceptions.UntrustedURLException
@@ -44,6 +46,7 @@ open class Service(private val client: GabrielaImageServerClient) {
                 is ContentLengthTooLargeExceptionResponse -> throw ContentLengthTooLargeException()
                 is ImageNotFoundExceptionResponse -> throw ImageNotFoundException()
                 is InvalidMinecraftSkinExceptionResponse -> throw InvalidMinecraftSkinException()
+                is InvalidChavesOpeningTextExceptionResponse -> throw InvalidChavesOpeningTextException()
                 is ImageTooLargeExceptionResponse -> throw ImageTooLargeException()
                 is InternalServerErrorExceptionResponse -> throw InternalServerErrorException()
                 is StreamExceedsLimitExceptionResponse -> throw StreamExceedsLimitException()

@@ -27,3 +27,6 @@ data class InternalServerErrorExceptionResponse(override val reason: String?) : 
 
 @Serializable
 data class InvalidMinecraftSkinExceptionResponse(override val reason: String?) : ErrorResponse()
+
+@Serializable
+data class InvalidChavesOpeningTextExceptionResponse(override val reason: String?) : ErrorResponse()

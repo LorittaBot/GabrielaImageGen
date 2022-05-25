@@ -1,0 +1,3 @@
+package net.perfectdreams.gabrielaimageserver.exceptions
+
+class InvalidChavesOpeningTextException : IllegalArgumentException()
