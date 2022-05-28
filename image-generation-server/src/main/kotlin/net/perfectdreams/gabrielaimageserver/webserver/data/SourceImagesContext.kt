@@ -8,6 +8,8 @@ import net.perfectdreams.gabrielaimageserver.exceptions.UntrustedURLException
 import net.perfectdreams.gabrielaimageserver.webserver.utils.ConnectionManager
 import net.perfectdreams.gabrielaimageserver.webserver.utils.ImageUtils
 import java.awt.image.BufferedImage
+import java.io.FileNotFoundException
+import java.io.IOException
 import java.util.*
 import javax.imageio.ImageIO
 
@@ -39,7 +41,15 @@ class SourceImagesContext(val connectionManager: ConnectionManager, val images: 
                 if (!connectionManager.isTrusted(imageData.content))
                     throw UntrustedURLException(imageData.content)
 
-                ImageUtils.downloadImage(imageData.content) ?: throw IllegalArgumentException("Invalid image provided")
+                try {
+                    ImageUtils.downloadImage(imageData.content) ?: throw IllegalArgumentException("Invalid image provided")
+                } catch (e: FileNotFoundException) {
+                    // This can be thrown when calling "getHeaderFieldInt"
+                    throw IllegalArgumentException("Invalid image provided")
+                } catch (e: IOException) {
+                    // This can be thrown when trying to read the image header with SimpleImageInfo
+                    throw IllegalArgumentException("Invalid image provided")
+                }
             }
 
             SourceImageDataType.BASE64 -> {

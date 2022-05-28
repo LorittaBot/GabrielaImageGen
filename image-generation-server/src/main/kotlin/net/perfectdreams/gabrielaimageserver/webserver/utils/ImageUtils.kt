@@ -6,14 +6,9 @@ import mu.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.exceptions.ContentLengthTooLargeException
 import net.perfectdreams.gabrielaimageserver.exceptions.ImageTooLargeException
 import net.perfectdreams.gabrielaimageserver.generators.utils.ImageFormatType
-import java.awt.AlphaComposite
 import java.awt.Color
 import java.awt.Graphics
-import java.awt.Graphics2D
 import java.awt.Image
-import java.awt.Rectangle
-import java.awt.RenderingHints
-import java.awt.geom.RoundRectangle2D
 import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
