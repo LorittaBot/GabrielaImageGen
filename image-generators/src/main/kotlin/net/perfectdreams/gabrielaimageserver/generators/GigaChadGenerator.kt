@@ -70,6 +70,8 @@ class GigaChadGenerator(
             File(assetsFolder, "gigachad.ogg").toString(),
             "-c:v",
             "libx264",
+            "-c:a",
+            "copy",
             "-preset",
             "ultrafast", // we can trade superfast to ultrafast because the video is super short, it shaves ~0.5s from the generation time
             "-pix_fmt",

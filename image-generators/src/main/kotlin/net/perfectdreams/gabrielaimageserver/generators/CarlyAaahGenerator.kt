@@ -30,6 +30,8 @@ class CarlyAaahGenerator(
             File(assetsFolder, "output-audio.aac").toString(),
             "-vcodec",
             "libx264",
+            "-c:a",
+            "copy",
             "-preset",
             "superfast",
             "-pix_fmt",
