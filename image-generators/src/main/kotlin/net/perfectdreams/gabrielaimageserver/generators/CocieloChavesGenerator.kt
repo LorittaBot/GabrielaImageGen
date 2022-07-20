@@ -168,8 +168,6 @@ class CocieloChavesGenerator(
             File(assetsFolder, "chaves.ogg").toString(),
             "-c:v",
             "libx264",
-            "-c:a",
-            "copy",
             "-preset",
             "superfast",
             "-pix_fmt",

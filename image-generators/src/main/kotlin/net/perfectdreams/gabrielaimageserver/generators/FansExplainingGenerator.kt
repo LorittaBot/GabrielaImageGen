@@ -59,8 +59,6 @@ class FansExplainingGenerator(
             File(assetsFolder, "ppg_theme.ogg").toString(),
             "-c:v",
             "libx264",
-            "-c:a",
-            "copy",
             "-preset",
             "superfast",
             "-pix_fmt",
