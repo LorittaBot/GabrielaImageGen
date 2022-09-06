@@ -64,12 +64,12 @@ class TobyTextBoxGenerators(val m: Generators) {
     )
 
     val undertaleTextBoxGenerator = UndertaleBoxGenerator(
-        m.loadBufferedImage("image_templates/undertale/textbox/original.png"),
+        m.loadImageFromImageTemplates("/undertale/textbox/original.png"),
         undertaleDialogFont
     )
 
     val darkWorldTextBoxGenerator = DeltaruneBoxGenerator(
-        m.loadBufferedImage("image_templates/undertale/textbox/dark_world.png"),
+        m.loadImageFromImageTemplates("/undertale/textbox/dark_world.png"),
         undertaleDialogFont
     )
 }

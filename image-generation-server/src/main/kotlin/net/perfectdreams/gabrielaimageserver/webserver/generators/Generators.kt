@@ -87,53 +87,53 @@ class Generators(val m: GabrielaImageGen) {
         NichijouYuukoPaperGenerator(m.gifsicle, File(assetsFolder, "image_templates/nichijou_yuuko_paper"))
     val trumpGenerator = TrumpGenerator(m.gifsicle, File(assetsFolder, "image_templates/trump"))
     val terminatorAnimeGenerator = TerminatorAnimeGenerator(
-        ImageIO.read(File(assetsFolder, "image_templates/terminator_anime/template.png")),
+        loadImageFromImageTemplates("/terminator_anime/template.png"),
         Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/lato-bold.ttf")).deriveFont(24f)
     )
-    val samLogo1Generator = SAMGenerator(loadImage("image_templates/sam/sam_1.png"))
-    val samLogo2Generator = SAMGenerator(loadImage("image_templates/sam/sam_2.png"))
-    val samLogo3Generator = SAMGenerator(loadImage("image_templates/sam/sam_3.png"))
+    val samLogo1Generator = SAMGenerator(loadImageFromImageTemplates("/sam/sam_1.png"))
+    val samLogo2Generator = SAMGenerator(loadImageFromImageTemplates("/sam/sam_2.png"))
+    val samLogo3Generator = SAMGenerator(loadImageFromImageTemplates("/sam/sam_3.png"))
 
     val shipGenerator = ShipGenerator(
         ShipGenerator.ShipGeneratorAssets(
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_sparkling_hearts.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_hearts.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_shrug.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_sob.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_skulls.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/base_outline.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_sparkling_heart.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_heart.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_shrug.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_sob.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/status_skull.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/avatar_wrapper_outline.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/avatar_wrapper_background.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar_background.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar_overlay.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/progress_bar_reflection.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/gabi_resized.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/pantufa_resized.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/ship/loritta_resized.png")),
+            loadImageFromImageTemplates("/ship/base_sparkling_hearts.png"),
+            loadImageFromImageTemplates("/ship/base_hearts.png"),
+            loadImageFromImageTemplates("/ship/base_shrug.png"),
+            loadImageFromImageTemplates("/ship/base_sob.png"),
+            loadImageFromImageTemplates("/ship/base_skulls.png"),
+            loadImageFromImageTemplates("/ship/base_outline.png"),
+            loadImageFromImageTemplates("/ship/status_sparkling_heart.png"),
+            loadImageFromImageTemplates("/ship/status_heart.png"),
+            loadImageFromImageTemplates("/ship/status_shrug.png"),
+            loadImageFromImageTemplates("/ship/status_sob.png"),
+            loadImageFromImageTemplates("/ship/status_skull.png"),
+            loadImageFromImageTemplates("/ship/avatar_wrapper_outline.png"),
+            loadImageFromImageTemplates("/ship/avatar_wrapper_background.png"),
+            loadImageFromImageTemplates("/ship/progress_bar.png"),
+            loadImageFromImageTemplates("/ship/progress_bar_background.png"),
+            loadImageFromImageTemplates("/ship/progress_bar_overlay.png"),
+            loadImageFromImageTemplates("/ship/progress_bar_reflection.png"),
+            loadImageFromImageTemplates("/ship/gabi_resized.png"),
+            loadImageFromImageTemplates("/ship/pantufa_resized.png"),
+            loadImageFromImageTemplates("/ship/loritta_resized.png"),
             Font.createFont(Font.TRUETYPE_FONT, File(assetsFolder, "fonts/gorditas-bold.ttf"))
         )
     )
 
     val minecraftSkinLorittaSweatshirtGenerator = MinecraftSkinLorittaSweatshirtGenerator(
         MinecraftSkinLorittaSweatshirtGenerator.MinecraftSkinLorittaSweatshirtGeneratorAssets(
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_light.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_light.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_dark.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_dark.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_wavy.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_wavy.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_wavy_stitches.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_wavy_stitches.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_vertical.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_vertical.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/classic_mix_vertical_stitches.png")),
-            ImageIO.read(File(m.config.assetsFolder + "image_templates/minecraft_skin_loritta_sweatshirt/slim_mix_vertical_stitches.png"))
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/classic_light.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/slim_light.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/classic_dark.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/slim_dark.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/classic_mix_wavy.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/slim_mix_wavy.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/classic_mix_wavy_stitches.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/slim_mix_wavy_stitches.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/classic_mix_vertical.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/slim_mix_vertical.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/classic_mix_vertical_stitches.png"),
+            loadImageFromImageTemplates("/minecraft_skin_loritta_sweatshirt/slim_mix_vertical_stitches.png")
         )
     )
 
@@ -156,9 +156,9 @@ class Generators(val m: GabrielaImageGen) {
     )
 
     val maniaTitleCardGenerator = ManiaTitleCardGenerator(
-        ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/title_card.png")),
-        ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/cut_left.png")),
-        ImageIO.read(File(assetsFolder, "image_templates/mania_title_card/cut_right.png")),
+        loadImageFromImageTemplates("/mania_title_card/title_card.png"),
+        loadImageFromImageTemplates("/mania_title_card/cut_left.png"),
+        loadImageFromImageTemplates("/mania_title_card/cut_right.png"),
         File(assetsFolder, "image_templates/mania_title_card/mania_font/")
             .listFiles()
             .filter { it.extension == "png" }
@@ -168,23 +168,19 @@ class Generators(val m: GabrielaImageGen) {
             }.toMap()
     )
     val drawnMaskAtendenteGenerator = DrawnMaskAtendenteGenerator(
-        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_atendente/template.png")),
+        loadImageFromImageTemplates("/drawn_mask_atendente/template.png"),
         Font.createFont(
             Font.TRUETYPE_FONT,
             File(m.config.assetsFolder + "/fonts/komika-hand.ttf")
         )
     )
-    val drawnMaskSignGenerator = DrawnMaskSignGenerator(
-        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_sign/template.png"))
-    )
+    val drawnMaskSignGenerator = DrawnMaskSignGenerator(loadImageFromImageTemplates("/drawn_mask_sign/template.png"))
     val drawnMaskWordGenerator = DrawnMaskWordGenerator(
-        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_word/drawn_mask_word.png")),
-        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_word/drawn_mask_word_bottom.png")),
-        ImageIO.read(File(assetsFolder, "image_templates/drawn_mask_word/drawn_word.png"))
+        loadImageFromImageTemplates("/drawn_mask_word/drawn_mask_word.png"),
+        loadImageFromImageTemplates("/drawn_mask_word/drawn_mask_word_bottom.png"),
+        loadImageFromImageTemplates("/drawn_mask_word/drawn_word.png")
     )
-    val toBeContinuedGenerator = ToBeContinuedGenerator(
-        ImageIO.read(File(assetsFolder, "image_templates/to_be_continued/arrow.png"))
-    )
+    val toBeContinuedGenerator = ToBeContinuedGenerator(loadImageFromImageTemplates("/to_be_continued/arrow.png"))
     val invertColorsGenerator = InvertColorsGenerator()
     val fansExplainingGenerator = FansExplainingGenerator(
         Font.createFont(
@@ -250,7 +246,7 @@ class Generators(val m: GabrielaImageGen) {
     val tobyTextBoxGenerators = TobyTextBoxGenerators(this)
 
     /**
-     * Loads a image from the [clazz] in the [path] as a [JVMImage]
+     * Loads a image from the [clazz] in the [path] as a [BufferedImage]
      *
      * @param  path the path inside of the [assetsFolder] where the file is
      * @result      the image
@@ -258,12 +254,12 @@ class Generators(val m: GabrielaImageGen) {
     fun loadImage(path: String) = ImageIO.read(File(m.config.assetsFolder + path))
 
     /**
-     * Loads a image from the [clazz] in the [path] as a [BufferedImage]
+     * Loads a image from the [clazz] in the image_templates/[path] as a [BufferedImage]
      *
      * @param  path the path inside of the [assetsFolder] where the file is
      * @result      the image
      */
-    fun loadBufferedImage(path: String) = ImageIO.read(File(m.config.assetsFolder + path))
+    fun loadImageFromImageTemplates(path: String) = loadImage("image_templates" + path)
 
     inline fun <reified T> createSimpleSkewedGenerator() = T::class.constructors.first().call(
         loadImage(
