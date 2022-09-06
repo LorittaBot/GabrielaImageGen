@@ -4,11 +4,7 @@ plugins {
 }
 
 group = "net.perfectdreams.gabrielaimageserver"
-version = Versions.GABRIELA_IMAGE_SERVER
-
-repositories {
-    mavenCentral()
-}
+version = libs.versions.gabrielaImageServer.get()
 
 kotlin {
     jvm {
@@ -30,8 +26,8 @@ kotlin {
             dependencies {
                 api(project(":common"))
 
-                api("io.ktor:ktor-client-core:${Versions.KTOR}")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX_SERIALIZATION}")
+                implementation(libs.ktor.client.core)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
     }

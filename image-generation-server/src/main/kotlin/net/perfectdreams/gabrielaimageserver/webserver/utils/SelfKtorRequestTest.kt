@@ -1,7 +1,7 @@
 package net.perfectdreams.gabrielaimageserver.webserver.utils
 
 import io.ktor.client.*
-import io.ktor.client.engine.apache.*
+import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -17,7 +17,7 @@ import net.perfectdreams.gabrielaimageserver.data.GigaChadRequest
 import java.io.File
 
 fun main() {
-    val http = HttpClient(Apache) {
+    val http = HttpClient(CIO) {
         install(HttpTimeout) {
             this.requestTimeoutMillis = 999999
             this.requestTimeoutMillis = 999999

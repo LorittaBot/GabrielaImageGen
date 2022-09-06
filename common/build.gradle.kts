@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.perfectdreams.gabrielaimageserver"
-version = Versions.GABRIELA_IMAGE_SERVER
+version = libs.versions.gabrielaImageServer.get()
 
 kotlin {
     jvm {
@@ -24,7 +24,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+                implementation(libs.kotlinx.serialization.json)
             }
         }
     }

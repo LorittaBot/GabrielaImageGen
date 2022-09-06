@@ -1,12 +1,18 @@
 plugins {
-    kotlin("multiplatform") version Versions.KOTLIN apply false
-    kotlin("jvm") version Versions.KOTLIN apply false
-    kotlin("plugin.serialization") version Versions.KOTLIN apply false
+    kotlin("multiplatform") version libs.versions.kotlin apply false
+    kotlin("jvm") version libs.versions.kotlin apply false
+    kotlin("plugin.serialization") version libs.versions.kotlin apply false
     id("maven-publish")
 }
 
+// Needs to do this because trying to access "libs" within the subprojects block doesn't work
+val GABRIELA_VERSION = libs.versions.gabrielaImageServer
 group = "net.perfectdreams.gabrielaimageserver"
-version = Versions.GABRIELA_IMAGE_SERVER
+version = GABRIELA_VERSION
+
+repositories {
+    mavenCentral()
+}
 
 allprojects {
     repositories {
@@ -18,7 +24,7 @@ allprojects {
 subprojects {
     apply<MavenPublishPlugin>()
     group = "net.perfectdreams.gabrielaimageserver"
-    version = Versions.GABRIELA_IMAGE_SERVER
+    version = GABRIELA_VERSION
 
     publishing {
         repositories {

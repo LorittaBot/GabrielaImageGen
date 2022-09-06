@@ -1,15 +1,11 @@
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
-    id("com.google.cloud.tools.jib") version Versions.JIB
+    id("com.google.cloud.tools.jib") version libs.versions.jib
 }
 
 group = "net.perfectdreams.imagegeneratorserver"
-version = Versions.GABRIELA_IMAGE_SERVER
-
-repositories {
-    mavenCentral()
-}
+version = libs.versions.gabrielaImageServer.get()
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -17,24 +13,26 @@ dependencies {
     api(project(":image-generators"))
 
     // Logging Stuff
-    implementation("ch.qos.logback:logback-classic:1.3.0-alpha14")
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
+    implementation(libs.logback.classic)
+    implementation(libs.kotlinLogging)
 
-    api("io.ktor:ktor-server-core:${Versions.KTOR}")
-    api("io.ktor:ktor-server-netty:${Versions.KTOR}")
-    api("io.ktor:ktor-client-core:${Versions.KTOR}")
-    api("io.ktor:ktor-client-apache:${Versions.KTOR}")
-    implementation("io.ktor:ktor-server-compression:${Versions.KTOR}")
-    implementation("io.ktor:ktor-server-status-pages:${Versions.KTOR}")
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.compression)
+    implementation(libs.ktor.server.statusPages)
+    implementation(libs.ktor.client.cio)
+
     implementation("net.perfectdreams.sequins.ktor:base-route:1.0.4")
 
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLINX_SERIALIZATION}")
-    api("org.jetbrains.kotlinx:kotlinx-serialization-hocon:${Versions.KOTLINX_SERIALIZATION}")
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.hocon)
     
     // Prometheus, for metrics
-    api("io.prometheus:simpleclient:${Versions.PROMETHEUS}")
-    api("io.prometheus:simpleclient_hotspot:${Versions.PROMETHEUS}")
-    api("io.prometheus:simpleclient_common:${Versions.PROMETHEUS}")
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.hocon)
+
+    implementation(libs.prometheus.simpleclient)
+    implementation(libs.prometheus.simpleclientHotspot)
+    implementation(libs.prometheus.simpleclientCommon)
 
     // Required for tests, if this is missing then Gradle will throw
     // "No tests found for given includes: [***Test](filter.includeTestsMatching)"

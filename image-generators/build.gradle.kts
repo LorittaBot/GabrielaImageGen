@@ -2,16 +2,13 @@ plugins {
     kotlin("jvm")
 }
 
-repositories {
-    mavenCentral()
-}
+group = "net.perfectdreams.gabrielaimageserver"
+version = libs.versions.gabrielaImageServer.get()
 
 dependencies {
     api(project(":common"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-
-    // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging
-    implementation("io.github.microutils:kotlin-logging:2.1.21")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinLogging)
 
     // Required for tests, if this is missing then Gradle will throw
     // "No tests found for given includes: [***Test](filter.includeTestsMatching)"
