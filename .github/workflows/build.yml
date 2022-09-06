@@ -24,10 +24,24 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
-          java-version: 16
+          java-version: 17
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      # Because waiting for the Docker image to be built is kinda boring not gonna lie
+      - name: Cache Docker image
+        id: cache-docker-image
+        uses: actions/cache@v2
+        with:
+          path: docker
+          key: docker-image-${{ runner.os }}-${{ hashFiles('docker/Dockerfile') }}
+
+      - name: Build base Docker image
+        if: steps.cache-docker-image.outputs.cache-hit != 'true'
+        run: |
+          cd docker
+          bash build.sh
 
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
