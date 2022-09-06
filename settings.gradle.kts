@@ -10,7 +10,7 @@ rootProject.name = "GabrielaImageGen"
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            val gabrielaImageServer = version("gabrielaImageServer", "2.0.12")
+            val gabrielaImageServer = version("gabrielaImageServer", "2.0.13-SNAPSHOT")
             val kotlin = version("kotlin", "1.7.10")
             val kotlinXSerialization = version("kotlinx-serialization", "1.4.0-RC")
             val ktor = version("ktor", "2.1.0")

@@ -18,35 +18,7 @@ import mu.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.utils.Gifsicle
 import net.perfectdreams.gabrielaimageserver.webserver.config.AppConfig
 import net.perfectdreams.gabrielaimageserver.webserver.generators.Generators
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostAttackOnHeartRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostCarlyAaahRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostCepoDeMadeiraRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostCocieloChavesRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostFansExplainingGeneratorRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostGetOverHereRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostInvertColorsGeneratorRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostKnucklesThrowRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostManiaTitleCardRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostMemeMakerGeneratorRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostNichijouYuukoPaperRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostSAMLogoRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTerminatorAnimeRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostToBeContinuedGeneratorRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTobyTextBoxRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostTrumpRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.cortesflow.CortesFlowRoutes
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.cortesflow.GetCortesFlowRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.drake.DrakeRoutes
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.scaled.ScaledRoutes
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.skewed.SkewedRoutes
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostChavesOpeningRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostColorInfoRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskAtendenteRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostDrawnMaskWordRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostGigaChadRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMemeMakerRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSadRealityRoute
-import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostShipRoute
+import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.*
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleSingleSourceGeneratorRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleTwoSourcesGeneratorRoutes
 import net.perfectdreams.gabrielaimageserver.webserver.utils.ConnectionManager
@@ -114,41 +86,17 @@ class GabrielaImageGen(val config: AppConfig) {
     )
 
     val routes = listOf(
-        // ===[ API V1 ]===
-        PostCarlyAaahRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v1.PostPetPetRoute(this),
-        PostAttackOnHeartRoute(this),
-        PostCocieloChavesRoute(this),
-        GetCortesFlowRoute(this),
-        PostManiaTitleCardRoute(this),
-        PostCepoDeMadeiraRoute(this),
-        PostGetOverHereRoute(this),
-        PostKnucklesThrowRoute(this),
-        PostNichijouYuukoPaperRoute(this),
-        PostTrumpRoute(this),
-        PostTerminatorAnimeRoute(this),
-        PostSAMLogoRoute(this),
-        PostToBeContinuedGeneratorRoute(this),
-        PostInvertColorsGeneratorRoute(this),
-        PostFansExplainingGeneratorRoute(this),
-        PostMemeMakerGeneratorRoute(this),
-        *SkewedRoutes(this).all().toTypedArray(),
-        *ScaledRoutes(this).all().toTypedArray(),
-        *DrakeRoutes(this).all().toTypedArray(),
-        *CortesFlowRoutes(this).all().toTypedArray(),
-        PostTobyTextBoxRoute(this),
-
         // ===[ API V2 ]===
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostShipRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostPetPetRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostManiaTitleCardRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostTobyTextBoxRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostFansExplainingRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostCocieloChavesRoute(this),
+        PostShipRoute(this),
+        PostPetPetRoute(this),
+        PostManiaTitleCardRoute(this),
+        PostTobyTextBoxRoute(this),
+        PostFansExplainingRoute(this),
+        PostCocieloChavesRoute(this),
         PostMemeMakerRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostSAMLogoRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostTerminatorAnimeRoute(this),
-        net.perfectdreams.gabrielaimageserver.webserver.routes.v2.PostMinecraftSkinLorittaSweatshirtRoute(this),
+        PostSAMLogoRoute(this),
+        PostTerminatorAnimeRoute(this),
+        PostMinecraftSkinLorittaSweatshirtRoute(this),
         PostShipRoute(this),
         PostGigaChadRoute(this),
         PostDrawnMaskAtendenteRoute(this),
@@ -157,7 +105,7 @@ class GabrielaImageGen(val config: AppConfig) {
         PostGigaChadRoute(this),
         PostColorInfoRoute(this),
         PostChavesOpeningRoute(this),
-        *net.perfectdreams.gabrielaimageserver.webserver.routes.v2.CortesFlowRoutes(this).all().toTypedArray(),
+        *CortesFlowRoutes(this).all().toTypedArray(),
         *SimpleSingleSourceGeneratorRoutes(this).all().toTypedArray(),
         *SimpleTwoSourcesGeneratorRoutes(this).all().toTypedArray()
     )
