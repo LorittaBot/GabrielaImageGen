@@ -35,6 +35,15 @@ import javax.imageio.ImageIO
 
 class Generators(val m: GabrielaImageGen) {
     companion object {
+        fun generateFileName(name: String, extension: String) =
+            "$name-${System.currentTimeMillis()}-${UUID.randomUUID()}.$extension"
+
+        fun readBytesAndDelete(file: File): ByteArray {
+            val bytes = file.readBytes()
+            file.delete()
+            return bytes
+        }
+
         /**
          * Converts the [input] class name to snake_case, also removes the suffixes "Test", "CortesFlow" and "Generator"
          *
