@@ -16,7 +16,7 @@ dependencies {
     implementation(libs.logback.classic)
     implementation(libs.kotlinLogging)
 
-    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.cio)
     implementation(libs.ktor.server.compression)
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.client.cio)
