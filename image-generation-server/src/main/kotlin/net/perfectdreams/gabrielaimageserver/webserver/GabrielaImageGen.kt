@@ -2,9 +2,9 @@ package net.perfectdreams.gabrielaimageserver.webserver
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.server.http.content.*
-import io.ktor.server.netty.*
 import io.ktor.server.plugins.compression.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
@@ -163,7 +163,7 @@ class GabrielaImageGen(val config: AppConfig) {
     )
 
     fun start() {
-        val server = embeddedServer(Netty, port = 8001) {
+        val server = embeddedServer(CIO, port = 8001) {
             install(StatusPages) {
                 exception<WebsiteAPIException> { call, cause ->
                     call.alreadyHandledStatus = true
@@ -193,10 +193,6 @@ class GabrielaImageGen(val config: AppConfig) {
             }
 
             routing {
-                trace {
-                    println(it.buildText())
-                }
-
                 get("/") {
                     call.respondText("Hello World!", ContentType.Text.Plain)
                 }

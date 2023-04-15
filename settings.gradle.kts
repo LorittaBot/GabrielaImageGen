@@ -28,7 +28,7 @@ dependencyResolutionManagement {
             library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").versionRef(kotlinXSerialization)
             library("kotlinx-serialization-protobuf", "org.jetbrains.kotlinx", "kotlinx-serialization-protobuf").versionRef(kotlinXSerialization)
             library("kotlinx-serialization-hocon", "org.jetbrains.kotlinx", "kotlinx-serialization-hocon").versionRef(kotlinXSerialization)
-            library("ktor-server-netty", "io.ktor", "ktor-server-netty").versionRef(ktor)
+            library("ktor-server-cio", "io.ktor", "ktor-server-cio").versionRef(ktor)
             library("ktor-server-compression", "io.ktor", "ktor-server-compression").versionRef(ktor)
             library("ktor-server-statusPages", "io.ktor", "ktor-server-status-pages").versionRef(ktor)
             library("ktor-client-core", "io.ktor", "ktor-client-core").versionRef(ktor)
