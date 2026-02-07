@@ -8,7 +8,6 @@ group = "net.perfectdreams.imagegeneratorserver"
 version = libs.versions.gabrielaImageServer.get()
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
     api(project(":common"))
     api(project(":image-generators"))
 
@@ -21,15 +20,10 @@ dependencies {
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.client.cio)
 
-    implementation("net.perfectdreams.sequins.ktor:base-route:1.0.4")
-
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.hocon)
-    
+
     // Prometheus, for metrics
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.serialization.hocon)
-
     implementation(libs.prometheus.simpleclient)
     implementation(libs.prometheus.simpleclientHotspot)
     implementation(libs.prometheus.simpleclientCommon)
@@ -42,8 +36,8 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.19.0")
 
     testImplementation(project(":client"))
-    testImplementation("io.ktor:ktor-client-apache:1.6.3")
-    testImplementation("ch.qos.logback:logback-classic:1.3.0-alpha14")
+    testImplementation(libs.ktor.client.cio)
+    testImplementation(libs.logback.classic)
     testImplementation(kotlin("reflect"))
 }
 

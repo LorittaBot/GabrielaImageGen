@@ -1,6 +1,6 @@
 package net.perfectdreams.gabrielaimageserver.webserver.routes.v1
 
-import mu.KLogger
+import io.github.oshai.kotlinlogging.KLogger
 import net.perfectdreams.gabrielaimageserver.webserver.routes.BaseRoute
 import java.util.*
 

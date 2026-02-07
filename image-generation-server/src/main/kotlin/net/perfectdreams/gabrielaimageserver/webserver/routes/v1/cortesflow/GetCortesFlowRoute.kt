@@ -5,7 +5,7 @@ import io.ktor.server.response.*
 import kotlinx.serialization.json.addJsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.put
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGen
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v1.VersionedAPIv1Route
 

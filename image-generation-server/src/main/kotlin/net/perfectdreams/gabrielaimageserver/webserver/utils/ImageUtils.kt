@@ -2,7 +2,7 @@ package net.perfectdreams.gabrielaimageserver.webserver.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.exceptions.ContentLengthTooLargeException
 import net.perfectdreams.gabrielaimageserver.exceptions.ImageTooLargeException
 import net.perfectdreams.gabrielaimageserver.generators.utils.ImageFormatType

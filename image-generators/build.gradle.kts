@@ -9,6 +9,7 @@ dependencies {
     api(project(":common"))
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinLogging)
+    implementation("net.perfectdreams.libwebpffm:libwebp-ffm:0.0.1")
 
     // Required for tests, if this is missing then Gradle will throw
     // "No tests found for given includes: [***Test](filter.includeTestsMatching)"

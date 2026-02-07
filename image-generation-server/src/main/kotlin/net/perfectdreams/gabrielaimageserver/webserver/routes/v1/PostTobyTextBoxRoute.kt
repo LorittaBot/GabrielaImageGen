@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.data.TobyTextBoxRequest
 import net.perfectdreams.gabrielaimageserver.generators.undertale.textbox.CharacterPortrait
 import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGen

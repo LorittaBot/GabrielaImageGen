@@ -1311,7 +1311,7 @@ class LorittaImage {
         var format = format
         var rgb: ByteArray? = null
 
-        format = format.toLowerCase()
+        format = format.lowercase()
         if (format.startsWith("image/")) {
             format = format.substring(format.indexOf("/") + 1)
         }
@@ -1321,7 +1321,7 @@ class LorittaImage {
                 rgb = getJPEGByteArray(outputQuality)
             } else {
                 val bas = ByteArrayOutputStream()
-                ImageIO.write(bufferedImage, format.toLowerCase(), bas)
+                ImageIO.write(bufferedImage, format.lowercase(), bas)
                 rgb = bas.toByteArray()
             }
         } catch (e: Exception) {
@@ -1354,7 +1354,7 @@ class LorittaImage {
             OutputFile.parentFile.mkdirs()
 
             //Write buffered image to disk
-            val FileExtension = getExtension(OutputFile.name).toLowerCase()
+            val FileExtension = getExtension(OutputFile.name).lowercase()
             if (isJPEG(FileExtension)) {
                 FileOutputStream(OutputFile).use { output -> output.write(getJPEGByteArray(outputQuality)!!) }
             } else {
@@ -1417,7 +1417,7 @@ class LorittaImage {
 
     private fun isJPEG(FileExtension: String): Boolean {
         var FileExtension = FileExtension
-        FileExtension = FileExtension.trim { it <= ' ' }.toLowerCase()
+        FileExtension = FileExtension.trim { it <= ' ' }.lowercase()
         return FileExtension == "jpg" ||
                 FileExtension == "jpeg" ||
                 FileExtension == "jpe" ||
@@ -1432,7 +1432,7 @@ class LorittaImage {
 
     private fun isJPEG2000(FileExtension: String): Boolean {
         var FileExtension = FileExtension
-        FileExtension = FileExtension.trim { it <= ' ' }.toLowerCase()
+        FileExtension = FileExtension.trim { it <= ' ' }.lowercase()
         return FileExtension == "jp2" ||
                 FileExtension == "jpc" ||
                 FileExtension == "j2k" ||
@@ -2593,7 +2593,7 @@ class LorittaImage {
             //Build a unique list of file formats
             val formats = HashSet<String>()
             for (i in inputFormats.indices) {
-                val format = inputFormats[i].toUpperCase()
+                val format = inputFormats[i].uppercase()
                 if (format.contains("JPEG") && format.contains("2000")) {
                     formats.add("JP2")
                     formats.add("J2C")

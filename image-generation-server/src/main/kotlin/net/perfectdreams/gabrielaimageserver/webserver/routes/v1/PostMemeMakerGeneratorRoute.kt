@@ -5,7 +5,7 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import kotlinx.coroutines.withContext
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.generators.utils.ImageFormatType
 import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGen
 import net.perfectdreams.gabrielaimageserver.webserver.data.SourceImagesContext
@@ -34,8 +34,8 @@ class PostMemeMakerGeneratorRoute(val m: GabrielaImageGen) : VersionedAPIv1Route
                 val result = withContext(m.coroutineDispatcher) {
                     m.generators.memeMakerGenerator.generate(
                         imageData.retrieveImage(0),
-                        stringData.retrieveString(0).toUpperCase(),
-                        stringData.retrieveStringOrNull(1)?.toUpperCase(),
+                        stringData.retrieveString(0).uppercase(),
+                        stringData.retrieveStringOrNull(1)?.uppercase(),
                     )
                 }
 

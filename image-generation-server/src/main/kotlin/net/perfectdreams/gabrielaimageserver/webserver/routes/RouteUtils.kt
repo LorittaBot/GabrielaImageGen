@@ -17,10 +17,10 @@ object RouteUtils {
             val nextChar = x.getOrNull(index + 1)
 
             if (charAt.isLowerCase() && nextChar?.isUpperCase() == true) {
-                newString.append(charAt.toLowerCase())
+                newString.append(charAt.lowercaseChar())
                 newString.append("-")
             } else {
-                newString.append(charAt.toLowerCase())
+                newString.append(charAt.lowercaseChar())
             }
         }
 

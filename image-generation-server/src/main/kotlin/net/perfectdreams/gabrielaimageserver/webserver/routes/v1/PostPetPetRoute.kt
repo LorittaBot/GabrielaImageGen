@@ -10,7 +10,7 @@ import kotlinx.serialization.json.double
 import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.generators.PetPetGenerator
 import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGen
 import net.perfectdreams.gabrielaimageserver.webserver.data.SourceImagesContext

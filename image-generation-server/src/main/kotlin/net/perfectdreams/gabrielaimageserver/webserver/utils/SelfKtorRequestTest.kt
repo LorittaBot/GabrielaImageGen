@@ -44,7 +44,7 @@ fun main() {
             println(r)
 
             File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\gigachad.mp4")
-                .writeBytes(r.readBytes())
+                .writeBytes(r.bodyAsBytes())
             return@runBlocking
         }
 
@@ -96,6 +96,6 @@ fun main() {
         println(r)
 
         File("L:\\LorittaAssets\\GabrielaImageGen\\temp\\cocielo-chaves.mp4")
-            .writeBytes(r.readBytes())
+            .writeBytes(r.bodyAsBytes())
     }
 }

@@ -32,7 +32,7 @@ class ManiaTitleCardGenerator(
                     x -= 26
                     continue
                 }
-                val charImg = characters[c.toLowerCase()]
+                val charImg = characters[c.lowercaseChar()]
 
                 if (charImg != null) {
                     val scaledCharImg = charImg.getScaledInstance(charImg.width * 2, charImg.height * 2, BufferedImage.SCALE_FAST).toBufferedImage()
@@ -58,7 +58,7 @@ class ManiaTitleCardGenerator(
                     x -= 26
                     continue
                 }
-                val charImg = characters[c.toLowerCase()]
+                val charImg = characters[c.lowercaseChar()]
 
                 if (charImg != null) {
                     val scaledCharImg = charImg.getScaledInstance(charImg.width * 2, charImg.height * 2, BufferedImage.SCALE_FAST).toBufferedImage()

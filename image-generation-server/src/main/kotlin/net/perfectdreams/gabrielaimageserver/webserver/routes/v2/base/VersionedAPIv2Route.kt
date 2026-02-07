@@ -1,6 +1,6 @@
 package net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base
 
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.webserver.routes.BaseRoute
 import net.perfectdreams.gabrielaimageserver.webserver.utils.WebsiteExceptionProcessor
 import java.util.*

@@ -1,6 +1,6 @@
 package net.perfectdreams.gabrielaimageserver.generators.cortesflow
 
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.generators.Generator
 import net.perfectdreams.gabrielaimageserver.generators.utils.ImageUtils
 import net.perfectdreams.gabrielaimageserver.generators.utils.enableFontAntialiasing
@@ -53,7 +53,7 @@ open class CortesFlowGenerator(
             BufferedImage.TYPE_INT_ARGB
         )
 
-        val text = text.toUpperCase()
+        val text = text.uppercase()
 
         // 8 --- 92f
         // y --- z

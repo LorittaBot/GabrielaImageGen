@@ -6,7 +6,7 @@ import io.ktor.server.response.*
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGen
 import net.perfectdreams.gabrielaimageserver.webserver.utils.WebsiteExceptionProcessor
 import net.perfectdreams.gabrielaimageserver.webserver.utils.extensions.getImageDataContext

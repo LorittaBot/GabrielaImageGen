@@ -3,14 +3,13 @@ package net.perfectdreams.gabrielaimageserver.webserver.routes
 import io.ktor.server.application.*
 import io.ktor.http.*
 import io.ktor.server.routing.*
-import io.ktor.util.pipeline.*
 
 abstract class BaseRoute(val path: String) {
     abstract suspend fun onRequest(call: ApplicationCall)
 
     fun register(routing: Routing) = registerWithPath(routing, path) { onRequest(call) }
 
-    fun registerWithPath(routing: Routing, path: String, callback: PipelineInterceptor<Unit, ApplicationCall>) {
+    fun registerWithPath(routing: Routing, path: String, callback: suspend RoutingContext.() -> Unit) {
         val method = getMethod()
         when (method) {
             HttpMethod.Get -> routing.get(path, callback)
@@ -23,7 +22,7 @@ abstract class BaseRoute(val path: String) {
     }
 
     open fun getMethod(): HttpMethod {
-        val className = this::class.simpleName?.toLowerCase() ?: "Unknown"
+        val className = this::class.simpleName?.lowercase() ?: "Unknown"
         return when {
             className.startsWith("get") -> HttpMethod.Get
             className.startsWith("post") -> HttpMethod.Post

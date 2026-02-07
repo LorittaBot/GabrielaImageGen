@@ -60,10 +60,10 @@ class Generators(val m: GabrielaImageGen) {
                 val nextChar = x.getOrNull(index + 1)
 
                 if (charAt.isLowerCase() && nextChar?.isUpperCase() == true) {
-                    newString.append(charAt.toLowerCase())
+                    newString.append(charAt.lowercaseChar())
                     newString.append("_")
                 } else {
-                    newString.append(charAt.toLowerCase())
+                    newString.append(charAt.lowercaseChar())
                 }
             }
 

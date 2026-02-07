@@ -14,7 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.utils.Gifsicle
 import net.perfectdreams.gabrielaimageserver.webserver.config.AppConfig
 import net.perfectdreams.gabrielaimageserver.webserver.generators.Generators
@@ -197,9 +197,7 @@ class GabrielaImageGen(val config: AppConfig) {
                     call.respondText("Hello World!", ContentType.Text.Plain)
                 }
 
-                static("/assets/img/templates/") {
-                    resources("/image_templates")
-                }
+                staticResources("/assets/img/templates/", "image_templates")
 
                 for (route in routes)
                     route.register(this)

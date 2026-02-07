@@ -5,7 +5,7 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.data.CocieloChavesRequest
 import net.perfectdreams.gabrielaimageserver.webserver.GabrielaImageGen
 import net.perfectdreams.gabrielaimageserver.webserver.routes.v2.base.SimpleAPIv2Route

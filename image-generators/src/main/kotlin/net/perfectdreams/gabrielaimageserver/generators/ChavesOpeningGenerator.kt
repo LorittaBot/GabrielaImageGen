@@ -7,7 +7,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import net.perfectdreams.gabrielaimageserver.exceptions.InvalidChavesOpeningTextException
 import net.perfectdreams.gabrielaimageserver.generators.utils.AEKeyframes
 import net.perfectdreams.gabrielaimageserver.generators.utils.GeneratorsUtils

@@ -1,6 +1,6 @@
 package net.perfectdreams.gabrielaimageserver.utils
 
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.io.File
 
 class Gifsicle(val binaryPath: File) {

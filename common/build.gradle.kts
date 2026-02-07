@@ -9,13 +9,12 @@ version = libs.versions.gabrielaImageServer.get()
 
 kotlin {
     jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
         }
-        withJava()
     }
 
-    js(IR) {
+    js {
         // Declares that we want to compile for the browser and for nodejs
         browser()
         nodejs()
