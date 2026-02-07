@@ -34,6 +34,8 @@ dependencies {
     implementation(libs.prometheus.simpleclientHotspot)
     implementation(libs.prometheus.simpleclientCommon)
 
+    implementation("net.perfectdreams.libwebpffm:libwebp-ffm:0.0.1")
+
     // Required for tests, if this is missing then Gradle will throw
     // "No tests found for given includes: [***Test](filter.includeTestsMatching)"
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
