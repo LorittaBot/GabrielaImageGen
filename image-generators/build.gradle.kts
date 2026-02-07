@@ -16,6 +16,7 @@ dependencies {
     implementation(kotlin("test"))
     implementation(kotlin("test-junit"))
     implementation("org.junit.jupiter:junit-jupiter:5.4.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks {
