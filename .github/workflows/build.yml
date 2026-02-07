@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
-          java-version: 17
+          java-version: 25
           cache: "gradle"
 
       # Because waiting for the Docker image to be built is kinda boring not gonna lie
